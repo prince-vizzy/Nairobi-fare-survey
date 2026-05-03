@@ -1295,6 +1295,11 @@ window.initMap = initMap;
 let _installPrompt = null;
 const _dlBtn = document.getElementById("btn-download");
 
+// Hide immediately if already running as installed PWA
+if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true) {
+  _dlBtn.style.display = "none";
+}
+
 // Mark button when native prompt is ready
 window.addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
@@ -1306,9 +1311,7 @@ window.addEventListener("beforeinstallprompt", e => {
 // Mark button when already installed
 window.addEventListener("appinstalled", () => {
   _installPrompt = null;
-  _dlBtn.classList.remove("ready");
-  _dlBtn.classList.add("installed");
-  _dlBtn.innerHTML = `<svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Installed`;
+  _dlBtn.style.display = "none";
 });
 
 _dlBtn.addEventListener("click", async e => {
