@@ -30,8 +30,11 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#00
 /* ── Top bar ── */
 #top-bar{position:absolute;top:0;left:0;right:0;height:56px;padding:0 20px;display:flex;align-items:flex-end;padding-bottom:8px;background:linear-gradient(to bottom,rgba(10,20,12,.92) 0%,transparent 100%);z-index:20}
 #app-title{font-size:.85rem;font-weight:700;letter-spacing:.05em;color:#fff;opacity:.9}
-#btn-download{margin-left:auto;background:var(--accent);border:none;border-radius:20px;padding:5px 13px;color:#071a0b;font-size:.72rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;text-decoration:none}
+#btn-download{margin-left:auto;background:var(--accent);border:none;border-radius:20px;padding:5px 13px;color:#071a0b;font-size:.72rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;text-decoration:none;transition:opacity .2s,box-shadow .3s}
 #btn-download:hover{opacity:.85}
+#btn-download.ready{box-shadow:0 0 0 3px rgba(62,207,110,.45);animation:installPulse 2s ease-in-out infinite}
+#btn-download.installed{background:#1a2e1c;color:var(--accent);border:1px solid var(--accent)}
+@keyframes installPulse{0%,100%{box-shadow:0 0 0 3px rgba(62,207,110,.45)}50%{box-shadow:0 0 0 7px rgba(62,207,110,.15)}}
 #btn-gps{background:none;border:none;padding:4px 8px;cursor:pointer;color:var(--accent);flex-shrink:0;display:flex;align-items:center;opacity:.85;transition:opacity .15s}
 #btn-gps:hover{opacity:1}
 #btn-gps.loading{animation:spin .7s linear infinite;pointer-events:none}
@@ -1290,46 +1293,59 @@ window.initMap = initMap;
 
 // ── PWA install ───────────────────────────────────────────────────────────────
 let _installPrompt = null;
+const _dlBtn = document.getElementById("btn-download");
 
+// Mark button when native prompt is ready
 window.addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
   _installPrompt = e;
+  _dlBtn.classList.add("ready");
+  _dlBtn.title = "Tap to install the app";
 });
 
-document.getElementById("btn-download").addEventListener("click", async e => {
+// Mark button when already installed
+window.addEventListener("appinstalled", () => {
+  _installPrompt = null;
+  _dlBtn.classList.remove("ready");
+  _dlBtn.classList.add("installed");
+  _dlBtn.innerHTML = `<svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Installed`;
+});
+
+_dlBtn.addEventListener("click", async e => {
   e.preventDefault();
 
   const isInstalled = window.matchMedia("(display-mode: standalone)").matches
                    || navigator.standalone === true;
   if (isInstalled) {
-    showInstallToast("Already installed on your home screen!", false);
+    showInstallToast("&#x2714; Already installed on your home screen!", false);
     return;
   }
 
-  // Native prompt ready (Chrome / Edge after engagement criteria met)
+  // Native one-tap install (Android Chrome / Edge — fires after PWA criteria met)
   if (_installPrompt) {
     _installPrompt.prompt();
     const { outcome } = await _installPrompt.userChoice;
-    if (outcome === "accepted") _installPrompt = null;
+    if (outcome === "accepted") {
+      _installPrompt = null;
+      _dlBtn.classList.remove("ready");
+    }
     return;
   }
 
   const ua = navigator.userAgent;
-  const isIOS    = /iphone|ipad|ipod/i.test(ua) && !window.MSStream;
-  const isChrome = /chrome|crios/i.test(ua) && !/edg/i.test(ua);
+  const isIOS     = /iphone|ipad|ipod/i.test(ua) && !window.MSStream;
+  const isChrome  = /chrome|crios/i.test(ua) && !/edg/i.test(ua);
   const isSamsung = /samsungbrowser/i.test(ua);
 
   if (isIOS) {
-    showInstallToast('Tap <strong>Share &#x2BAD;</strong> then <strong>"Add to Home Screen"</strong>', true);
+    showInstallToast('Tap <strong>Share &#x2BAD;</strong> at the bottom, then <strong>"Add to Home Screen"</strong>', true);
     return;
   }
-
   if (isChrome || isSamsung) {
-    showInstallToast('Tap <strong>&#8942;</strong> in the top-right then <strong>"Add to Home Screen"</strong>', false);
+    showInstallToast('Tap <strong>&#8942;</strong> (top-right) → <strong>"Add to Home Screen"</strong>', false);
     return;
   }
-
-  showInstallToast('Open in Chrome, tap <strong>&#8942;</strong> → <strong>"Add to Home Screen"</strong>', false);
+  showInstallToast('Open in Chrome on your phone → tap <strong>&#8942;</strong> → <strong>"Add to Home Screen"</strong>', false);
 });
 
 function showInstallToast(html, showArrow) {
