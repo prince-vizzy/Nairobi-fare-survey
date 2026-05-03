@@ -221,6 +221,23 @@ function stageLink(name, lat, lon, isAlight = false) {
              onclick="event.stopPropagation()">${name}</a>`;
 }
 
+// ── Walking-to-destination leg ────────────────────────────────────────────────
+// Returns an HTML leg row linking to Google Maps walking from a stage to toLL.
+function walkToDestLeg(stageLat, stageLon) {
+  if (!toLL || stageLat == null || stageLon == null) return "";
+  const destName = document.getElementById("inp-to").value.trim() || "destination";
+  const url = `https://www.google.com/maps/dir/?api=1&origin=${stageLat},${stageLon}&destination=${toLL.lat},${toLL.lng}&travelmode=walking`;
+  return `
+    <div class="leg" style="margin-top:2px">
+      <div class="leg-icon" style="background:#1a73e8;font-size:.75rem">🚶</div>
+      <div class="leg-text">
+        <a href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()"
+           style="color:#1a73e8;font-weight:600;text-decoration:none">Walk to ${destName}</a>
+        <span style="font-size:.7rem;color:var(--muted)"> &nbsp;↗ Google Maps</span>
+      </div>
+    </div>`;
+}
+
 // ── Colours ──────────────────────────────────────────────────────────────────
 const C = { green:"#27ae60", blue:"#2980b9", purple:"#8e44ad",
             orange:"#e67e22", red:"#e74c3c" };
@@ -722,12 +739,14 @@ function renderGoogleTransit(routes, from, to) {
         <span class="xfer-tag">Transfer</span>
       </div>` : "");
 
+    const lastAlightGT = route.legs[route.legs.length - 1].alight;
+    const walkLegGT = walkToDestLeg(lastAlightGT.lat, lastAlightGT.lon);
     card.innerHTML = `
       <div class="card-head">
         <span class="card-type">${route.transfers > 0 ? route.transfers + " Transfer" : "Direct"}</span>
         <span class="fare">KSh ${route.total_fare}</span>
       </div>
-      <div class="legs">${legsHtml}</div>
+      <div class="legs">${legsHtml}${walkLegGT}</div>
       <div class="walk-pill">&#x23F1; ${route.duration}</div>`;
 
     card.addEventListener("click", () => {
@@ -883,6 +902,8 @@ function renderSnapResults(data, from, to) {
         </div>`;
     }
 
+    legsHtml += walkToDestLeg(opt.alight.lat, opt.alight.lon);
+
     card.innerHTML = `
       <div class="card-head">
         <span class="card-type">${isXfer ? "1 Transfer" : "Direct"}</span>
@@ -1009,6 +1030,7 @@ function renderCards(journeys, from, to) {
         <div class="leg-icon" style="background:${C.red};font-size:.7rem">&#x1F3C1;</div>
         <div class="leg-text">Alight at ${stageLink(lastLeg.to_display, lastLeg.to_lat, lastLeg.to_lon, true)}</div>
       </div>`;
+    legsHtml += walkToDestLeg(lastLeg.to_lat, lastLeg.to_lon);
 
     const card = document.createElement("div");
     card.className = "route-card" + (idx === 0 ? " active" : "");
