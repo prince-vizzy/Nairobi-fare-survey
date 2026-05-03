@@ -570,6 +570,46 @@ document.getElementById("btn-network").addEventListener("click", () => {
   else showAllRoutes();
 });
 
+// ── Haversine distance (km) ───────────────────────────────────────────────────
+function haversineKm(lat1, lng1, lat2, lng2) {
+  const R = 6371, toR = Math.PI / 180;
+  const dLat = (lat2 - lat1) * toR, dLng = (lng2 - lng1) * toR;
+  const a = Math.sin(dLat/2)**2 +
+            Math.cos(lat1*toR) * Math.cos(lat2*toR) * Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+// ── Bodaboda recommendation card (shown when trip < 10 km) ───────────────────
+function showBodaBodaCard(distKm, to) {
+  const fareMin = Math.round((80 + distKm * 45) / 50) * 50;
+  const fareMax = fareMin + 100;
+  document.getElementById("results").innerHTML = `
+    <div class="route-card active" style="border-color:var(--orange);box-shadow:0 0 0 3px rgba(245,158,11,.12)">
+      <div class="card-head">
+        <span class="card-type" style="color:var(--orange);font-size:.78rem">🏍&nbsp; Bodaboda recommended</span>
+        <span class="fare" style="color:var(--orange)">KSh ${fareMin}–${fareMax}</span>
+      </div>
+      <div class="legs">
+        <div class="leg">
+          <div class="leg-icon" style="background:var(--orange);font-size:.65rem">🏍</div>
+          <div class="leg-text" style="color:var(--text)">
+            Only <b>${distKm.toFixed(1)} km</b> away — a bodaboda is faster and cheaper than matatu for this distance.
+          </div>
+        </div>
+        <div class="leg" style="margin-top:6px">
+          <div class="leg-icon" style="background:rgba(245,158,11,.25);font-size:.7rem;color:var(--orange)">💡</div>
+          <div class="leg-text">
+            Find a bodaboda stage near you and show the rider: <b>${to}</b>
+          </div>
+        </div>
+      </div>
+      <div class="walk-pill" style="background:rgba(245,158,11,.07);border-color:rgba(245,158,11,.2);color:var(--orange)">
+        &#x23F1; Est. ${Math.round(distKm / 20 * 60)} – ${Math.round(distKm / 15 * 60)} min by boda
+      </div>
+    </div>`;
+  setDrawerState("half");
+}
+
 // ── Geocode helper — resolve any Nairobi place text → lat/lng ────────────────
 function geocodeNairobi(text) {
   return new Promise(resolve => {
@@ -610,6 +650,12 @@ async function searchRoutes() {
 
   if (!fromLL || !toLL) {
     return setStatus(`Could not locate <b>${!fromLL ? from : to}</b> on the map.`);
+  }
+
+  // ── Bodaboda check — skip matatu for trips under 10 km ────────────────────
+  const distKm = haversineKm(fromLL.lat, fromLL.lng, toLL.lat, toLL.lng);
+  if (distKm < 10) {
+    return showBodaBodaCard(distKm, to);
   }
 
   // ── 1. Google Transit (primary) ───────────────────────────────────────────
