@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#3ecf6e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Shii Ngapi">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/static/icon-192.png">
+<link rel="icon" href="/static/favicon.png">
+<title>Shii Ngapi</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --border:rgba(255,255,255,.13);
+  --text:#e8f5ec;--muted:#6b8a72;
+  --accent:#3ecf6e;--green:#3ecf6e;
+  --blue:#60a5fa;--purple:#a78bfa;--orange:#f59e0b;--red:#f87171;
+  --r:14px;
+}
+html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#000;color:var(--text);overflow:hidden}
+
+/* ── Layout ── */
+#app{position:relative;width:100vw;height:100dvh;background:#000;overflow:hidden}
+#map{position:absolute;inset:0;width:100%;height:100%}
+
+/* ── Top bar ── */
+#top-bar{position:absolute;top:0;left:0;right:0;height:56px;padding:0 20px;display:flex;align-items:flex-end;padding-bottom:8px;background:linear-gradient(to bottom,rgba(10,20,12,.92) 0%,transparent 100%);z-index:20}
+#app-title{font-size:.85rem;font-weight:700;letter-spacing:.05em;color:#fff;opacity:.9}
+#btn-download{margin-left:auto;background:var(--accent);border:none;border-radius:20px;padding:5px 13px;color:#071a0b;font-size:.72rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;text-decoration:none}
+#btn-download:hover{opacity:.85}
+#btn-gps{background:none;border:none;padding:4px 8px;cursor:pointer;color:var(--accent);flex-shrink:0;display:flex;align-items:center;opacity:.85;transition:opacity .15s}
+#btn-gps:hover{opacity:1}
+#btn-gps.loading{animation:spin .7s linear infinite;pointer-events:none}
+
+/* ── Network button ── */
+#btn-network{position:absolute;top:64px;right:12px;z-index:20;padding:5px 11px;background:rgba(10,20,12,.85);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-size:.7rem;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+
+/* ── Bottom drawer ── */
+#drawer{position:absolute;top:0;bottom:0;left:0;right:0;background:rgba(10,20,12,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top-left-radius:28px;border-top-right-radius:28px;padding:14px 18px 32px;z-index:30;display:flex;flex-direction:column;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+#drawer.collapsed{transform:translateY(calc(100% - 76px))}
+#drawer.half{transform:translateY(50%)}
+#drawer-handle{width:40px;height:4px;background:rgba(255,255,255,.18);background-clip:content-box;border-radius:2px;padding:16px 50px;box-sizing:content-box;margin:0 auto 0;cursor:grab;touch-action:none;user-select:none}
+
+/* ── Mini summary card (visible in collapsed state) ── */
+#mini-card{display:none;align-items:center;gap:10px;padding:0 2px 12px;cursor:grab;touch-action:none;user-select:none}
+#mini-card.show{display:flex}
+#mini-badges{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+#mini-fare{font-size:.82rem;font-weight:700;color:var(--green);white-space:nowrap}
+#mini-meta{font-size:.7rem;color:var(--muted);white-space:nowrap}
+#mini-expand{font-size:.9rem;color:var(--muted)}
+
+/* ── Search fields ── */
+.fields{display:flex;flex-direction:column;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:16px;overflow:visible;margin-bottom:10px}
+.field-row{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.field-row+.field-row{border-top:1px solid var(--border)}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot.from{background:var(--blue)}
+.dot.to{background:var(--red)}
+.field-row input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:16px;font-family:inherit}
+.field-row input::placeholder{color:var(--muted)}
+.field-divider{position:relative;height:0;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;padding-right:14px}
+#btn-swap{display:flex;width:28px;height:28px;background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:50%;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:14px;flex-shrink:0}
+.const-badge{font-size:.66rem;color:var(--accent);padding:1px 14px;min-height:12px;letter-spacing:.01em;opacity:.8}
+
+/* ── Search button ── */
+#btn-search{width:100%;padding:14px;background:var(--accent);border:none;border-radius:14px;color:#071a0b;font-size:.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .2s,transform .1s;letter-spacing:.02em}
+#btn-search:active{opacity:.85;transform:scale(.98)}
+
+/* ── Results ── */
+#results{margin-top:12px;flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+#results::-webkit-scrollbar{display:none}
+#status{text-align:center;color:var(--muted);font-size:.78rem;padding:8px 0}
+.loading{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-right:6px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Route cards ── */
+.route-card{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;cursor:pointer;transition:border-color .15s,box-shadow .15s;animation:fadeUp .25s ease both}
+.route-card:hover{border-color:var(--accent)}
+.route-card.active{border-color:var(--green);box-shadow:0 0 0 3px rgba(62,207,110,.12)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:4px}
+.route-badge{padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:700;color:#fff}
+.card-type{font-size:.68rem;color:var(--muted);font-weight:500}
+.fare{font-size:.76rem;font-weight:700;color:var(--green)}
+.legs{display:flex;flex-direction:column;gap:5px}
+.leg{display:flex;align-items:flex-start;gap:8px;font-size:.74rem;color:#9ab09e;line-height:1.4}
+.leg-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;flex-shrink:0}
+.leg-icon.bus{background:var(--blue)}
+.leg-icon.bus2{background:var(--purple)}
+.leg-text{color:#9ab09e;flex:1}
+.leg-text b{color:var(--text)}
+.xfer-tag{font-size:.65rem;background:rgba(245,158,11,.15);color:var(--orange);padding:2px 6px;border-radius:10px;border:1px solid rgba(245,158,11,.3);margin-left:auto}
+.walk-pill{margin-top:6px;padding:5px 9px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);border-radius:8px;font-size:.72rem;color:var(--orange);display:flex;align-items:center;gap:5px}
+
+/* ── Map overlays ── */
+#map-info{position:absolute;top:64px;left:12px;background:rgba(10,20,12,.9);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;max-width:240px;box-shadow:0 8px 32px rgba(0,0,0,.5);display:none;border-left:4px solid var(--green);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:20}
+#map-info .mi-title{font-size:.72rem;color:var(--green);font-weight:700;margin-bottom:4px}
+#map-info .mi-route{display:none}
+#map-info .mi-detail{font-size:.72rem;color:#9ab09e;line-height:1.7}
+#legend{position:absolute;top:64px;right:12px;background:rgba(10,20,12,.85);border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:.7rem;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:20}
+.leg-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;color:#9ab09e}
+.leg-row:last-child{margin-bottom:0}
+.swatch{width:22px;height:3px;border-radius:2px}
+.swatch.dashed{background:repeating-linear-gradient(90deg,var(--orange) 0,var(--orange) 5px,transparent 5px,transparent 10px)}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- Map fills screen -->
+  <div id="map"></div>
+
+  <!-- Top bar -->
+  <div id="top-bar">
+    <span id="app-title">SHII NGAPI</span>
+    <a id="btn-download" href="#" target="_blank">
+      <svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-14 9v2h14v-2H5z"/></svg>
+      Download App
+    </a>
+  </div>
+
+  <!-- Network toggle -->
+  <button id="btn-network">&#x1F5FA; Show network</button>
+
+  <!-- Best route info panel (top-left) -->
+  <div id="map-info">
+    <div class="mi-title">Best Route &#x2714;</div>
+    <div class="mi-route" id="mi-route">—</div>
+    <div class="mi-detail" id="mi-detail"></div>
+  </div>
+
+  <!-- Legend -->
+  <div id="legend">
+    <div class="leg-row"><div class="swatch" style="background:var(--green)"></div> Direct</div>
+    <div class="leg-row"><div class="swatch" style="background:var(--blue)"></div> Leg 1</div>
+    <div class="leg-row"><div class="swatch" style="background:var(--purple)"></div> Leg 2</div>
+  </div>
+
+  <!-- Bottom drawer -->
+  <div id="drawer">
+    <div id="drawer-handle"></div>
+
+    <!-- Mini summary shown when drawer is collapsed -->
+    <div id="mini-card">
+      <div id="mini-badges"></div>
+      <span id="mini-meta"></span>
+      <span id="mini-fare"></span>
+      <span id="mini-expand">&#x2303;</span>
+    </div>
+
+    <div class="fields">
+      <div class="field-row">
+        <span class="dot from"></span>
+        <input id="inp-from" type="text" placeholder="From — e.g. CBD, Railways" autocomplete="off">
+        <button id="btn-gps" title="Use my location">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+        </button>
+      </div>
+      <div id="from-const" class="const-badge"></div>
+      <div class="field-divider">
+        <button id="btn-swap" title="Swap">&#x21C5;</button>
+      </div>
+      <div class="field-row">
+        <span class="dot to"></span>
+        <input id="inp-to" type="text" placeholder="To — e.g. Karen, Rongai" autocomplete="off">
+      </div>
+      <div id="to-const" class="const-badge"></div>
+    </div>
+
+    <button id="btn-search">
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      Search Routes
+    </button>
+
+    <div id="results">
+      <div id="status">Enter origin and destination above.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Config ───────────────────────────────────────────────────────────────────
+const MAPS_KEY  = "{{maps_api_key}}";   // injected by Flask
+const API_BASE  = "";                   // same origin
+
+// ── Stage link helper ────────────────────────────────────────────────────────
+// Opens Google Maps "Get directions → this stage" in a new tab.
+// Stops the click bubbling so the card's own click handler doesn't fire.
+function stageLink(name, lat, lon, isAlight = false) {
+  const hasCoords = lat != null && lon != null;
+  let origin, dest;
+
+  if (isAlight) {
+    // Alight: walk from this stage to the user's chosen destination
+    origin = hasCoords ? `${lat},${lon}` : "";
+    dest   = toLL
+      ? `${toLL.lat},${toLL.lng}`
+      : encodeURIComponent(name + " Nairobi Kenya");
+  } else {
+    // Board / transfer: walk from user's location to this stage
+    origin = fromLL ? `${fromLL.lat},${fromLL.lng}` : "";
+    dest   = hasCoords
+      ? `${lat},${lon}`
+      : encodeURIComponent(name + " Nairobi Kenya");
+  }
+
+  const url = "https://www.google.com/maps/dir/?api=1"
+    + (origin ? `&origin=${origin}` : "")
+    + `&destination=${dest}&travelmode=walking`;
+  return `<a href="${url}" target="_blank" rel="noopener"
+             style="color:inherit;text-decoration:none;cursor:pointer;background:rgba(25,130,65,.3);border:1px dotted rgba(25,130,65,.75);border-radius:6px;padding:1px 7px;display:inline-block;line-height:1.4"
+             onclick="event.stopPropagation()">${name}</a>`;
+}
+
+// ── Colours ──────────────────────────────────────────────────────────────────
+const C = { green:"#27ae60", blue:"#2980b9", purple:"#8e44ad",
+            orange:"#e67e22", red:"#e74c3c" };
+
+// ── Drawer collapse / expand ─────────────────────────────────────────────────
+function collapseDrawer(badges, meta, fare) {
+  document.getElementById("mini-badges").innerHTML = badges;
+  document.getElementById("mini-meta").textContent  = meta;
+  document.getElementById("mini-fare").textContent  = fare;
+  document.getElementById("mini-card").classList.add("show");
+  setDrawerState("collapsed");
+}
+function expandDrawer() { setDrawerState("half"); }
+
+// ── Drawer state (3 snap points: collapsed → half → full) ────────────────────
+function setDrawerState(state) {
+  const d = document.getElementById("drawer");
+  d.classList.remove("collapsed", "half");
+  if (state === "collapsed") d.classList.add("collapsed");
+  if (state === "half")      d.classList.add("half");
+}
+function getDrawerState() {
+  const d = document.getElementById("drawer");
+  if (d.classList.contains("collapsed")) return "collapsed";
+  if (d.classList.contains("half"))      return "half";
+  return "full";
+}
+
+// ── Swipe gesture (handle + mini-card) ───────────────────────────────────────
+(function () {
+  const drawer   = document.getElementById("drawer");
+  const handle   = document.getElementById("drawer-handle");
+  const miniCard = document.getElementById("mini-card");
+
+  let startY = 0, baseY = 0, lastY = 0, lastT = 0, active = false;
+
+  function snapYFor(state) {
+    const h = drawer.offsetHeight;
+    if (state === "collapsed") return h - 76;
+    if (state === "half")      return h * 0.5;
+    return 0;
+  }
+
+  function beginDrag(y) {
+    startY = y; lastY = y; lastT = Date.now();
+    baseY  = snapYFor(getDrawerState());
+    active = true;
+    drawer.style.transition = "none";
+  }
+
+  function moveDrag(y) {
+    if (!active) return;
+    const min = 0, max = snapYFor("collapsed");
+    const ty  = Math.max(min, Math.min(max, baseY + (y - startY)));
+    drawer.style.transform = `translateY(${ty}px)`;
+    lastY = y; lastT = Date.now();
+  }
+
+  function endDrag(y) {
+    if (!active) return;
+    active = false;
+
+    const max = snapYFor("collapsed");
+    const ty  = Math.max(0, Math.min(max, baseY + (y - startY)));
+    const dt  = Date.now() - lastT;
+    const vel = dt < 200 ? (y - lastY) / Math.max(1, dt) : 0; // px/ms, + = downward
+
+    drawer.style.transition = "";
+    drawer.style.transform  = "";
+
+    const cur = getDrawerState();
+
+    if (vel > 0.45) {
+      // Fast flick down — step one level down
+      setDrawerState(cur === "full" ? "half" : "collapsed");
+    } else if (vel < -0.45) {
+      // Fast flick up — step one level up
+      setDrawerState(cur === "collapsed" ? "half" : "full");
+    } else {
+      // Nearest snap point
+      const pts = ["full", "half", "collapsed"].map(s => ({ s, d: Math.abs(ty - snapYFor(s)) }));
+      setDrawerState(pts.reduce((a, b) => b.d < a.d ? b : a).s);
+    }
+  }
+
+  function bindSwipe(el) {
+    el.addEventListener("touchstart", e => beginDrag(e.touches[0].clientY), { passive: true });
+    el.addEventListener("touchmove",  e => { moveDrag(e.touches[0].clientY); e.preventDefault(); }, { passive: false });
+    el.addEventListener("touchend",   e => endDrag(e.changedTouches[0].clientY), { passive: true });
+
+    el.addEventListener("mousedown", e => {
+      beginDrag(e.clientY);
+      const onMove = ev => moveDrag(ev.clientY);
+      const onUp   = ev => { endDrag(ev.clientY); window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp); };
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseup", onUp);
+      e.preventDefault();
+    });
+  }
+
+  bindSwipe(handle);
+  bindSwipe(miniCard);
+}());
+
+// ── State ────────────────────────────────────────────────────────────────────
+let gmap, geocoder, directionsService, autocompleteFrom, autocompleteTo;
+let fromLL = null, toLL = null, userLL = null;
+let activeOverlays = [];   // all rendered map objects for current search
+let nearbyFromOverlays = [], nearbyToOverlays = [];
+let cards = [];
+
+// ── SVG icons ────────────────────────────────────────────────────────────────
+function svgIcon(color, size=12, shape="circle") {
+  let svg;
+  if (shape === "circle") {
+    svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}'>
+      <circle cx='${size/2}' cy='${size/2}' r='${size/2-1}' fill='${color}' stroke='#fff' stroke-width='1.5'/>
+    </svg>`;
+  } else if (shape === "bus") {
+    svg = `<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='${color}'>
+      <path d='M4 16c0 .88.39 1.67 1 2.22V20a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h8v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1.78A2.99 2.99 0 0 0 20 16V6c0-3.5-3.58-4-8-4S4 2.5 4 6v10zm3.5 1a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm9 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM6 10V6h12v4H6z'/>
+    </svg>`;
+  } else if (shape === "transfer") {
+    svg = `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'>
+      <polygon points='12,2 22,20 2,20' fill='${color}' stroke='#fff' stroke-width='1.5'/>
+    </svg>`;
+  }
+  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+}
+
+function pulseMarkerHtml() {
+  return `<div style="position:relative;width:24px;height:24px">
+    <div style="position:absolute;inset:0;border-radius:50%;border:3px solid ${C.red};
+      animation:pulse 1.6s ease-out infinite;opacity:0"></div>
+    <div style="position:absolute;top:6px;left:6px;width:12px;height:12px;
+      border-radius:50%;background:${C.red}"></div>
+  </div>
+  <style>@keyframes pulse{0%{transform:scale(.4);opacity:1}100%{transform:scale(2.2);opacity:0}}</style>`;
+}
+
+// ── Map init ─────────────────────────────────────────────────────────────────
+async function initMap() {
+  const mapStyles = await loadMapStyle();
+
+  const NAIROBI_BOUNDS = {
+    north: -1.05, south: -1.45, east: 37.10, west: 36.65,
+  };
+
+  gmap = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -1.2864, lng: 36.8172 },
+    zoom: 13,
+    minZoom: 11,
+    restriction: { latLngBounds: NAIROBI_BOUNDS, strictBounds: true },
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: true,
+    styles: mapStyles.length ? mapStyles : undefined,
+  });
+
+  geocoder          = new google.maps.Geocoder();
+  directionsService = new google.maps.DirectionsService();
+
+  // Places Autocomplete — biased to Nairobi bounding box
+  const nairobiBounds = new google.maps.LatLngBounds(
+    { lat: -1.45, lng: 36.65 }, { lat: -1.05, lng: 37.10 }
+  );
+  const acOpts = {
+    componentRestrictions: { country: "ke" },
+    bounds: nairobiBounds,
+    strictBounds: false,
+    fields: ["geometry", "name"],
+  };
+  autocompleteFrom = new google.maps.places.Autocomplete(document.getElementById("inp-from"), acOpts);
+  autocompleteTo   = new google.maps.places.Autocomplete(document.getElementById("inp-to"),   acOpts);
+
+  autocompleteFrom.addListener("place_changed", () => {
+    const p = autocompleteFrom.getPlace();
+    if (p.geometry) {
+      fromLL = { lat: p.geometry.location.lat(), lng: p.geometry.location.lng() };
+      showNearbyStops(fromLL, "from");
+    }
+  });
+  autocompleteTo.addListener("place_changed", () => {
+    const p = autocompleteTo.getPlace();
+    if (p.geometry) {
+      toLL = { lat: p.geometry.location.lat(), lng: p.geometry.location.lng() };
+      showNearbyStops(toLL, "to");
+    }
+  });
+
+  // Click on map to set destination
+  gmap.addListener("click", async (e) => {
+    const ll = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+    toLL = ll;
+    geocoder.geocode({ location: ll }, (results, status) => {
+      const name = status === "OK" && results[0]
+        ? results[0].formatted_address.split(",")[0]
+        : "Selected location";
+      document.getElementById("inp-to").value = name;
+      showNearbyStops(toLL, "to");
+    });
+  });
+}
+
+// ── Route palette ─────────────────────────────────────────────────────────────
+const ROUTE_PALETTE = [
+  "#e74c3c","#3498db","#2ecc71","#f39c12","#9b59b6",
+  "#1abc9c","#e67e22","#e91e63","#00bcd4","#8bc34a",
+  "#ff5722","#673ab7","#03a9f4","#4caf50","#ffc107",
+  "#f44336","#2196f3","#4db6ac","#ff9800","#ce93d8",
+  "#ef5350","#42a5f5","#66bb6a","#ffa726","#ab47bc",
+];
+
+let allRoutePolylines  = [];
+let allTerminalMarkers = [];
+let allRoutesVisible   = true;   // tracks desired visibility
+
+function hideAllRoutes() {
+  allRoutesVisible = false;
+  allRoutePolylines.forEach(p => p.setMap(null));
+  allTerminalMarkers.forEach(m => m.setMap(null));
+  const btn = document.getElementById("btn-network");
+  if (btn) { btn.textContent = "\u{1F5FA} Show network"; btn.style.color = "var(--muted)"; btn.style.borderColor = "var(--border)"; }
+}
+async function showAllRoutes() {
+  allRoutesVisible = true;
+  if (!allRoutePolylines.length) await drawAllRoutes();
+  else {
+    allRoutePolylines.forEach(p => p.setMap(gmap));
+    allTerminalMarkers.forEach(m => m.setMap(gmap));
+  }
+  const btn = document.getElementById("btn-network");
+  if (btn) { btn.textContent = "\u{1F5FA} Hide network"; btn.style.color = "var(--accent)"; btn.style.borderColor = "var(--accent)"; }
+}
+
+async function drawAllRoutes() {
+  try {
+    const [geojRes, termRes] = await Promise.all([
+      fetch("/bus_routes.geojson"),
+      fetch("/api/terminals"),
+    ]);
+    const geoj      = await geojRes.json();
+    const terminals = await termRes.json();
+
+    const seen = {};
+    geoj.features.forEach((feat) => {
+      const name  = feat.properties.route_name;
+      if (!(name in seen)) seen[name] = Object.keys(seen).length;
+      const color = ROUTE_PALETTE[seen[name] % ROUTE_PALETTE.length];
+      const path  = feat.geometry.coordinates.map(([lng, lat]) => ({ lat, lng }));
+      const poly  = new google.maps.Polyline({
+        path,
+        strokeColor:   color,
+        strokeWeight:  2,
+        strokeOpacity: 0.6,
+        map: gmap,
+      });
+      allRoutePolylines.push(poly);
+    });
+
+    terminals.forEach(t => {
+      const MAX  = 22;
+      const label = t.name.length > MAX ? t.name.slice(0, MAX - 1) + "…" : t.name;
+      const svgW  = Math.max(Math.round(label.length * 5.8) + 18, 30);
+      const marker = new google.maps.Marker({
+        position: { lat: t.lat, lng: t.lng },
+        map: gmap,
+        icon: {
+          url: stopPinSvg(t.name, t.color),
+          // SVG is 48px tall, scaled to 36px; tip at y=47 → scaled y = 47*(36/48) ≈ 35
+          anchor: new google.maps.Point(Math.floor(svgW / 2), 35),
+          scaledSize: new google.maps.Size(svgW, 36),
+        },
+        title: t.name,
+        zIndex: 1,
+      });
+      const iw = new google.maps.InfoWindow({
+        content: `<b style="font-size:13px">${t.name}</b>`,
+      });
+      marker.addListener("click", () => iw.open(gmap, marker));
+      allTerminalMarkers.push(marker);
+    });
+  } catch(e) { console.warn("Could not load bus routes / terminals", e); }
+}
+
+// ── GPS ───────────────────────────────────────────────────────────────────────
+document.getElementById("btn-gps").addEventListener("click", () => {
+  if (!navigator.geolocation) return alert("Location is not supported by this browser.");
+  const btn = document.getElementById("btn-gps");
+  btn.classList.add("loading");
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      btn.classList.remove("loading");
+      userLL = fromLL = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      document.getElementById("inp-from").value = "My location";
+      gmap?.panTo(fromLL);
+      dropUserPin(fromLL);
+      showNearbyStops(fromLL, "from");
+    },
+    err => {
+      btn.classList.remove("loading");
+      const msgs = {
+        1: "Location permission denied.\nPlease allow location access in your browser settings.",
+        2: "Your location is currently unavailable. Try again.",
+        3: "Location request timed out. Please try again."
+      };
+      alert(msgs[err.code] || "Could not get your location.");
+    },
+    { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
+  );
+});
+
+// When the user edits an input, invalidate that side's cached coords so the
+// next search re-geocodes instead of reusing stale coordinates.
+document.getElementById("inp-from").addEventListener("input", () => {
+  fromLL = null;
+  const f = document.getElementById("inp-from").value.trim();
+  const t = document.getElementById("inp-to").value.trim();
+  if (!f && !t) {
+    clearOverlays(); clearNearby("from"); clearNearby("to");
+    toLL = null;
+    setStatus("Enter origin and destination above.");
+  }
+});
+document.getElementById("inp-to").addEventListener("input", () => {
+  toLL = null;
+  const f = document.getElementById("inp-from").value.trim();
+  const t = document.getElementById("inp-to").value.trim();
+  if (!f && !t) {
+    clearOverlays(); clearNearby("from"); clearNearby("to");
+    fromLL = null;
+    setStatus("Enter origin and destination above.");
+  }
+});
+
+// ── Swap ─────────────────────────────────────────────────────────────────────
+document.getElementById("btn-swap").addEventListener("click", () => {
+  const a = document.getElementById("inp-from");
+  const b = document.getElementById("inp-to");
+  [a.value, b.value] = [b.value, a.value];
+  [fromLL, toLL] = [toLL, fromLL];
+});
+
+// ── Network toggle ────────────────────────────────────────────────────────────
+document.getElementById("btn-network").addEventListener("click", () => {
+  if (allRoutesVisible) hideAllRoutes();
+  else showAllRoutes();
+});
+
+// ── Geocode helper — resolve any Nairobi place text → lat/lng ────────────────
+function geocodeNairobi(text) {
+  return new Promise(resolve => {
+    geocoder.geocode(
+      { address: text + ", Nairobi", componentRestrictions: { country: "ke" } },
+      (results, status) => {
+        if (status === "OK" && results[0]) {
+          const loc = results[0].geometry.location;
+          resolve({ lat: loc.lat(), lng: loc.lng() });
+        } else {
+          resolve(null);
+        }
+      }
+    );
+  });
+}
+
+// ── Search ───────────────────────────────────────────────────────────────────
+document.getElementById("btn-search").addEventListener("click", searchRoutes);
+
+async function searchRoutes() {
+  const from = document.getElementById("inp-from").value.trim();
+  const to   = document.getElementById("inp-to").value.trim();
+  if (!from || !to) return setStatus("Enter both origin and destination.");
+
+  expandDrawer();
+  setStatus(`<span class="loading"></span>Finding routes…`);
+  clearOverlays();
+  hideAllRoutes();
+
+  // Geocode any coords not yet set by autocomplete selection
+  if (!fromLL) fromLL = await geocodeNairobi(from);
+  if (!toLL)   toLL   = await geocodeNairobi(to);
+
+  // Drop origin/dest pins
+  if (fromLL) dropUserPin(fromLL);
+  if (toLL)   dropDestPin(toLL, to);
+
+  if (!fromLL || !toLL) {
+    return setStatus(`Could not locate <b>${!fromLL ? from : to}</b> on the map.`);
+  }
+
+  // ── 1. Google Transit (primary) ───────────────────────────────────────────
+  // Send the exact GPS coords to Google; it detects intermediate transfer nodes
+  // (e.g. Bomas junction) that our terminal-only CSV misses.
+  try {
+    const gtRes  = await fetch(
+      `${API_BASE}/api/google-transit?s_lat=${fromLL.lat}&s_lng=${fromLL.lng}` +
+      `&e_lat=${toLL.lat}&e_lng=${toLL.lng}`
+    );
+    const gtData = await gtRes.json();
+    if (gtData.routes && gtData.routes.length) {
+      renderGoogleTransit(gtData.routes, from, to);
+      return;
+    }
+  } catch(e) { /* fall through to local snap */ }
+
+  // ── 2. Local terminal snap (fallback) ─────────────────────────────────────
+  try {
+    const snapParams = new URLSearchParams({
+      user_lat: fromLL.lat, user_lng: fromLL.lng,
+      dest_lat: toLL.lat,   dest_lng: toLL.lng,
+    });
+    const snapData = await fetch(`${API_BASE}/api/transit-snap?${snapParams}`).then(r => r.json());
+    if (snapData.winner) {
+      renderSnapResults(snapData, from, to);
+      return;
+    }
+  } catch(e) { /* fall through */ }
+
+  // ── 3. Text-based /api/plan (last resort) ─────────────────────────────────
+  const params = new URLSearchParams({ from, to });
+  params.set("lat", fromLL.lat); params.set("lng", fromLL.lng);
+  try {
+    const journeys = await fetch(`${API_BASE}/api/plan?${params}`).then(r => r.json());
+    if (journeys.length) {
+      renderCards(journeys, from, to);
+      renderJourney(journeys[0], 0, toLL);
+      return;
+    }
+  } catch(e) { /* fall through */ }
+
+  setStatus(`No routes found between <b>${from}</b> and <b>${to}</b>.`);
+}
+
+// ── Google Transit renderer ───────────────────────────────────────────────────
+function renderGoogleTransit(routes, from, to) {
+  const el = document.getElementById("results");
+  el.innerHTML = `<div style="font-size:.75rem;color:var(--muted);margin-bottom:10px">${routes.length} option${routes.length > 1 ? "s" : ""} found</div>`;
+
+  routes.forEach((route, idx) => {
+    const card = document.createElement("div");
+    card.className = "route-card" + (idx === 0 ? " active" : "");
+
+    const legsHtml = route.legs.map(l => `
+      <div class="leg">
+        <div class="leg-icon bus" style="background:${l.color || C.blue}">🚌</div>
+        <div class="leg-text">Board at ${stageLink(l.board.name, l.board.lat, l.board.lon)} → ${stageLink(l.alight.name, l.alight.lat, l.alight.lon, true)}
+          <span style="float:right;font-size:.75rem;color:var(--muted);margin-left:8px">KSh ${l.fare}</span>
+        </div>
+      </div>`
+    ).join(route.transfers > 0 ? `
+      <div class="leg">
+        <span class="xfer-tag">Transfer</span>
+      </div>` : "");
+
+    card.innerHTML = `
+      <div class="card-head">
+        <span class="card-type">${route.transfers > 0 ? route.transfers + " Transfer" : "Direct"}</span>
+        <span class="fare">KSh ${route.total_fare}</span>
+      </div>
+      <div class="legs">${legsHtml}</div>
+      <div class="walk-pill">&#x23F1; ${route.duration}</div>`;
+
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".route-card").forEach(c => c.classList.remove("active"));
+      card.classList.add("active");
+      clearOverlays();
+      if (fromLL) dropUserPin(fromLL);
+      if (toLL)   dropDestPin(toLL, to);
+      drawGoogleTransitRoute(route);
+    });
+    el.appendChild(card);
+  });
+
+  drawGoogleTransitRoute(routes[0]);
+  setDrawerState("half");
+}
+
+function dottedLine(from, to) {
+  activeOverlays.push(new google.maps.Polyline({
+    path: [from, to],
+    strokeColor:   "#7f8c8d",
+    strokeOpacity: 0,
+    strokeWeight:  3,
+    icons: [{
+      icon: { path: "M 0,-1 0,1", strokeOpacity: 1, scale: 2 },
+      offset: "0",
+      repeat: "10px",
+    }],
+    map: gmap,
+    zIndex: 8,
+  }));
+}
+
+function drawGoogleTransitRoute(route) {
+  const bounds = new google.maps.LatLngBounds();
+  [fromLL, toLL].filter(Boolean).forEach(ll => bounds.extend(ll));
+
+  // ── Polylines ─────────────────────────────────────────────────────────────
+  // Skip Google's first/last WALKING steps — we draw explicit connectors below.
+  // Keep only intermediate WALKING steps (transfer walks) and all TRANSIT steps.
+  const steps = route.steps && route.steps.length ? route.steps : route.legs;
+  const firstTransit = steps.findIndex(s => s.mode === "TRANSIT");
+  const lastTransit  = steps.map(s => s.mode).lastIndexOf("TRANSIT");
+
+  steps.forEach((step, idx) => {
+    if (!step.polyline) return;
+    // Suppress the origin walk and destination walk — replaced by explicit connectors
+    if (step.mode === "WALKING" && (idx < firstTransit || idx > lastTransit)) return;
+
+    const path = google.maps.geometry.encoding.decodePath(step.polyline);
+    path.forEach(p => bounds.extend(p));
+
+    if (step.mode === "WALKING") {
+      activeOverlays.push(new google.maps.Polyline({
+        path,
+        strokeColor:   "#7f8c8d",
+        strokeOpacity: 0,
+        strokeWeight:  3,
+        icons: [{
+          icon: { path: "M 0,-1 0,1", strokeOpacity: 1, scale: 2 },
+          offset: "0",
+          repeat: "10px",
+        }],
+        map: gmap,
+        zIndex: 8,
+      }));
+    } else {
+      activeOverlays.push(new google.maps.Polyline({
+        path,
+        strokeColor:   step.color || C.blue,
+        strokeOpacity: 0.9,
+        strokeWeight:  6,
+        map: gmap,
+        zIndex: 10,
+      }));
+    }
+  });
+
+  // ── Walking connectors: origin → first stage, last stage → destination ────
+  const firstBoard = route.legs[0]?.board;
+  const lastAlight = route.legs[route.legs.length - 1]?.alight;
+  if (fromLL && firstBoard) {
+    bounds.extend(fromLL);
+    dottedLine(fromLL, { lat: firstBoard.lat, lng: firstBoard.lon });
+  }
+  if (toLL && lastAlight) {
+    bounds.extend(toLL);
+    dottedLine({ lat: lastAlight.lat, lng: lastAlight.lon }, toLL);
+  }
+
+  // ── Markers: board / alight / transfer pins (always from route.legs) ─────────
+  route.legs.forEach((leg, i) => {
+    const clr    = leg.color || C.blue;
+    const fromPt = { lat: leg.board.lat, lng: leg.board.lon };
+    const toPt   = { lat: leg.alight.lat, lng: leg.alight.lon };
+    dropStopMarker(fromPt, leg.board.name, "board", clr);
+    if (i === route.legs.length - 1) {
+      dropStopMarker(toPt, leg.alight.name, "alight", clr);
+    } else {
+      dropTransferMarker(toPt, leg.alight.name);
+    }
+  });
+
+  gmap.fitBounds(bounds, { top: 60, right: 60, bottom: 120, left: 60 });
+
+  const first = route.legs[0], last = route.legs[route.legs.length - 1];
+  document.getElementById("mi-route").textContent = "";
+  document.getElementById("mi-detail").innerHTML =
+    `Board at <b>${first.board.name}</b> · Alight at <b>${last.alight.name}</b><br>` +
+    `KSh <b>${route.total_fare}</b> &nbsp;·&nbsp; ${route.duration}`;
+  document.getElementById("map-info").style.display = "block";
+
+  collapseDrawer("", route.duration, `KSh ${route.total_fare}`);
+}
+
+// ── Snap-to-network results ───────────────────────────────────────────────────
+function renderSnapResults(data, from, to) {
+  const el = document.getElementById("results");
+  el.innerHTML = `<div style="font-size:.75rem;color:var(--muted);margin-bottom:10px">${data.options.length} route${data.options.length>1?'s':''} found</div>`;
+
+  data.options.forEach((opt, idx) => {
+    const color  = opt.color  || C.green;
+    const color2 = opt.color2 || C.purple;
+    const isXfer = opt.type === "transfer";
+    const card   = document.createElement("div");
+    card.className = "route-card" + (idx === 0 ? " active" : "");
+
+    let legsHtml;
+    if (isXfer) {
+      legsHtml = `
+        <div class="leg">
+          <div class="leg-icon bus" style="background:${color}">🚌</div>
+          <div class="leg-text">Board at ${stageLink(opt.board.name, opt.board.lat, opt.board.lon)}</div>
+        </div>
+        <div class="leg">
+          <span class="xfer-tag">Transfer</span>
+          <div class="leg-text" style="margin-left:8px">Change at ${stageLink(opt.transfer_stop.name, opt.transfer_stop.lat, opt.transfer_stop.lon)}</div>
+        </div>
+        <div class="leg">
+          <div class="leg-icon bus" style="background:${color2}">🚌</div>
+          <div class="leg-text">Alight at ${stageLink(opt.alight.name, opt.alight.lat, opt.alight.lon, true)}</div>
+        </div>`;
+    } else {
+      const km = opt.bus_dist_m ? ` · ${(opt.bus_dist_m/1000).toFixed(1)} km` : "";
+      legsHtml = `
+        <div class="leg">
+          <div class="leg-icon bus" style="background:${color}">🚌</div>
+          <div class="leg-text">Board at ${stageLink(opt.board.name, opt.board.lat, opt.board.lon)}${km}</div>
+        </div>
+        <div class="leg">
+          <div class="leg-icon" style="background:${C.red};font-size:.7rem">&#x1F3C1;</div>
+          <div class="leg-text">Alight at ${stageLink(opt.alight.name, opt.alight.lat, opt.alight.lon, true)}</div>
+        </div>`;
+    }
+
+    card.innerHTML = `
+      <div class="card-head">
+        <span class="card-type">${isXfer ? "1 Transfer" : "Direct"}</span>
+        <span class="fare">KSh ${opt.fare_ksh}</span>
+      </div>
+      <div class="legs">${legsHtml}</div>
+      <div class="walk-pill">&#x23F1; Est. ${opt.total_time_min} min total</div>`;
+
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".route-card").forEach(c => c.classList.remove("active"));
+      card.classList.add("active");
+      clearOverlays();
+      if (fromLL) dropUserPin(fromLL);
+      if (toLL)   dropDestPin(toLL, to);
+      drawSnapRoute(opt, toLL);
+    });
+    el.appendChild(card);
+  });
+
+  if (fromLL) dropUserPin(fromLL);
+  if (toLL)   dropDestPin(toLL, to);
+  drawSnapRoute(data.winner, toLL);
+  setDrawerState("half");
+}
+
+function drawSnapRoute(opt, destLL) {
+  const color  = opt.color  || C.green;
+  const color2 = opt.color2 || C.purple;
+  const boardLL  = { lat: opt.board.lat,  lng: opt.board.lon };
+  const alightLL = { lat: opt.alight.lat, lng: opt.alight.lon };
+
+  // Ask Google Directions (driving) for the road between two stop coords.
+  // Both directions of the same route share the same road — Google handles it.
+  function drawLeg(fromPt, toPt, clr) {
+    directionsService.route({
+      origin:      fromPt,
+      destination: toPt,
+      travelMode:  google.maps.TravelMode.DRIVING,
+    }, (result, status) => {
+      let path;
+      if (status === "OK") {
+        path = result.routes[0].overview_path;
+      } else {
+        // Fallback: straight line between the two stops
+        path = [fromPt, toPt];
+      }
+      const poly = new google.maps.Polyline({
+        path, strokeColor: clr, strokeWeight: 6, strokeOpacity: 0.9,
+        map: gmap, zIndex: 10,
+      });
+      activeOverlays.push(poly);
+      // Fit map to include the actual road path
+      const b = new google.maps.LatLngBounds();
+      path.forEach(p => b.extend(p));
+      [fromLL, destLL].filter(Boolean).forEach(ll => b.extend(ll));
+      gmap.fitBounds(b, { top: 60, right: 60, bottom: 120, left: 60 });
+    });
+  }
+
+  // Walking connectors: user origin → first board, last alight → destination
+  if (fromLL) dottedLine(fromLL, boardLL);
+  if (destLL) dottedLine(alightLL, destLL);
+
+  if (opt.type === "transfer") {
+    const xferLL = { lat: opt.transfer_stop.lat, lng: opt.transfer_stop.lon };
+    drawLeg(boardLL, xferLL,   color);
+    drawLeg(xferLL,  alightLL, color2);
+    dropStopMarker(boardLL,  opt.board.name,          "board",  color);
+    dropTransferMarker(xferLL, opt.transfer_stop.name);
+    dropStopMarker(alightLL, opt.alight.name,         "alight", color2);
+    document.getElementById("mi-route").textContent = "";
+    document.getElementById("mi-detail").innerHTML =
+      `Board <b>${opt.board.name}</b> · Transfer at <b>${opt.transfer_stop.name}</b><br>
+       Alight <b>${opt.alight.name}</b> · KSh <b>${opt.fare_ksh}</b> · ~${opt.total_time_min} min`;
+    document.getElementById("map-info").style.display = "block";
+    collapseDrawer("", `~${opt.total_time_min} min · 1 Transfer`, `KSh ${opt.fare_ksh}`);
+  } else {
+    drawLeg(boardLL, alightLL, color);
+    dropStopMarker(boardLL,  opt.board.name,  "board",  color);
+    dropStopMarker(alightLL, opt.alight.name, "alight", color);
+    document.getElementById("mi-route").textContent = "";
+    document.getElementById("mi-detail").innerHTML =
+      `Board at <b>${opt.board.name}</b> · Alight at <b>${opt.alight.name}</b><br>
+       KSh <b>${opt.fare_ksh}</b> &nbsp;·&nbsp; ~${opt.total_time_min} min`;
+    document.getElementById("map-info").style.display = "block";
+    collapseDrawer("", `~${opt.total_time_min} min · Direct`, `KSh ${opt.fare_ksh}`);
+  }
+}
+
+// ── Card rendering ────────────────────────────────────────────────────────────
+function renderCards(journeys, from, to) {
+  cards = journeys;
+  const el = document.getElementById("results");
+  el.innerHTML = `<div style="font-size:.75rem;color:var(--muted);margin-bottom:10px">${journeys.length} option${journeys.length>1?'s':''} found</div>`;
+
+  journeys.forEach((j, idx) => {
+    const isDirect   = j.hops === 1;
+    const leg1       = j.legs[0];
+    const leg2       = j.legs[1];
+    const routeColor = isDirect ? C.green : C.blue;
+
+    let legsHtml = `
+      <div class="leg">
+        <div class="leg-icon bus" style="background:${routeColor}">🚌</div>
+        <div class="leg-text">Board at ${stageLink(leg1.from_display, leg1.from_lat, leg1.from_lon)}</div>
+      </div>`;
+
+    if (!isDirect && leg2) {
+      const xferName = j.transfers[0] || leg2.from_display;
+      legsHtml += `
+        <div class="leg">
+          <span class="xfer-tag">Transfer</span>
+          <div class="leg-text" style="margin-left:8px">Change at ${stageLink(xferName, leg2.from_lat, leg2.from_lon)}</div>
+        </div>
+        <div class="leg">
+          <div class="leg-icon bus2" style="background:${C.purple}">🚌</div>
+          <div class="leg-text">Continue</div>
+        </div>`;
+    }
+
+    const lastLeg = j.legs[j.legs.length - 1];
+    legsHtml += `
+      <div class="leg">
+        <div class="leg-icon" style="background:${C.red};font-size:.7rem">&#x1F3C1;</div>
+        <div class="leg-text">Alight at ${stageLink(lastLeg.to_display, lastLeg.to_lat, lastLeg.to_lon, true)}</div>
+      </div>`;
+
+    const card = document.createElement("div");
+    card.className = "route-card" + (idx === 0 ? " active" : "");
+    card.innerHTML = `
+      <div class="card-head">
+        <span class="card-type">${isDirect ? "Direct" : "1 Transfer"}</span>
+        <span class="fare">KSh ${j.total_fare}</span>
+      </div>
+      <div class="legs">${legsHtml}</div>`;
+
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".route-card").forEach(c => c.classList.remove("active"));
+      card.classList.add("active");
+      clearOverlays();
+      if (fromLL) dropUserPin(fromLL);
+      if (toLL)   dropDestPin(toLL, document.getElementById("inp-to").value);
+      renderJourney(j, idx, toLL);
+    });
+
+    el.appendChild(card);
+  });
+  setDrawerState("half");
+}
+
+// ── Map rendering ─────────────────────────────────────────────────────────────
+function renderJourney(journey, idx, destLL) {
+  const isDirect = journey.hops === 1;
+  const leg1     = journey.legs[0];
+  const leg2     = journey.legs[1];
+
+  const boardLL = (leg1.boarding_lat && leg1.boarding_lng)
+    ? { lat: leg1.boarding_lat, lng: leg1.boarding_lng }
+    : (leg1.from_lat ? { lat: leg1.from_lat, lng: leg1.from_lon } : null);
+
+  // Bus route polyline(s)
+  if (isDirect) {
+    drawBusLine(leg1, C.green);
+  } else {
+    drawBusLine(leg1, C.blue);
+    if (leg2) drawBusLine(leg2, C.purple);
+  }
+
+  const lastLeg  = journey.legs[journey.legs.length - 1];
+  const alightLL = lastLeg.to_lat ? { lat: lastLeg.to_lat, lng: lastLeg.to_lon } : null;
+
+  // Markers
+  if (boardLL) dropStopMarker(boardLL, leg1.boarding_name || leg1.from_display, "board", C.green);
+  if (alightLL) dropStopMarker(alightLL, lastLeg.to_display, "alight", C.purple);
+
+  // Transfer marker
+  if (!isDirect && leg2 && leg2.from_lat) {
+    dropTransferMarker({ lat: leg2.from_lat, lng: leg2.from_lon },
+                       journey.transfers[0] || leg2.from_display);
+  }
+
+  // Fit map to journey bounds
+  fitBounds(journey, fromLL, destLL);
+
+  // Info panel
+  updateInfoPanel(journey, isDirect, leg1, boardLL);
+}
+
+function drawBusLine(leg, color) {
+  if (!leg.from_lat || !leg.to_lat) return;
+
+  // Try to draw the actual route shape via route_shape API
+  fetch(`${API_BASE}/api/route-shape/${encodeURIComponent(leg.route)}`)
+    .then(r => r.json())
+    .then(data => {
+      const pts = (data.points || []).map(p => ({ lat: p[1], lng: p[0] }));
+      if (!pts.length) {
+        pts.push({ lat: leg.from_lat, lng: leg.from_lon });
+        pts.push({ lat: leg.to_lat,   lng: leg.to_lon });
+      }
+      const poly = new google.maps.Polyline({
+        path: pts,
+        strokeColor: color,
+        strokeWeight: 6,
+        strokeOpacity: 0.92,
+        map: gmap,
+      });
+      activeOverlays.push(poly);
+    })
+    .catch(() => {
+      // Fallback: straight line
+      const poly = new google.maps.Polyline({
+        path: [{ lat: leg.from_lat, lng: leg.from_lon },
+               { lat: leg.to_lat,   lng: leg.to_lon }],
+        strokeColor: color,
+        strokeWeight: 6,
+        strokeOpacity: 0.85,
+        map: gmap,
+      });
+      activeOverlays.push(poly);
+    });
+}
+
+// ── Pin SVG builders ─────────────────────────────────────────────────────────
+function tearDropSvg(fillColor, innerSvg = "", w = 28, h = 38) {
+  const cx = w / 2, cy = Math.round(h * 0.38);
+  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+      <filter id="s"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-opacity=".35"/></filter>
+      <path d="M${cx} 1 C${Math.round(cx*.35)} 1 1 ${Math.round(cy*.65)} 1 ${cy}
+               C1 ${Math.round(cy*1.55)} ${cx} ${h-1} ${cx} ${h-1}
+               C${cx} ${h-1} ${w-1} ${Math.round(cy*1.55)} ${w-1} ${cy}
+               C${w-1} ${Math.round(cy*.65)} ${Math.round(cx*1.65)} 1 ${cx} 1Z"
+            fill="${fillColor}" stroke="rgba(0,0,0,.22)" stroke-width="1" filter="url(#s)"/>
+      ${innerSvg}
+    </svg>`
+  );
+}
+
+function dropUserPin(ll) {
+  const cx = 14, cy = 13;
+  activeOverlays.push(new google.maps.Marker({
+    position: ll,
+    map: gmap,
+    title: "Your location",
+    icon: {
+      url: tearDropSvg("#2980b9",
+        `<circle cx="${cx}" cy="${cy}" r="5.5" fill="white" opacity=".92"/>
+         <circle cx="${cx}" cy="${cy}" r="2.5" fill="#2980b9"/>`),
+      scaledSize: new google.maps.Size(28, 38),
+      anchor:     new google.maps.Point(14, 38),
+    },
+    zIndex: 30,
+  }));
+}
+
+function dropDestPin(ll, name) {
+  // Larger red pin with a white star — marks the final destination
+  const w = 34, h = 46, cx = 17, cy = 16;
+  activeOverlays.push(new google.maps.Marker({
+    position: ll,
+    map: gmap,
+    title: name,
+    icon: {
+      url: tearDropSvg("#e74c3c",
+        `<path d="M${cx} 8 l2 5.5h5.8l-4.7 3.4 1.8 5.5-4.9-3.6-4.9 3.6 1.8-5.5-4.7-3.4h5.8z"
+               fill="white" opacity=".92"/>`, w, h),
+      scaledSize: new google.maps.Size(w, h),
+      anchor:     new google.maps.Point(cx, h),
+    },
+    zIndex: 30,
+  }));
+}
+
+function stopPinSvg(name, color) {
+  const MAX   = 22;
+  const label = name.length > MAX ? name.slice(0, MAX - 1) + "…" : name;
+  const svgW  = Math.max(Math.round(label.length * 5.8) + 18, 32);
+  const esc   = label.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const cx    = svgW / 2;
+  // layout: chip 0-18 | stem 18-26 | teardrop 26-48
+  const pinTop = 26, pinH = 22, totalH = pinTop + pinH;
+  const pinCY  = pinTop + 7;
+  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${totalH}">
+      <rect x="1" y="1" width="${svgW-2}" height="17" rx="4"
+            fill="${color}" stroke="rgba(0,0,0,.2)" stroke-width=".8"/>
+      <text x="${cx}" y="10" text-anchor="middle" dominant-baseline="middle"
+            fill="#fff" font-size="9.5" font-weight="700"
+            font-family="Segoe UI,Arial,sans-serif">${esc}</text>
+      <line x1="${cx}" y1="18" x2="${cx}" y2="${pinTop}"
+            stroke="${color}" stroke-width="2"/>
+      <path d="M${cx} ${pinTop} C${cx-7} ${pinTop} ${cx-8} ${pinTop+4} ${cx-8} ${pinCY}
+               C${cx-8} ${pinTop+14} ${cx} ${totalH-1} ${cx} ${totalH-1}
+               C${cx} ${totalH-1} ${cx+8} ${pinTop+14} ${cx+8} ${pinCY}
+               C${cx+8} ${pinTop+4} ${cx+7} ${pinTop} ${cx} ${pinTop}Z"
+            fill="${color}" stroke="rgba(0,0,0,.2)" stroke-width=".8"/>
+      <circle cx="${cx}" cy="${pinCY}" r="3.5" fill="white" opacity=".9"/>
+    </svg>`
+  );
+}
+
+function dropStopMarker(ll, name, kind, color) {
+  const MAX   = 22;
+  const label = name.length > MAX ? name.slice(0, MAX - 1) + "…" : name;
+  const svgW  = Math.max(Math.round(label.length * 5.8) + 18, 32);
+  activeOverlays.push(new google.maps.Marker({
+    position: ll,
+    map: gmap,
+    title: name,
+    icon: {
+      url:    stopPinSvg(name, color),
+      anchor: new google.maps.Point(svgW / 2, 47),  // tip of teardrop (totalH-1)
+    },
+    zIndex: kind === "board" ? 22 : 18,
+  }));
+}
+
+function dropTransferMarker(ll, name) {
+  const MAX   = 22;
+  const label = name.length > MAX ? name.slice(0, MAX - 1) + "…" : name;
+  const svgW  = Math.max(Math.round(label.length * 5.8) + 18, 32);
+  const esc   = label.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const cx    = svgW / 2;
+  const pinTop = 26, totalH = 48, pinCY = 33;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${totalH}">
+    <rect x="1" y="1" width="${svgW-2}" height="17" rx="4"
+          fill="${C.orange}" stroke="rgba(0,0,0,.2)" stroke-width=".8"/>
+    <text x="${cx}" y="10" text-anchor="middle" dominant-baseline="middle"
+          fill="#fff" font-size="9.5" font-weight="700"
+          font-family="Segoe UI,Arial,sans-serif">${esc}</text>
+    <line x1="${cx}" y1="18" x2="${cx}" y2="${pinTop}" stroke="${C.orange}" stroke-width="2"/>
+    <path d="M${cx} ${pinTop} C${cx-7} ${pinTop} ${cx-8} ${pinTop+4} ${cx-8} ${pinCY}
+             C${cx-8} ${pinTop+14} ${cx} ${totalH-1} ${cx} ${totalH-1}
+             C${cx} ${totalH-1} ${cx+8} ${pinTop+14} ${cx+8} ${pinCY}
+             C${cx+8} ${pinTop+4} ${cx+7} ${pinTop} ${cx} ${pinTop}Z"
+          fill="${C.orange}" stroke="rgba(0,0,0,.2)" stroke-width=".8"/>
+    <path d="M${cx-3} ${pinCY-2} l6 0 M${cx+1} ${pinCY-4} l2 2-2 2
+             M${cx-3} ${pinCY+2} l6 0 M${cx-3} ${pinCY} l2-2-2 2"
+          stroke="white" stroke-width="1.4" stroke-linecap="round" fill="none" opacity=".9"/>
+  </svg>`;
+  activeOverlays.push(new google.maps.Marker({
+    position: ll,
+    map: gmap,
+    title: `Transfer: ${name}`,
+    icon: {
+      url:    "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg),
+      anchor: new google.maps.Point(cx, totalH - 1),
+    },
+    zIndex: 25,
+  }));
+}
+
+function clearNearby(kind) {
+  const arr = kind === "from" ? nearbyFromOverlays : nearbyToOverlays;
+  arr.forEach(o => o.setMap(null));
+  arr.length = 0;
+  const badge = document.getElementById(kind === "from" ? "from-const" : "to-const");
+  if (badge) badge.textContent = "";
+}
+
+async function showNearbyStops(ll, kind) {
+  clearNearby(kind);
+  try {
+    const res  = await fetch(`/api/nearby-stops?lat=${ll.lat}&lng=${ll.lng}&n=1`);
+    const data = await res.json();
+    const badge = document.getElementById(kind === "from" ? "from-const" : "to-const");
+    if (badge) badge.textContent = data.constituency ? `\u{1F4CD} ${data.constituency}` : "";
+  } catch(e) { console.warn("nearby-stops failed", e); }
+}
+
+function createDivIcon(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.firstElementChild || div;
+}
+
+function fitBounds(journey, fromLL, destLL) {
+  const bounds = new google.maps.LatLngBounds();
+  if (fromLL) bounds.extend(fromLL);
+  if (destLL) bounds.extend(destLL);
+  journey.legs.forEach(leg => {
+    if (leg.from_lat) bounds.extend({ lat: leg.from_lat, lng: leg.from_lon });
+    if (leg.to_lat)   bounds.extend({ lat: leg.to_lat,   lng: leg.to_lon });
+  });
+  gmap.fitBounds(bounds, { top: 40, right: 40, bottom: 40, left: 40 });
+}
+
+function updateInfoPanel(journey, isDirect, leg1, boardLL) {
+  const leg2   = journey.legs[1];
+  const color1 = leg1.color || C.green;
+  const color2 = leg2 ? (leg2.color || C.purple) : null;
+  const board  = leg1.boarding_name || leg1.from_display || "nearest stop";
+
+  document.getElementById("mi-route").textContent = "";
+  document.getElementById("mi-detail").innerHTML =
+    `Board at <b>${board}</b><br>` +
+    `${isDirect ? "Direct route" : "1 transfer"} &nbsp;·&nbsp; KSh <b>${journey.total_fare}</b>`;
+  document.getElementById("map-info").style.display = "block";
+
+  collapseDrawer("", isDirect ? "Direct" : "1 Transfer", `KSh ${journey.total_fare}`);
+}
+
+function clearOverlays() {
+  activeOverlays.forEach(o => {
+    if (typeof o.setMap === "function") o.setMap(null);
+    else if (o.map !== undefined) o.map = null;
+  });
+  activeOverlays = [];
+  document.getElementById("map-info").style.display = "none";
+}
+
+function setStatus(html) {
+  document.getElementById("results").innerHTML = `<div id="status">${html}</div>`;
+}
+
+// ── Map style from exported_style.json ────────────────────────────────────────
+async function loadMapStyle() {
+  try {
+    const res = await fetch("/exported_style.json");
+    const cfg = await res.json();
+    const dark = cfg.variant === "dark";
+    const mono = cfg.monochrome === true;
+    const base = dark
+      ? [
+          {elementType:"geometry",stylers:[{color:"#212121"}]},
+          {elementType:"labels.text.fill",stylers:[{color:"#757575"}]},
+          {elementType:"labels.text.stroke",stylers:[{color:"#212121"}]},
+          {featureType:"administrative",elementType:"geometry",stylers:[{color:"#757575"}]},
+          {featureType:"administrative.country",elementType:"labels.text.fill",stylers:[{color:"#9e9e9e"}]},
+          {featureType:"administrative.locality",elementType:"labels.text.fill",stylers:[{color:"#bdbdbd"}]},
+          {featureType:"poi",stylers:[{visibility:"off"}]},
+          {featureType:"poi.park",elementType:"geometry",stylers:[{color:"#181818"}]},
+          {featureType:"poi.park",elementType:"labels.text.fill",stylers:[{color:"#616161"}]},
+          {featureType:"road",elementType:"geometry.fill",stylers:[{color:"#2c2c2c"}]},
+          {featureType:"road",elementType:"labels.text.fill",stylers:[{color:"#8a8a8a"}]},
+          {featureType:"road.arterial",elementType:"geometry",stylers:[{color:"#373737"}]},
+          {featureType:"road.highway",elementType:"geometry",stylers:[{color:"#3c3c3c"}]},
+          {featureType:"road.highway.controlled_access",elementType:"geometry",stylers:[{color:"#4e4e4e"}]},
+          {featureType:"road.local",elementType:"labels.text.fill",stylers:[{color:"#616161"}]},
+          {featureType:"transit",stylers:[{visibility:"off"}]},
+          {featureType:"water",elementType:"geometry",stylers:[{color:"#000000"}]},
+          {featureType:"water",elementType:"labels.text.fill",stylers:[{color:"#3d3d3d"}]},
+        ]
+      : [];
+    if (mono) base.unshift({stylers:[{saturation:-100}]});
+    return base;
+  } catch(e) {
+    return [];
+  }
+}
+
+// ── Bootstrap ─────────────────────────────────────────────────────────────────
+window.initMap = initMap;
+
+// ── PWA install ───────────────────────────────────────────────────────────────
+let _installPrompt = null;
+
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  _installPrompt = e;
+});
+
+document.getElementById("btn-download").addEventListener("click", async e => {
+  e.preventDefault();
+
+  const isInstalled = window.matchMedia("(display-mode: standalone)").matches
+                   || navigator.standalone === true;
+  if (isInstalled) {
+    showInstallToast("Already installed on your home screen!", false);
+    return;
+  }
+
+  // Native prompt ready (Chrome / Edge after engagement criteria met)
+  if (_installPrompt) {
+    _installPrompt.prompt();
+    const { outcome } = await _installPrompt.userChoice;
+    if (outcome === "accepted") _installPrompt = null;
+    return;
+  }
+
+  const ua = navigator.userAgent;
+  const isIOS    = /iphone|ipad|ipod/i.test(ua) && !window.MSStream;
+  const isChrome = /chrome|crios/i.test(ua) && !/edg/i.test(ua);
+  const isSamsung = /samsungbrowser/i.test(ua);
+
+  if (isIOS) {
+    showInstallToast('Tap <strong>Share &#x2BAD;</strong> then <strong>"Add to Home Screen"</strong>', true);
+    return;
+  }
+
+  if (isChrome || isSamsung) {
+    showInstallToast('Tap <strong>&#8942;</strong> in the top-right then <strong>"Add to Home Screen"</strong>', false);
+    return;
+  }
+
+  showInstallToast('Open in Chrome, tap <strong>&#8942;</strong> → <strong>"Add to Home Screen"</strong>', false);
+});
+
+function showInstallToast(html, showArrow) {
+  let el = document.getElementById("install-toast");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "install-toast";
+    el.style.cssText = [
+      "position:fixed", "bottom:100px", "left:50%", "transform:translateX(-50%)",
+      "background:#1a2e1c", "border:1px solid rgba(62,207,110,.35)",
+      "border-radius:14px", "padding:14px 18px", "font-size:.8rem",
+      "color:#e8f5ec", "max-width:280px", "text-align:center",
+      "z-index:999", "box-shadow:0 8px 32px rgba(0,0,0,.6)",
+      "line-height:1.6", "transition:opacity .3s"
+    ].join(";");
+    document.body.appendChild(el);
+  }
+  el.innerHTML = html + (showArrow
+    ? `<div style="margin-top:8px;font-size:1.4rem">⬆</div>` : "");
+  el.style.opacity = "1";
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.style.opacity = "0"; }, 4000);
+}
+
+// ── Service worker registration ───────────────────────────────────────────────
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js").catch(() => {});
+}
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFNEU3Dpiw2cwPyQ3j4gY8nPY1S0MFuwc&libraries=places,geometry&callback=initMap">
+</script>
+</body>
+</html>

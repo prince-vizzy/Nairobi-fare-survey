@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Nairobi Transit</title>
+<style>
+/* ── Reset ──────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --panel:#0f1f14;
+  --panel2:#162b1c;
+  --border:rgba(255,255,255,.13);
+  --accent:#3ecf6e;
+  --text:#e8f5ec;
+  --muted:#6b8a72;
+  --input-bg:rgba(255,255,255,.07);
+  --card-bg:rgba(255,255,255,.05);
+  --orange:#f59e0b;
+  --blue:#60a5fa;
+}
+
+html,body{
+  height:100%;
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:#000;
+  overflow:hidden;
+}
+
+/* ── Full-screen layout ──────────────────────────────────── */
+body{background:#000}
+
+.phone-wrap{
+  position:relative;
+  width:100vw;
+  height:100dvh;
+  background:#000;
+  overflow:hidden;
+}
+
+/* ── Map fills phone screen ─────────────────────────────── */
+#map{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+/* ── Top bar ────────────────────────────────────────────── */
+.top-bar{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:56px;
+  padding:0 20px;
+  display:flex;
+  align-items:flex-end;
+  padding-bottom:8px;
+  background:linear-gradient(to bottom, rgba(15,31,20,.9) 0%, transparent 100%);
+  z-index:20;
+}
+.app-title{
+  font-size:.85rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  color:#fff;
+  opacity:.9;
+}
+.gps-btn{
+  margin-left:auto;
+  background:rgba(62,207,110,.15);
+  border:1px solid rgba(62,207,110,.4);
+  border-radius:20px;
+  padding:5px 12px;
+  color:var(--accent);
+  font-size:.72rem;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;align-items:center;gap:5px;
+}
+.gps-btn svg{width:12px;height:12px;fill:currentColor}
+
+/* ── Bottom search drawer ───────────────────────────────── */
+.drawer{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  background:rgba(12,24,16,.92);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-top-left-radius:28px;
+  border-top-right-radius:28px;
+  padding:14px 20px 28px;
+  z-index:30;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+
+.drawer-handle{
+  width:40px;height:4px;
+  background:rgba(255,255,255,.2);
+  border-radius:2px;
+  margin:0 auto 16px;
+}
+
+/* ── Search fields ──────────────────────────────────────── */
+.fields{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:14px;
+}
+
+.field-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px 14px;
+  position:relative;
+}
+
+.field-row+.field-row{
+  border-top:1px solid var(--border);
+}
+
+.dot{
+  width:10px;height:10px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+.dot.from{background:#60a5fa}
+.dot.to{background:#f87171}
+
+.field-row input{
+  flex:1;
+  background:none;
+  border:none;
+  outline:none;
+  color:var(--text);
+  font-size:.9rem;
+  font-family:inherit;
+}
+.field-row input::placeholder{color:var(--muted)}
+
+.swap-btn{
+  position:absolute;
+  right:14px;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--border);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1;
+  display:none; /* shown only on the divider line */
+}
+
+/* Swap sits between the two fields */
+.field-divider{
+  position:relative;
+  height:0;
+  border-top:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding-right:14px;
+}
+.swap-btn{
+  display:flex;
+  position:relative;
+  top:0;right:0;transform:none;
+  margin-right:4px;
+}
+
+/* ── Search button ──────────────────────────────────────── */
+.search-btn{
+  width:100%;
+  padding:14px;
+  background:var(--accent);
+  border:none;
+  border-radius:14px;
+  color:#0a1f0f;
+  font-size:.95rem;
+  font-weight:700;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:opacity .2s,transform .1s;
+  letter-spacing:.02em;
+}
+.search-btn:active{opacity:.85;transform:scale(.98)}
+.search-btn svg{width:16px;height:16px;fill:currentColor}
+.search-btn.loading{opacity:.7;pointer-events:none}
+
+/* ── Results area ───────────────────────────────────────── */
+.results{
+  margin-top:16px;
+  max-height:220px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.results::-webkit-scrollbar{display:none}
+
+.result-card{
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px 14px;
+  animation:fadeUp .3s ease both;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+.badge-row{display:flex;gap:6px;flex-wrap:wrap}
+.badge{
+  padding:3px 9px;
+  border-radius:20px;
+  font-size:.7rem;
+  font-weight:700;
+  color:#fff;
+  background:#2980b9;
+}
+.badge.b2{background:#8e44ad}
+.fare-tag{
+  font-size:.78rem;
+  font-weight:700;
+  color:var(--accent);
+}
+
+.leg-list{display:flex;flex-direction:column;gap:5px}
+.leg{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  font-size:.75rem;
+  color:#9ab09e;
+  line-height:1.4;
+}
+.leg b{color:var(--text)}
+
+.transfer-note{
+  margin-top:8px;
+  padding:6px 10px;
+  background:rgba(245,158,11,.08);
+  border:1px solid rgba(245,158,11,.2);
+  border-radius:8px;
+  font-size:.7rem;
+  color:var(--orange);
+}
+
+/* Walk / boda card */
+.boda-card{
+  background:rgba(245,158,11,.06);
+  border:1px solid rgba(245,158,11,.25);
+  border-radius:14px;
+  padding:13px 14px;
+  font-size:.8rem;
+  color:#fcd34d;
+  display:flex;align-items:flex-start;gap:10px;
+  animation:fadeUp .3s ease both;
+}
+.boda-icon{font-size:1.4rem;line-height:1}
+
+/* AI chat bubble */
+.ai-bubble{
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px 14px;
+  font-size:.8rem;
+  color:#c8ddd0;
+  line-height:1.55;
+  animation:fadeUp .3s ease both;
+  white-space:pre-wrap;
+}
+
+.status-msg{
+  text-align:center;
+  color:var(--muted);
+  font-size:.78rem;
+  padding:10px 0;
+}
+
+/* spinner */
+.spin{
+  display:inline-block;
+  width:14px;height:14px;
+  border:2px solid rgba(255,255,255,.2);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:rot .6s linear infinite;
+  vertical-align:middle;
+}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <!-- Live Google Map background -->
+  <div id="map"></div>
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <span class="app-title">NAIROBI TRANSIT</span>
+    <button class="gps-btn" id="btn-gps">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Use my location
+    </button>
+  </div>
+
+  <!-- Bottom drawer -->
+  <div class="drawer" id="drawer">
+    <div class="drawer-handle"></div>
+
+    <!-- Search fields -->
+    <div class="fields">
+      <div class="field-row">
+        <span class="dot from"></span>
+        <input id="inp-from" type="text" placeholder="From — e.g. Rongai" autocomplete="off">
+      </div>
+      <div class="field-divider">
+        <button class="swap-btn" id="btn-swap" title="Swap">⇅</button>
+      </div>
+      <div class="field-row">
+        <span class="dot to"></span>
+        <input id="inp-to" type="text" placeholder="To — e.g. Westlands" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- Search -->
+    <button class="search-btn" id="btn-search">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      Search Route
+    </button>
+
+    <!-- Results -->
+    <div class="results" id="results"></div>
+  </div>
+</div>
+
+<script>
+const SESSION_ID = crypto.randomUUID();
+let map, geocoder, userMarker, routeMarkers = [];
+let userLat = null, userLng = null;
+let toLat   = null, toLng   = null;
+
+// ── Map init ──────────────────────────────────────────────
+window.initMap = function () {
+  geocoder = new google.maps.Geocoder();
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: -1.2921, lng: 36.8219 },
+    zoom: 13,
+    disableDefaultUI: true,
+    styles: [
+      { elementType: 'geometry', stylers: [{ color: '#1a1a2e' }] },
+      { elementType: 'labels.text.fill', stylers: [{ color: '#6c7a89' }] },
+      { elementType: 'labels.text.stroke', stylers: [{ color: '#1a1a2e' }] },
+      { featureType: 'road', elementType: 'geometry.fill', stylers: [{ color: '#2d2d44' }] },
+      { featureType: 'road.arterial', elementType: 'geometry', stylers: [{ color: '#373760' }] },
+      { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#3c3c6a' }] },
+      { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0d1b2a' }] },
+      { featureType: 'poi', stylers: [{ visibility: 'off' }] },
+      { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+      { featureType: 'administrative.locality', elementType: 'labels.text.fill', stylers: [{ color: '#8899aa' }] },
+    ],
+  });
+
+  // ── Places Autocomplete for From / To inputs ─────────────
+  const nairobiBounds = new google.maps.LatLngBounds(
+    { lat: -1.45, lng: 36.55 },
+    { lat: -1.05, lng: 37.10 }
+  );
+  const acOpts = {
+    componentRestrictions: { country: 'ke' },
+    bounds: nairobiBounds,
+    strictBounds: false,
+    fields: ['geometry', 'name'],
+  };
+  const fromAC = new google.maps.places.Autocomplete(document.getElementById('inp-from'), acOpts);
+  const toAC   = new google.maps.places.Autocomplete(document.getElementById('inp-to'),   acOpts);
+
+  fromAC.addListener('place_changed', () => {
+    const p = fromAC.getPlace();
+    if (p.geometry) {
+      userLat = p.geometry.location.lat();
+      userLng = p.geometry.location.lng();
+      map.panTo(p.geometry.location);
+      dropPin({ lat: userLat, lng: userLng }, '#60a5fa');
+    }
+  });
+  toAC.addListener('place_changed', () => {
+    const p = toAC.getPlace();
+    if (p.geometry) {
+      toLat = p.geometry.location.lat();
+      toLng = p.geometry.location.lng();
+      map.panTo(p.geometry.location);
+      dropPin({ lat: toLat, lng: toLng }, '#f87171');
+    }
+  });
+};
+
+// ── GPS ───────────────────────────────────────────────────
+document.getElementById('btn-gps').addEventListener('click', () => {
+  if (!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(pos => {
+    userLat = pos.coords.latitude;
+    userLng = pos.coords.longitude;
+    const ll = { lat: userLat, lng: userLng };
+    map.panTo(ll);
+    map.setZoom(15);
+    if (userMarker) userMarker.setMap(null);
+    userMarker = new google.maps.Marker({
+      position: ll, map,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 8, fillColor: '#3ecf6e', fillOpacity: 1,
+        strokeColor: '#fff', strokeWeight: 2,
+      },
+    });
+    document.getElementById('inp-from').value = 'My location';
+  }, () => alert('Location access denied'));
+});
+
+// ── Swap ──────────────────────────────────────────────────
+document.getElementById('btn-swap').addEventListener('click', () => {
+  const a = document.getElementById('inp-from');
+  const b = document.getElementById('inp-to');
+  [a.value, b.value] = [b.value, a.value];
+  [userLat, toLat] = [toLat, userLat];
+  [userLng, toLng] = [toLng, userLng];
+});
+
+// Reset cached coords when user edits inputs manually
+document.getElementById('inp-from').addEventListener('input', () => { userLat = null; userLng = null; });
+document.getElementById('inp-to').addEventListener('input',   () => { toLat   = null; toLng   = null; });
+
+// ── Enter key triggers search ─────────────────────────────
+['inp-from','inp-to'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') doSearch();
+  });
+});
+document.getElementById('btn-search').addEventListener('click', doSearch);
+
+// ── Geocode helper ────────────────────────────────────────
+function geocodeText(text) {
+  return new Promise(resolve => {
+    geocoder.geocode(
+      { address: text + ', Nairobi, Kenya', componentRestrictions: { country: 'ke' } },
+      (results, status) => resolve(status === 'OK' && results[0] ? results[0].geometry.location : null)
+    );
+  });
+}
+
+// ── Search ────────────────────────────────────────────────
+async function doSearch() {
+  const from = document.getElementById('inp-from').value.trim();
+  const to   = document.getElementById('inp-to').value.trim();
+  if (!from || !to) {
+    showStatus('Enter both a start and end point.');
+    return;
+  }
+
+  const btn = document.getElementById('btn-search');
+  btn.classList.add('loading');
+  btn.innerHTML = '<span class="spin"></span> Searching…';
+  clearResults();
+  clearMapPins();
+
+  // Geocode any side not yet resolved by autocomplete
+  if (!userLat || !userLng) {
+    const loc = await geocodeText(from);
+    if (loc) { userLat = loc.lat(); userLng = loc.lng(); }
+  }
+  if (!toLat || !toLng) {
+    const loc = await geocodeText(to);
+    if (loc) { toLat = loc.lat(); toLng = loc.lng(); }
+  }
+
+  // Drop origin / destination pins and fit map
+  if (userLat && userLng) dropPin({ lat: userLat, lng: userLng }, '#60a5fa');
+  if (toLat   && toLng)   dropPin({ lat: toLat,   lng: toLng   }, '#f87171');
+  if (userLat && toLat) {
+    const bounds = new google.maps.LatLngBounds(
+      { lat: Math.min(userLat, toLat), lng: Math.min(userLng, toLng) },
+      { lat: Math.max(userLat, toLat), lng: Math.max(userLng, toLng) }
+    );
+    map.fitBounds(bounds, 80);
+  }
+
+  // Fire both requests in parallel
+  const planUrl = `/api/plan?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}` +
+    (userLat ? `&lat=${userLat}&lng=${userLng}` : '');
+
+  const chatBody = JSON.stringify({
+    message: `How do I get from ${from} to ${to}?`,
+    session_id: SESSION_ID,
+    lat: userLat,
+    lng: userLng,
+    intent: 'simple_transit',
+  });
+
+  try {
+    const [planRes, chatRes] = await Promise.all([
+      fetch(planUrl),
+      fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: chatBody,
+      }),
+    ]);
+
+    const journeys = planRes.ok ? await planRes.json() : [];
+    const chatData = chatRes.ok ? await chatRes.json() : {};
+    const aiReply  = chatData.response || '';
+
+    renderResults(journeys, aiReply);
+
+  } catch (err) {
+    showStatus('Could not connect. Is the server running?');
+  } finally {
+    btn.classList.remove('loading');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg> Search Route`;
+  }
+}
+
+// ── Render ────────────────────────────────────────────────
+function renderResults(journeys, aiReply) {
+  const box = document.getElementById('results');
+
+  // Boda/walk — no structured journeys
+  if (!journeys || journeys.length === 0) {
+    const isBoda = aiReply.toLowerCase().includes('bodaboda') ||
+                   aiReply.toLowerCase().includes('boda');
+    if (isBoda) {
+      box.innerHTML = `
+        <div class="boda-card">
+          <span class="boda-icon">🏍️</span>
+          <div>${escHtml(aiReply)}</div>
+        </div>`;
+    } else if (aiReply) {
+      box.innerHTML = `<div class="ai-bubble">${escHtml(aiReply)}</div>`;
+    } else {
+      showStatus('No routes found for that journey.');
+    }
+    return;
+  }
+
+  // Route cards
+  journeys.forEach((j, i) => {
+    if (!j.legs) return;
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.style.animationDelay = `${i * 0.07}s`;
+
+    const badges = j.legs.map((l, li) =>
+      `<span class="badge ${li > 0 ? 'b2' : ''}">${escHtml(l.route)}</span>`
+    ).join('');
+
+    const legs = j.legs.map((l, li) => {
+      const icon = li === 0 ? '🚌' : '🔄';
+      const ws = l.windscreen ? ` — <em>${escHtml(l.windscreen)}</em>` : '';
+      return `<div class="leg">
+        <span>${icon}</span>
+        <span><b>Route ${escHtml(l.route)}</b>${ws} | ${l.fare} KSh</span>
+      </div>`;
+    }).join('');
+
+    const xfer = j.transfers && j.transfers.length
+      ? `<div class="transfer-note">🔄 Transfer at ${j.transfers.map(fmtWp).join(', ')}</div>`
+      : '';
+
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="badge-row">${badges}</div>
+        <span class="fare-tag">~${j.total_fare} KSh</span>
+      </div>
+      <div class="leg-list">${legs}</div>
+      ${xfer}`;
+    box.appendChild(card);
+  });
+
+  // AI narrative below the cards
+  if (aiReply) {
+    const bubble = document.createElement('div');
+    bubble.className = 'ai-bubble';
+    bubble.style.animationDelay = `${journeys.length * 0.07}s`;
+    bubble.textContent = aiReply;
+    box.appendChild(bubble);
+  }
+}
+
+// ── Map helpers ───────────────────────────────────────────
+function dropPin(ll, color) {
+  const m = new google.maps.Marker({
+    position: ll, map,
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 8, fillColor: color, fillOpacity: 1,
+      strokeColor: '#fff', strokeWeight: 2,
+    },
+  });
+  routeMarkers.push(m);
+}
+function clearMapPins() {
+  routeMarkers.forEach(m => m.setMap(null));
+  routeMarkers = [];
+}
+
+// ── Helpers ───────────────────────────────────────────────
+function clearResults() {
+  document.getElementById('results').innerHTML = '';
+}
+function showStatus(msg) {
+  document.getElementById('results').innerHTML =
+    `<div class="status-msg">${escHtml(msg)}</div>`;
+}
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function fmtWp(wp) {
+  return wp.replace(/^__(.+)__$/, (_, m) =>
+    m.replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase())
+  );
+}
+</script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFNEU3Dpiw2cwPyQ3j4gY8nPY1S0MFuwc&libraries=places&callback=initMap"
+  async defer>
+</script>
+</body>
+</html>

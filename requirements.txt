@@ -1,0 +1,13 @@
+flask>=3.0.0
+gunicorn>=21.2.0
+pandas>=2.0.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+geopandas>=0.14.0
+shapely>=2.0.0
+networkx>=3.2
+osmnx>=1.9.0
+folium>=0.16.0
+geopy>=2.4.0
+pyproj>=3.6.0
+scipy>=1.11.0
