@@ -1,0 +1,57 @@
+Timestamp,Route,Fare Paid (KSh),Direction
+2026-04-29T09:33:33.375Z,CBD - Ongata Rongai,100,CBD → Ongata Rongai
+2026-04-29T09:33:33.375Z,Ongata Rongai - CBD,100,Ongata Rongai → CBD
+2026-04-29T09:40:54.485Z,CBD - Ngara,50,CBD → Ngara
+2026-04-29T09:40:54.485Z,Ngara - CBD,50,Ngara → CBD
+2026-04-29T09:41:15.886Z,CBD - Westlands,50,CBD → Westlands
+2026-04-29T09:41:15.886Z,Westlands - CBD,50,Westlands → CBD
+2026-04-29T09:42:32.671Z,CBD - Eastleigh,50,CBD → Eastleigh
+2026-04-29T09:43:10.536Z,CBD - Karen,100,CBD → Karen
+2026-04-29T09:43:24.131Z,Bomas - Karen,50,Bomas → Karen
+2026-04-29T09:43:45.268Z,CBD - Ongata Rongai,100,CBD → Ongata Rongai
+2026-04-29T09:44:09.859Z,CBD - Kangemi,50,CBD → Kangemi
+2026-04-29T09:45:09.973Z,CBD - Baba Dogo,100,CBD → Baba Dogo
+2026-04-29T09:45:18.732Z,Kariobangi North - Town,50,Kariobangi North → Town
+2026-04-29T09:45:29.963Z,Allsops - Dandora,50,Allsops → Dandora
+2026-04-29T09:45:49.465Z,Roysambu - KU,50,Roysambu → KU
+2026-04-29T09:46:00.120Z,Roasters - Maruirui,50,Roasters → Maruirui
+2026-04-29T09:46:09.611Z,CBD - Ndumberi,150,CBD → Ndumberi
+2026-04-29T09:46:17.706Z,CBD - Mwiki,100,CBD → Mwiki
+2026-04-29T09:46:39.576Z,Roysambu - Mwiki,50,Roysambu → Mwiki
+2026-04-29T09:46:50.326Z,CBD - Lucky Summer,50,CBD → Lucky Summer
+2026-04-29T09:46:58.357Z,Allsops - Rounda,50,Allsops → Rounda
+2026-04-29T09:47:09.050Z,CBD - Kariobangi,50,CBD → Kariobangi
+2026-04-29T09:47:19.451Z,CBD - Dandora,100,CBD → Dandora
+2026-04-29T09:47:26.751Z,CBD - Huruma,50,CBD → Huruma
+2026-04-29T09:47:36.234Z,CBD - Rounda,50,CBD → Rounda
+2026-04-29T09:47:51.426Z,CBD - Kariobangi South,50,CBD → Kariobangi South
+2026-04-29T09:48:04.403Z,CBD - Komarocks,100,CBD → Komarocks
+2026-04-29T09:49:28.468Z,Bypass - Kahawa West,50,Bypass → Kahawa West
+2026-04-29T09:50:50.181Z,CBD - Bypass,100,CBD → Bypass
+2026-04-29T09:51:53.934Z,CBD - Kahawa West,100,CBD → Kahawa West
+2026-04-29T09:51:53.935Z,Kahawa West - CBD,100,Kahawa West → CBD
+2026-04-29T09:52:23.229Z,Kahawa West - Membley,50,Kahawa West → Membley
+2026-04-29T09:52:23.229Z,Membley - Kahawa West,50,Membley → Kahawa West
+2026-04-29T09:56:20.729Z,CBD - Parklands,50,CBD → Parklands
+2026-04-29T09:56:20.729Z,Parklands - CBD,50,Parklands → CBD
+2026-04-29T09:58:15.167Z,Bypass - KU Referral (KUTRRH),50,Bypass → KU Referral (KUTRRH)
+2026-04-29T09:58:15.168Z,KU Referral (KUTRRH) - Bypass,50,KU Referral (KUTRRH) → Bypass
+2026-04-29T09:59:19.518Z,Kahawa West - KU Referral (KUTRRH),50,Kahawa West → KU Referral (KUTRRH)
+2026-04-29T09:59:19.518Z,KU Referral (KUTRRH) - Kahawa West,50,KU Referral (KUTRRH) → Kahawa West
+2026-04-29T10:09:41.448Z,Kahawa West - Bypass,50,Kahawa West → Bypass
+2026-04-29T10:10:34.028Z,Bypass - CBD,100,Bypass → CBD
+2026-04-29T10:46:13.168Z,eastleigh - kariokor,50,eastleigh → kariokor
+2026-04-29T10:47:09.044Z,Cbd - Thika,100,Cbd → Thika
+2026-04-29T10:47:28.258Z,Thika - Cbd,150,Thika → Cbd
+2026-04-29T10:47:31.659Z,Rongai - Donholm,200,Rongai → Donholm
+2026-04-29T10:47:31.663Z,Donholm - Rongai,200,Donholm → Rongai
+2026-04-29T11:12:18.609Z,CBD - KU (via Githurai 45),100,CBD → KU
+2026-04-29T11:13:29.865Z,CBD - Kitengela,150,CBD → Kitengela
+2026-04-29T13:09:28.526Z,CBD - Ngara,50,CBD → Ngara
+2026-04-29T13:09:57.075Z,CBD - Gate B,100,CBD → Gate B
+2026-04-29T13:10:11.503Z,CBD - JKIA,150,CBD → JKIA
+2026-04-29T13:10:22.682Z,CBD - Pipeline,50,CBD → Pipeline
+2026-04-29T13:10:37.932Z,CBD - Langata,50,CBD → Langata
+2026-04-29T13:10:50.101Z,CBD - Karen,100,CBD → Karen
+2026-04-29T13:11:14.472Z,CBD - Pipeline (Mombasa Rd),100,CBD → Pipeline
+2026-04-29T13:19:48.039Z,CBD - Komarocks,100,CBD → Komarocks

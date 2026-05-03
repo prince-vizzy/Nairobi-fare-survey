@@ -1,0 +1,167 @@
+046P | Ambassadeur,Kabete,Kawangware | 100 KSh | stops: GPO, Serena, Valley Road Pentecostal, Hurlingham, Integrity Centre/Panafric, DoD, Four Points/Nairobi Women's Hospital, Chaka Place
+1 | Karen → Karinde → Dagoretti Market | 100 KSh | stops: Dagoretti Market, Karen Cottage, Pepo Lane, Deliverance Church, Don Bosco, Karinde, Hopevision Academy/Karen End Flats, Kenya Defense
+10 | Muthurwa → Makadara → Maringo | 40 KSh | stops: Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Posta, Uchumi Jogoo Road, Muthurwa
+100 | O.T.C → Pangani → Muthaiga Roundabout → Kiambu Road → Kiambu Institute → Kiambu | 50 KSh | stops: OTC, Mushroom, Equity Ngara, Balkan Sec School, Kasarini/Paradise Lost, Githogoro/Kigwa, Kirigiti/Ruui, KIST
+100A | Ngara → Pangani → Muthaiga Roundabout → Kiambu Road → Kiambu Institute → Kiambu Hospital | 150 KSh | stops: Mushroom, Equity Ngara, Balkan Sec School, Kasarini/Paradise Lost, Githogoro/Kigwa, KIST, Ridgeway Springs, Runda Junction
+102 | Railways → NgongRoad → Kawangware → Kikuyu | 150 KSh | stops: Agip, Railways, Kenyatta National Hospital, Library, Coptic/Mimosa, NHIF, Swedish School Nairobi, Kirichwa Road Junction
+103 | Dagoretti Market → Uthiru → Kinoo → Wangige | 100 KSh | stops: Wangige Stage, Tea Board/Dagoretti Corner, Dagoretti Corner Stage, Kaberia Junction/Wanyee Stage, Kinoo, Muthiga Academy, Regen, Cooperation
+105 | Odeon → Westlands → Kangemi → Kinoo → Regen → Kikuyu | 40 KSh | stops: Odeon, Museum, Westlands/Parklands Baptist, Kabete Barracks/ABC, Westlands DC/Church Road/Safaricom, Westlands DC/Church Road/Safaricom/Brookside Drive, Chiromo, AACC/Safaricom/Church Road
+106 | Koja → UN → Ruaka → Banana | 120 KSh | stops: Koja, Ngara, Globe, Fig Tree, Aga Khan Academy, Jamhuri High School, Stima Plaza, Wambugu Road
+107 | Odeon → UN → Ruaka → Ndenderu | 100 KSh | stops: Odeon, Ngara, Globe, Fig Tree, Aga Khan Academy, Jamhuri High School, Stima Plaza, Wambugu Road
+107A | Odeon → Parklands → UNEP/Gigiri → Runda → Two Rivers Mall → Ruaka → Ndenderu → Karura | 150 KSh | stops: Odeon, Limuru Road, Parklands, City Park, Aga Khan Hospital, UNEP/UN Complex, Runda, Two Rivers Mall, Joyland, Ruaka, Ndenderu, Karura Forest
+107D | Ruaka → Ruiru | 150 KSh | stops: Ruiru, Quickmart, Ruaka Stage, 44 Githurai, Sahala, PCEA, Membley Stage, Kwa Nyama
+108 | UN → New Muthaiga → Gachie → Gichagi | 40 KSh | stops: UNEP/Gigiri/KTTC, Junction/Poland Embassy, Nyari Police, Chamoka, Commission Of Higher Education, Jakai, Kona, Kwa Njenga
+11 | Bus Station → Industrial Area → South B → Hazina | 40 KSh | stops: OTC, Bus Station, Shell Haile Selassie Junction, Marmanet House, Machakos Road, Plainsview Phase 5, Plainsview Education Point/Bypass, Sana Sana
+110 | Railways → Mombasa Road → Mlolongo → Kitengela | 150 KSh | stops: Agip, Belleview, Capital Centre, Government Plaza/Devis, Nyayo, Makaburini, GM, Standard Group
+110AK | Athi River → Makadara → Kitengela | 150 KSh | stops: Sokoni/Peponi, Devki, Kitengela, KMC, Sulami, Starsheik Academy, Sulami/Nyambura, Starsheik
+110ATH | Railways → Mombasa Road → Devki → Makadara | 150 KSh | stops: Agip, Belleview, Capital Centre, Government Plaza/Devis, Nyayo, Makaburini, GM, Standard Group
+111 | Railways → Ngong Road → Karen → Ngong | 150 KSh | stops: Railways, Kenyatta National Hospital, Adams Arcade, Lenana, Karen Shopping Centre, Dagoretti Corner, Ngong Town
+114R | Ngara → Rwaka → Ndenderu → Limuru | 200 KSh | stops: Ngara, Aga Khan Academy, Jamhuri High School, Stima Plaza, Wambugu Road, OiLibya/2nd Parklands Avenue, UNEP/Gigiri/KTTC, Movers/Rosslyn Centre
+114W | Ngara → Westlands → Kangemi → Limuru | 200 KSh | stops: Westlands/Parklands Baptist, Kabete Barracks/ABC, Westlands DC/Church Road/Safaricom, Westlands DC/Church Road/Safaricom/Brookside Drive, Chiromo, AACC/Safaricom/Church Road, Kari/James Gichuru, Westlands Primary School
+115 | Koja → Westlands → Kangemi → Limuru | 200 KSh | stops: Koja, Museum, Westlands/Parklands Baptist, Kabete Barracks/ABC, Westlands DC/Church Road/Safaricom, Westlands DC/Church Road/Safaricom/Brookside Drive, Chiromo, AACC/Safaricom/Church Road
+116 | Koja → Ngara → Banana → Limuru | 200 KSh | stops: Ngara, Aga Khan Academy, Jamhuri High School, Stima Plaza, Wambugu Road, OiLibya/2nd Parklands Avenue, UNEP/Gigiri/KTTC, Movers/Rosslyn Centre
+118 | Koja → Westlands → Kabete → Wangige | 60 KSh | stops: Koja, Globe, Wangige Stage, Museum, Impala Hotel, K1/Kobil, Luna Park/Mpaka Road, Mp Shah
+119 | Koja → Westgate → Wangige | 100 KSh | stops: Koja, Globe, Fig Tree, Museum, Impala Hotel, K1/Kobil, Luna Park/Mpaka Road, Mp Shah
+119A | Town → Westlands → Peponi Road → Spring Valley → ISK → Gathiga | 150 KSh | stops: Koja, Globe, Fig Tree, Museum, Impala Hotel, K1/Kobil, Luna Park/Mpaka Road, Mp Shah
+11A | Odeon → Aga Khan → Highridge | 40 KSh | stops: Odeon, Ngara, Globe, Fig Tree, Aga Khan Academy, Jamhuri High School, Stima Plaza, Wambugu Road
+11B | Odeon → UN → Ruaka | 100 KSh | stops: Odeon, Ngara, Fig Tree, Aga Khan Academy, Jamhuri High School, Stima Plaza, Wambugu Road, OiLibya/2nd Parklands Avenue
+11C | Odeon → Pangani Flyover → Pangani Girls High School → Mlango → Pangani Terminus | 40 KSh | stops: Odeon, Koja, Guru Nanak, Ngara Stage, Ngara, KIE/Pioneer/Desai, Fig Tree, Pangani Terminal
+11D | Odeon → Parklands → MP Shah Hospital → Westlands → UKAY Centre | 50 KSh | stops: Odeon, Limuru Road, Parklands, City Park, Mt Kenya University Parklands, Avenue Hospital, MP Shah Hospital, Westlands Roundabout, UKAY Centre
+11F | Odeon → Kiambu Road → CID HQ → Bypass → Githogoro → Two Rivers Mall → Ruaka | 100 KSh | stops: Odeon, Ngara, Muthaiga Roundabout, CID HQ, Kiambu Road, Bypass Junction, Githogoro, Two Rivers Mall, Ruaka
+11_2 | Town → Industrial Area → Mater → Railways Training Institute → Balozi → Hazina | 40 KSh | stops: Bus Station, Shell Haile Selassie Junction, Marmanet House, Machakos Road, Plainsview Phase 5, Plainsview Education Point/Bypass, Sana Sana, Balozi Junction
+120 | Kaka → Pangani → Muthaiga Roundabout → Kiambu Road → Kiambu Institute → Kiambu → Githunguri | 150 KSh | stops: OTC, Kariokor, Pangani/Muthaiga Footbridge, Mushroom, Balkan Sec School, Kasarini/Paradise Lost, Githogoro/Kigwa, Kirigiti/Ruui
+121 | Kaka → Pangani → Muthaiga Roundabout → Kiambu Road → Kiambu Institute → Kiambu → Ndumberi | 150 KSh | stops: OTC, Kariokor, Pangani/Muthaiga Footbridge, Mushroom, Balkan Sec School, Kasarini/Paradise Lost, Githogoro/Kigwa, Kirigiti/Ruui
+125 | Railways → Langata Road → Bomas → Ongata Rongai | 100 KSh | stops: Agip, Railways, Shell Haile Selassie Junction, Shell/T-Mall, Nyayo Stadium, Dam Estate, Wilson/AMREF, Carnivore/Rafikiz
+126 | Railways → Langata Road → Ongata Rongai → Kiserian | 200 KSh | stops: Railways, Nyayo Stadium, Wilson/AMREF, Carnivore/Rafikiz, Uhuru Gardens, Nairobi National Park, Bomas, Catholic University, Multimedia University, Maasai Lodge, Kware Market, Rimpa, Ongata Rongai, Kiserian
+126N | Ngong → Kiserian | 200 KSh | stops: Kiserian, Ngong Bus Terminal, Matasia, Hiwi Court, Kona, 44, NPC Ngong, Milimani Star Junior
+126RK | Ongata Rongai → Nkoroi → Kiserian | 50 KSh | stops: Acacia, Baptist Church, Barabara Mpya/Adventist University, Caltex/Total, Exciting, Fair Mart, Flats/Arap Moi, Gichagi
+129 | Kikuyu → Magu → Kingeero → Wangige | 100 KSh | stops: Wangige Stage, Kikuyu Terminus, Acacia Petrol Station Junction, Green Belt/Kanyariri/Rukufi, Gitaru, Kenya Assemblies Of God King'eero/Bus stop, Matta, Acacia Junction/King'eero
+12C | Bus Station → Red Cross → Mugoya | 40 KSh | stops: Bus Station, Belleview, Capital Centre, Government Plaza/Devis, Nyayo, Makaburini, Cid Training School, KMA Estate
+12D | Bus Station → Red Cross → KPA → College Of Insurance → Amboseli | 40 KSh | stops: Agip, Bus Station, Belleview, Capital Centre, Government Plaza/Devis, Nyayo, Cid Training School, KMA Estate
+135 | Kaka → Westlands → Kangemi → Limuru | 200 KSh | stops: Museum, Westlands/Parklands Baptist, Kabete Barracks/ABC, Westlands DC/Church Road/Safaricom, Westlands DC/Church Road/Safaricom/Brookside Drive, Chiromo, AACC/Safaricom/Church Road, Kari/James Gichuru
+146 | Odeon → Pangani → Roysambu → Kahawa Wendani → KU → Ruiru | 150 KSh | stops: Odeon/Mumbi Lane, Pangani, Roysambu, Kahawa Wendani, Kahawa Barracks, Kahawa Sukari, KU/Kenyatta University, Ruiru Bypass, Ruiru Town
+14 | Ronald Ngala → Juja Road → Eastleigh → Huruma → Kariobangi | 50 KSh | stops: Kariokor, Base/Moi Forces Secondary School, BH, Flats, Mathare Worship/OiLibya, Kwa Chief, Moi Airforces Stage, Number 10
+145 | Munyu Road → Pangani → Roysambu → Githurai → KU → Ruiru | 150 KSh | stops: Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Guru Nanak, Ngara Stage, Ngara, Roasters/Naivas
+145B | Bypass → Ruiru Ndani → Ruiru | 150 KSh | stops: Ruiru, Bypass, Ruai Bypass, Centy Club, Kobe, Kamakis, Kwa Roy, Mitikenda
+145D | Torrents → Membley → Ruiru | 150 KSh | stops: Kihunguro, Super Highway, Ruiru, Mwisho wa Chuma, Roundabout, Junction, Membley Church, Ruiru Road Junction
+14A | Bus Station → Nairobi West → Madaraka → Strathmore | 40 KSh | stops: Agip, Bus Station, Makaburini, Nyayo Stadium, Nairobi West, Ramsey, Baraka, Madaraka Primary
+14B | Bus Station → Nairobi West → TMall | 40 KSh | stops: Agip, Bus Station, Makaburini, Nyayo Stadium, Madaraka Flyover, Uchumi, Nairobi West, Clinic
+15 | Bus Station → Nyayo Stadium → Wilson → Langata | 50 KSh | stops: Agip, Bus Station, Shell/T-Mall, Nyayo Stadium, Dam Estate, Wilson/AMREF, Bus Terminal, Makaburini
+16 | Bus Station → Nyayo Stadium → T Mall → Highrise | 40 KSh | stops: Agip, Bus Station, Shell/T-Mall, Nyayo Stadium, Madaraka Flyover, Airportview Estate, Bluesky Estate/T-Mall, Highrise
+16/62 | Bus Station → Rounda → Dandora → Kayole | 60 KSh | stops: OTC, Kariokor, Base/Moi Forces Secondary School, BH, Flats, Mathare Worship/OiLibya, Kwa Chief, Moi Airforces Stage
+17A | Rounda → Umoja 2 → Kayole | 60 KSh | stops: Kayole Hospital, Maria, Nyando, Prime Rose, Sabasaba, Kona, Shujaa Mall, Caltex
+17Aky | EastLeigh → Rounda → Umoja 2 → Kayole | 60 KSh | stops: Base/Moi Forces Secondary School, BH, Flats, Mathare Worship/OiLibya, Kwa Chief, Moi Airforces Stage, Number 10, Johnsaga
+17B | Bus Station → Pangani → Roysambu → Kasarani → Mwiki | 100 KSh | stops: OTC, Kariokor, Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Drive In, Utalii
+17B_2 | Roysambu → Sunton → Kasarani → Mwiki | 50 KSh | stops: Mwiki, Stima, St. Francis, Hunters, Maternity, Corner, Danamac's Flats, Bull & Bush
+18C | Eastleigh → Rounda → Dandora → Kayole | 60 KSh | stops: Base/Moi Forces Secondary School, BH, Flats, Mathare Worship/OiLibya, Kwa Chief, Moi Airforces Stage, Number 10, Johnsaga
+1960 | OTC → Donholm → Kayole | 60 KSh | stops: Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road, Posta
+1961K | Landhies Road → Jogoo Road → Jacaranda → Kayole | 60 KSh | stops: Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road, Posta
+1961Kd | Caltex Donholm → Jacaranda → Kayole | 60 KSh | stops: Kayole Hospital, Maria, Nyando, Prime Rose, Sabasaba, Kwa Chief, Shujaa Mall, Kwa DO
+19C2 | Donholm → Caltex → Komarocks | 60 KSh | stops: Caltex, Mtindwa, Stella, East Capital, Koma Junction, Kanisani, Mama Lucy Hospital, Cherina
+19Cdc | Ambassadeur → Jogoo Road → Donholm → Caltex → Komarocks | 100 KSh | stops: OTC, Kaloleni, City Stadium, Maziwa, Shauri Moyo, Church Army, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road
+2 | Railways → Ngong Road → Kawangware → Dagoretti Market | 150 KSh | stops: Agip, Railways, Kenyatta National Hospital, Library, Coptic/Mimosa, NHIF, Swedish School Nairobi, Kirichwa Road Junction
+20 | Mama Lucy Hospital → Kayole → Njiru → Mwiki | 60 KSh | stops: Kayole Hospital, Maria, Nyando, Prime Rose, Sabasaba, Kwa Chief, Kona, Raster
+2030 | Allsops → Rounda | 50 KSh | stops: Baba Dogo Junction/Dawa, Allsops, Shell/Kariobangi Catholic Church, Naivas/Dawa Pharmacutical, Shell Petrol Station/Catholic Church, Rounda, Equity, Kariobangi Market Stage
+236 | Odeon → Pangani → Roysambu → Githurai → Juja | 150 KSh | stops: Odeon, Pangani, Roysambu, Githurai, Juja Farm
+237 | Munyu Road → Pangani → Roysabu → Githurai → KU → Ruiru → Juja → Thika | 150 KSh | stops: Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Guru Nanak, Ngara Stage, Ngara, Drive In
+22 | Kencom → Westlands → Kangemi → Uthiru | 100 KSh | stops: Kencom/GPO, Serena, Museum Hill, Westlands, Kangemi, Uthiru
+23KG | Odeon → Chiromo → Westlands → Kangemi | 50 KSh | stops: Odeon, Museum, Westlands/Parklands Baptist, Kabete Barracks/ABC, Westlands DC/Church Road/Safaricom, Westlands DC/Church Road/Safaricom/Brookside Drive, Chiromo, AACC/Safaricom/Church Road
+23KS | Gill House → Jogoo Road → Shauri Moyo → Jerusalem → Buruburu → Kariobangi South | 50 KSh | stops: Kaloleni, City Stadium, Maziwa, Shauri Moyo, Country Bus, Nacico, Rikana, Buru Roundabout
+23W | Nation Building → Museum Hill → Graffins College → Westlands | 50 KSh | stops: Koja, Globe, Fig Tree, Museum, Westlands Terminal, Mpaka road, Shirika House, Kobil/K1
+24 | Ambassadeur → Nyayo Stadium → Bomas → Hardy → Karen | 100 KSh | stops: Archives/Mfangano Street, Nyayo Stadium, Bomas of Kenya, Galleria Shopping Mall, Hardy, Karen Shopping Centre, Co-op Bank Training Centre, Giraffe Centre, Kenya School of Law, Catholic University, Hillcrest International School
+24BK | Bomas → Karen Hospital → Karen | 50 KSh | stops: Cuea, Kobil/Mokoyeti Road West, Npc Karen, Nairobi Academy, Kenol/Nairobi Academy, Bomas/Galleria, Karen Road-Lang'Ata Road Junction, Cuea | Catholic University
+24C | Kencom → Valley Road → Ngong Road → Karen → Hardy | 80 KSh | stops: GPO, Kenyatta National Hospital, Serena, Library, Valley Road Pentecostal, Coptic/Mimosa, Motherland, Prestige Plaza
+25 | Odeon → Pangani → Alssops → Baba Dogo | 100 KSh | stops: Koja, Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, Ngara Stage, Ngara, Fig Tree, Baba Dogo Junction/Dawa
+25A | Odeon → Pangani → Alssops → Baba Dogo → Lucky Summer | 50 KSh | stops: Koja, Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Guru Nanak, Ngara Stage, Ngara
+26 | Makadara → Harambee → Outering → Kariobangi | 60 KSh | stops: Nile Junction, Buru Roundabout, Buru 1 Primary School, Kiambiu, Neighbours, Raphaels, Uhuru Junction, Neighbours Buruburu Phase 1
+26S | Aquinas → Jerusalem → Outering → Kariobangi | 40 KSh | stops: Buru Roundabout, Buru 1 Primary School, Kiambiu, Neighbours, Raphaels, Outer Mwisho, Uhuru Junction, Neighbours Buruburu Phase 1
+27 | Kariobangi North  →  Thika road  →  Town | 50 KSh | stops: —
+28 | Gikomba → Eastleigh → Huruma → Kariobangi | 60 KSh | stops: Base/Moi Forces Secondary School, BH, Flats, Mathare Worship/OiLibya, Kwa Chief, Moi Airforces Stage, Number 10, Johnsaga
+29/30 | Ngara → Pangani → Alssops → Drive in → Mathare | 60 KSh | stops: Muthaiga, KCA/Survey, NYS/Utalii, Ngara, Utalii, Drive In, Pangani/Muthaiga Footbridge, KIE/Pioneer/Desai
+30 | Odeon → Westlands → Kangemi → Uthiru | 40 KSh | stops: Odeon, Museum, Westlands/Parklands Baptist, Kabete Barracks/ABC, Westlands DC/Church Road/Safaricom, Westlands DC/Church Road/Safaricom/Brookside Drive, Chiromo, AACC/Safaricom/Church Road
+32A | Kencom → Community → KNH → Ngong Road → Ayani | 40 KSh | stops: Kencom/Ambassadeur, GPO, Kenyatta National Hospital, Serena, Library, Coptic/Mimosa, Nairobi Area Traffic Police Headquarters, China Centre
+31 | OTC → Kariokor → Gikomba → Dandora | 60 KSh | stops: OTC, Kariokor, Gikomba Market, Rounda, Dandora Terminal
+32D | OTC → Kariokor → Mlango → Rounda → Dandora | 100 KSh | stops: Kariokor, Base/Moi Forces Secondary School, BH, Flats, Mathare Worship/OiLibya, Kwa Chief, Moi Airforces Stage, Number 10
+33B | Commercial → Cabanas → Baraka | 60 KSh | stops: Agip, Belleview, Capital Centre, Government Plaza/Devis, GM, Standard Group, Panari, Sameer
+33C | Commercial → Jogoo Road → Pipeline → Cabanas | 60 KSh | stops: Agip, Commercial, Kitindo, Transami, Shell Haile Selassie Junction, Cabanas, Taj Mall Interchange, Kobil
+33DC | Donholm → Rounda → Carbanas | 60 KSh | stops: Kitindo, Transami, Caltex, Kobil, Avenue Park 1, Avenue Park 2, Kware, Tumaini/Tassia
+33DP | Muthurwa → Donholm → Pipeline | 50 KSh | stops: Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road, Hamza
+33FED | Commercial → Cabanas → Tuskys → Village → Gate A → Posta | 60 KSh | stops: Belleview, Capital Centre, Government Plaza/Devis, Nyayo, GM, Standard Group, Panari, Sameer
+33GTB | Accra Road → Jogoo Road → Donholm → Fedha → Gate B | 100 KSh | stops: Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road, Posta
+33H | Cabanas → Utawala → Bypass | 60 KSh | stops: Kitindo, Transami, Kobil, Astrol, Amani, Barracks/75, AP, China
+33IMR | Commercial → Belleview → Imara Daima | 60 KSh | stops: Agip, Belleview, Capital Centre, Government Plaza/Devis, Nyayo, Makaburini, GM, Standard Group
+33J | Cabanas → Utawala → Githunguri | 150 KSh | stops: Kitindo, Transami, Kobil, Cabanas, Githunguri, Astrol, Amani, Barracks/75
+33MKR | Bus Station → Mombasa Road → Imara Daima → St.Bakhita | 60 KSh | stops: Agip, Bus Station, Belleview, Capital Centre, Government Plaza/Devis, Nyayo, Makaburini, GM
+33NG | Racecourse Road → Ngong Road → KNH → Ngumo | 150 KSh | stops: Agip, Kenyatta National Hospital, Library, NHIF, Nairobi Area Traffic Police Headquarters, Mbagathi Flats, Mosque, Kenyatta Market Flyover
+33SB | Ngumo → Highrise → Nairobi West → Couth C → South B | 40 KSh | stops: Shell/T-Mall, Uchumi, Blue Sky Estate/T. Mall, Highrise, Ngumo Stage, Our Lady Of Mercy, Blue Sky Estate, South B Stage
+33TP | Commercial → Mombasa Road → Taj Mall → Pipeline | 100 KSh | stops: OTC, Kaloleni, Church Army, City Stadium, Maziwa, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road, Posta
+33UTW | Utawala → Ambassadeur | 100 KSh | stops: Belleview, Capital Centre, Government Plaza/Devis, Nyayo, Makaburini, GPO, GM, Standard Group
+34B | Ambassadeur → Donholm → Jacaranda | 60 KSh | stops: OTC, Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Kencom/Ambassadeur, Total Jogoo Road/Mogas
+34J | Ambassadeur → Donholm → Rounda → JKIA | 150 KSh | stops: OTC, Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Kencom/Ambassadeur, Total Jogoo Road/Mogas
+34L | Kenyatta National Hospital → Mbagathi Road → Wilson Airport → Langata | 150 KSh | stops: Kenyatta National Hospital, Carnivore/Rafikiz, Deliverance Church Langata/Kanisani, Airportview Estate, Bluesky Estate/T-Mall, Highrise, Langata Road Primary School, Weston
+35/60 | Town → Donholm → Umoja | 60 KSh | stops: OTC, Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road
+3560_2 | Donholm → Mutindwa → Umoja 2 | 60 KSh | stops: Corner Junction, Kwa Chief, C, Peacock, Mtindwa, Manyanja, Visa Place, G
+36 | City Stadium → Buruburu → Kwa Mbao → Dandora | 100 KSh | stops: Kaloleni, Church Army, Maziwa, Shauri Moyo, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road, Posta, Hamza
+3738 | Rounda → Saika → Ruai | 60 KSh | stops: Wamwaris, Total, Seniors/New Jerusalem, 36 Stage/Mutarakwa Road, Kwa Mbao, Rounda, Saika, Maili Saba
+38/39 | Town → Donholm → Njiru → Ruai | 60 KSh | stops: Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road, Posta
+239 | Odeon → Pangani → Roysambu → Githurai → Ruiru → Thika | 150 KSh | stops: Odeon, Pangani, Roysambu, Githurai, Ruiru, Juja, Thika Town
+39 | Bypass Ruiru, City Cabanas | 150 KSh | stops: —
+39SK | Ronald Ngala → Jogoo Road → Kangundo Road → Saika → Kayole Junction | 70 KSh | stops: OTC, Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road
+3 | GPO → Ngong Road → Adams Arcade → Dagoretti Corner | 100 KSh | stops: GPO, Railways/Agip, Kenyatta National Hospital, Library, Coptic/Mimosa, Adams Arcade, Dagoretti Corner
+3N | Gikomba → Kariokor → Ngara | 50 KSh | stops: Kariokor, Equity Ngara, Gikomba Market, Kariokor DC/Starehe, Kariokor Estate, Ngara, New Ngara Estate, Posta
+3U/3 | Dagoretti Corner → Naivasha Road → Uthiru | 100 KSh | stops: Tea Board/Dagoretti Corner, Dagoretti Corner Stage, Kaberia Junction/Wanyee Stage, BP, Deliverance Church Riruta, Mlangosoko, Precious Blood Girls' School, Riara
+4 | Kencom → Ngong Road → Adams Arcade → Dagoretti | 100 KSh | stops: Kencom/GPO, Railways/Agip, Kenyatta National Hospital, Library, Coptic/Mimosa, Adams Arcade, Dagoretti Market
+405 | City Stadium → Nyayo Stadium | 40 KSh | stops: City Stadium/Lusaka Road Junction, Baricho Road Terminus, DT Dobie, Industrial Area, Car & General, Car  & General
+41 | Gikomba → Rounda → Dandora | 60 KSh | stops: Base/Moi Forces Secondary School, BH, Flats, Mathare Worship/OiLibya, Kwa Chief, Moi Airforces Stage, Number 10, Johnsaga
+42 | Allsops → Rounda → Dandora | 50 KSh | stops: Dandora Terminal, Wamwaris, Total, Seniors/New Jerusalem, 36 Stage/Mutarakwa Road, Kwa Mbao, Seniors, Baba Dogo Junction/Dawa
+43 | Bus Station → Pangani → Allsops → Ngumba | 40 KSh | stops: Kariokor, Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Drive In, Utalii, Allsops
+44G | Odeon → Pangani → Roysambu → Githurai → KU | 50 KSh | stops: Odeon, Koja, Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Guru Nanak, Ngara Stage
+44K | Roysambu → Githurai → KU | 50 KSh | stops: KU, Kahawa Sukari, Car Wash Footbridge, Roysambu Footbridge, Githurai, Car Wash, Kahawa Wendani, Roysambu Terminus
+44Z | Odeon → Pangani → Roysambu → Zimmerman → KU | 50 KSh | stops: Odeon, Koja, Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Guru Nanak, Ngara Stage
+45G | Munyu Road → Pangani → Roysabu → Githurai | 50 KSh | stops: Kariokor, Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Drive In, Utalii, Roasters/Naivas
+45K | Odeon → Pangani → Roysabu → Githurai → KU | 100 KSh | stops: Koja, Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Guru Nanak, Ngara Stage, Ngara
+45P | Githurai → Proggie | 50 KSh | stops: Githurai, Proggie, Kona Kwa Rail, St Margret, Reli
+46B | Ronald Ngala → Juja Road → Eastleigh → Rounda | 50 KSh | stops: Koja, Kariokor, Guru Nanak, Ngara Stage, Base/Moi Forces Secondary School, BH, Flats, Mathare Worship/OiLibya
+46H | Ronald Ngala → Juja Road → Eastleigh → Huruma | 50 KSh | stops: Kariokor, Guru Nanak, Base/Moi Forces Secondary School, BH, Flats, Mathare Worship/OiLibya, Kwa Chief, Moi Airforces Stage
+46K | Kencom → Valley Road → Yaya Centre → Kawangware | 40 KSh | stops: Kencom/Ambassadeur, GPO, Serena, Valley Road Pentecostal, Hurlingham, Integrity Centre/Panafric, DoD, Chaka Place
+46Y | Kencom → Valley Road → Hurlinghum → Yaya Centre | 40 KSh | stops: Kencom/Ambassadeur, GPO, Serena, Valley Road Pentecostal, Hurlingham, Integrity Centre/Panafric, DoD, Chaka Place
+48 | Yaya → Kasuku → Westlands | 40 KSh | stops: —
+48A | Odeon → Chiromo → Strathmore School → Lavington | 40 KSh | stops: Odeon, Museum, Chiromo Flyover, Prime Bank, Taj Apartments Stage, Chiromo Campus Flyover, Chiromo, Lavington Shopping Centre/ Shell
+48B | Odeon → Chiromo → Westlands Bypass → Methodist Guesthouse → Othaya Road | 40 KSh | stops: Odeon, Museum, Main Campus/University Way, Chiromo Flyover, Othaya Road Stage, Prime Bank, Taj Apartments Stage, Chiromo Campus Flyover
+48C | Odeon → Chiromo → Westlands → ByPass → Yaya | 40 KSh | stops: Odeon, Museum, Chiromo, Westlands Stage, Main Campus/University Way, Arboretum, Prime Bank Stage, Shell/Arboretum
+48K | Westlands → ABC Place → Lavington → Kawangware | 100 KSh | stops: Westlands/Parklands Baptist, Kabete Barracks/ABC, Westlands DC/Church Road/Safaricom, Westlands DC/Church Road/Safaricom/Brookside Drive, AACC/Safaricom/Church Road, Kari/James Gichuru, Westlands Primary School, ABC Place
+48O | Odeon → Chiromo → Kileleshwa → Othaya Road | 40 KSh | stops: Odeon, Museum, Main Campus/University Way, Chiromo Flyover, Othaya Road Stage, Prime Bank, Taj Apartments Stage, Chiromo Campus Flyover
+49 | Odeon → Pangani → Roysambu → Kasarani → Sunton | 50 KSh | stops: Odeon, Muthaiga, Pangani/Muthaiga Footbridge, KCA/Survey, NYS/Utalii, Guru Nanak, Ngara Stage, Ngara
+4W | Railways → Ngong Road → Wanyee → Kaberia | 150 KSh | stops: Kencom/Ambassadeur, GPO, Serena, Coptic/Mimosa, Kenyatta National Hospital, Hurlingham, Integrity Centre/Panafric, Swedish School Nairobi
+5 | Town → Kenyatta → Adams → Jamhuri | 60 KSh | stops: Kencom/Ambassadeur, GPO, Serena, Valley Road Pentecostal, Hurlingham, Integrity Centre/Panafric, DoD, Swedish School Nairobi
+53 | Roasters → Thome → Maruirui | 50 KSh | stops: Marurui, 2nd Mugumoini Street, Neighbours, Nyati Drive, Kona, Roasters, Ruaraka Academy, Steam Drive
+56 | Town → Yaya → Congo → Kanungaga | 40 KSh | stops: Agip, Railways, Valley Road Pentecostal, Hurlingham, Integrity Centre/Panafric, DoD, NHIF, Chaka Place
+58 | Ambassadeur → Jogoo Road → Buruburu | 100 KSh | stops: OTC, Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Total Jogoo Road/Mogas, Makadara/DC Jogoo Road
+6 | Koja → Pangani Flyover → Guru Nanak → Pangani Girls High School → Mlango → Eastleigh | 50 KSh | stops: Koja, Ngara, KIE/Pioneer/Desai, Fig Tree, Mamba, Mlango Kubwa, Pangani Girls' School/Chai Road, Equity Ngara
+69 | Muthurwa → Hillocks → GM | 60 KSh | stops: Muthurwa, City Stadium/Lusaka Road Junction, GM Town, DT Dobie, Isiolo Road, S.K.A., Busia Road, Crown
+6E | Church Army → Biafra → Joster | 40 KSh | stops: Church Army, Joster, Biafra, Jana Villa, Sun City, Rikana
+7 | Town → Kariokor DC → Gikomba | 40 KSh | stops: OTC, Kariokor, Tusker/Ronald Ngala, Gikomba Market, Bus Station, Kariokor DC/Starehe, Kariokor Estate, Riziki Academy
+70/71 | Muthurwa → Likoni → Sinai → Lunga Lunga | 40 KSh | stops: Kaloleni, Church Army, City Stadium, Maziwa, Shauri Moyo, Rikana/Makongeni, Rikana, Muthurwa
+7C | Kencom → Community → Equity Center → Kenyatta National Hospital | 40 KSh | stops: Kencom/Ambassadeur, GPO, Serena, ICEA, Community, Kenyatta National Hospital, Library, Britam
+8 | Railways → Ngong Road → Kibera | 150 KSh | stops: Agip, Railways, Kenyatta National Hospital, Library, Coptic/Mimosa, Nairobi Area Traffic Police Headquarters, China Centre, Prestige/Number Nane
+9 | Tom Mboya → Kariokor → Ngara → KIE → Pangani → Eastleigh | 50 KSh | stops: Tom Mboya/Archives, Kariokor, Fig Tree Trade Centre/Ngara, KIE/Pioneer/Desai, Pangani Roundabout, Eastleigh
+BYPASS-KUTRRH | Bypass → Kahawa West → KU Referral | 50 KSh | stops: —
+BYPASS-KW | Bypass → Kahawa West | 50 KSh | stops: —
+CBD-KW | Railways → Thika Road → Allsops → Bypass → Kahawa West | 100 KSh | stops: —
+CBD-PKLANDS | Railways → Parklands | 50 KSh | stops: —
+CBD-SYOKIMAU | Railways → Mombasa Road → JKIA → Syokimau | 100 KSh | stops: —
+CBD-THIKA | Railways → Pangani → Thika Road → Kasarani → Thika | 100 KSh | stops: —
+KW-KUTRRH | Kahawa West → KU Referral | 50 KSh | stops: —
+KW-MEMBLEY | Kahawa West → Membley | 50 KSh | stops: —
+RONGAI-DONHOLM | Rongai → CBD → Donholm | 200 KSh | stops: —
+
+━━ CBD WALK CONNECTORS (0 KSh — alight here, walk to terminal) ━━
+WALK-AGIP-RAIL | Agip → Railways Bus Station | 0 KSh | ~300 m, ~4 min walk | Agip petrol station on Haile Selassie Ave to Railway Station entrance
+WALK-AGIP-BS | Agip → Bus Station | 0 KSh | ~200 m, ~3 min walk | Agip to Archives/Accra Road Bus Station
+WALK-KAKA-OTC | Kaka Stage → OTC | 0 KSh | ~250 m, ~3 min walk | Kaka loading zone (Accra Rd) to OTC stage
+WALK-RACE-OTC | Racecourse Road → OTC | 0 KSh | ~330 m, ~4 min walk | Racecourse Road stage to OTC stage on Accra Road
+WALK-GILL-OTC | Gill House → OTC | 0 KSh | ~350 m, ~5 min walk | Gill House (Haile Selassie Ave) to OTC stage
+WALK-GILL-BS | Gill House → Bus Station | 0 KSh | ~300 m, ~4 min walk | Gill House to Archives/Accra Road Bus Station
+WALK-GPO-RAIL | GPO → Railways Bus Station | 0 KSh | ~600 m, ~8 min walk | General Post Office along Kenyatta Ave to Railway Station
+WALK-GPO-KCM | GPO → Kencom | 0 KSh | ~300 m, ~4 min walk | GPO east along Kenyatta Ave to Kencom House
+WALK-TOMBOYA-AMB | Tom Mboya → Ambassadeur | 0 KSh | ~200 m, ~3 min walk | Tom Mboya St/Archives to Ambassadeur Hotel stage on Ronald Ngala

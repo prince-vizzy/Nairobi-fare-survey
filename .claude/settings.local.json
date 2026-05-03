@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:portal.ntsa.go.ke)",
+      "WebFetch(domain:www.scribd.com)",
+      "WebFetch(domain:www.elimucentre.com)",
+      "WebFetch(domain:www.tuko.co.ke)",
+      "WebFetch(domain:biznakenya.com)",
+      "WebFetch(domain:www.businessradar.co.ke)",
+      "WebFetch(domain:www.ntsa.go.ke)",
+      "WebFetch(domain:nairobipostalcode.org)",
+      "Bash(python3 -c ' *)",
+      "WebFetch(domain:situations.co.ke)",
+      "WebFetch(domain:mnetizen.co.ke)",
+      "WebFetch(domain:jibubora.com)",
+      "WebFetch(domain:victormatara.com)",
+      "WebFetch(domain:viraltea.co.ke)",
+      "WebFetch(domain:www.kenyans.co.ke)",
+      "WebFetch(domain:nairobilifestyle.com)",
+      "WebFetch(domain:www.kenyan-post.com)",
+      "WebFetch(domain:trending.co.ke)",
+      "WebFetch(domain:www.journeykenya.com)",
+      "Bash(python3 build_fares.py)",
+      "Bash(pip3 install *)",
+      "PowerShell(python -c \"import pandas; print\\(pandas.__version__\\)\")",
+      "PowerShell(python -m py_compile \"c:/Users/HP/Downloads/GIS_DATA_2019/app.py\")",
+      "PowerShell(if \\($?\\) { \"OK - no syntax errors\" } else { \"SYNTAX ERROR\" })",
+      "PowerShell(pip install python-dotenv --quiet)",
+      "PowerShell(if \\($?\\) { \"Syntax OK\" })",
+      "PowerShell(python \"c:/Users/HP/Downloads/GIS_DATA_2019/build_stops.py\")",
+      "Bash(start \"c:\\\\Users\\\\HP\\\\Downloads\\\\GIS_DATA_2019\\\\fare_survey.html\")",
+      "Bash(git --version)",
+      "Bash(gh --version)",
+      "Bash(netlify --version)",
+      "WebFetch(domain:moovitapp.com)"
+    ]
+  }
+}

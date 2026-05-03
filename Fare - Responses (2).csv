@@ -1,0 +1,171 @@
+Y,Route,Fare Paid (KSh),Direction
+2026-04-29T09:33:33.375Z,CBD - Ongata Rongai,100,CBD → Ongata Rongai
+2026-04-29T09:33:33.375Z,Ongata Rongai - CBD,100,Ongata Rongai → CBD
+2026-04-29T09:40:54.485Z,CBD - Ngara,50,CBD → Ngara
+2026-04-29T09:40:54.485Z,Ngara - CBD,50,Ngara → CBD
+2026-04-29T09:41:15.886Z,CBD - Westlands,50,CBD → Westlands
+2026-04-29T09:41:15.886Z,Westlands - CBD,50,Westlands → CBD
+2026-04-29T09:42:32.671Z,CBD - Eastleigh,50,CBD → Eastleigh
+2026-04-29T09:43:10.536Z,CBD - Karen,100,CBD → Karen
+2026-04-29T09:43:24.131Z,Bomas - Karen,50,Bomas → Karen
+2026-04-29T09:43:45.268Z,CBD - Ongata Rongai,100,CBD → Ongata Rongai
+2026-04-29T09:44:09.859Z,CBD - Kangemi,50,CBD → Kangemi
+2026-04-29T09:45:09.973Z,CBD - Baba Dogo,100,CBD → Baba Dogo
+2026-04-29T09:45:18.732Z,Kariobangi North - Town,50,Kariobangi North → Town
+2026-04-29T09:45:29.963Z,Allsops - Dandora,50,Allsops → Dandora
+2026-04-29T09:45:49.465Z,Roysambu - KU,50,Roysambu → KU
+2026-04-29T09:46:00.120Z,Roasters - Maruirui,50,Roasters → Maruirui
+2026-04-29T09:46:09.611Z,CBD - Ndumberi,150,CBD → Ndumberi
+2026-04-29T09:46:17.706Z,CBD - Mwiki,100,CBD → Mwiki
+2026-04-29T09:46:39.576Z,Roysambu - Mwiki,50,Roysambu → Mwiki
+2026-04-29T09:46:50.326Z,CBD - Lucky Summer,50,CBD → Lucky Summer
+2026-04-29T09:46:58.357Z,Allsops - Rounda,50,Allsops → Rounda
+2026-04-29T09:47:09.050Z,CBD - Kariobangi,50,CBD → Kariobangi
+2026-04-29T09:47:19.451Z,CBD - Dandora,100,CBD → Dandora
+2026-04-29T09:47:26.751Z,CBD - Huruma,50,CBD → Huruma
+2026-04-29T09:47:36.234Z,CBD - Rounda,50,CBD → Rounda
+2026-04-29T09:47:51.426Z,CBD - Kariobangi South,50,CBD → Kariobangi South
+2026-04-29T09:48:04.403Z,CBD - Komarocks,100,CBD → Komarocks
+2026-04-29T09:49:28.468Z,Bypass - Kahawa West,50,Bypass → Kahawa West
+2026-04-29T09:50:50.181Z,CBD - Bypass,100,CBD → Bypass
+2026-04-29T09:51:53.934Z,CBD - Kahawa West,100,CBD → Kahawa West
+2026-04-29T09:51:53.935Z,Kahawa West - CBD,100,Kahawa West → CBD
+2026-04-29T09:52:23.229Z,Kahawa West - Membley,50,Kahawa West → Membley
+2026-04-29T09:52:23.229Z,Membley - Kahawa West,50,Membley → Kahawa West
+2026-04-29T09:56:20.729Z,CBD - Parklands,50,CBD → Parklands
+2026-04-29T09:56:20.729Z,Parklands - CBD,50,Parklands → CBD
+2026-04-29T09:58:15.167Z,Bypass - KU Referral (KUTRRH),50,Bypass → KU Referral (KUTRRH)
+2026-04-29T09:58:15.168Z,KU Referral (KUTRRH) - Bypass,50,KU Referral (KUTRRH) → Bypass
+2026-04-29T09:59:19.518Z,Kahawa West - KU Referral (KUTRRH),50,Kahawa West → KU Referral (KUTRRH)
+2026-04-29T09:59:19.518Z,KU Referral (KUTRRH) - Kahawa West,50,KU Referral (KUTRRH) → Kahawa West
+2026-04-29T10:09:41.448Z,Kahawa West - Bypass,50,Kahawa West → Bypass
+2026-04-29T10:10:34.028Z,Bypass - CBD,100,Bypass → CBD
+2026-04-29T10:46:13.168Z,eastleigh - kariokor,50,eastleigh → kariokor
+2026-04-29T10:47:09.044Z,Cbd - Thika,100,Cbd → Thika
+2026-04-29T10:47:28.258Z,Thika - Cbd,150,Thika → Cbd
+2026-04-29T10:47:31.659Z,Rongai - Donholm,200,Rongai → Donholm
+2026-04-29T10:47:31.663Z,Donholm - Rongai,200,Donholm → Rongai
+2026-04-29T11:12:18.609Z,CBD - KU (via Githurai 45),100,CBD → KU
+2026-04-29T11:13:29.865Z,CBD - Kitengela,150,CBD → Kitengela
+2026-04-29T13:09:28.526Z,CBD - Ngara,50,CBD → Ngara
+2026-04-29T13:09:57.075Z,CBD - Gate B,100,CBD → Gate B
+2026-04-29T13:10:11.503Z,CBD - JKIA,150,CBD → JKIA
+2026-04-29T13:10:22.682Z,CBD - Pipeline,50,CBD → Pipeline
+2026-04-29T13:10:37.932Z,CBD - Langata,50,CBD → Langata
+2026-04-29T13:10:50.101Z,CBD - Karen,100,CBD → Karen
+2026-04-29T13:11:14.472Z,CBD - Pipeline (Mombasa Rd),100,CBD → Pipeline
+2026-04-29T13:19:48.039Z,CBD - Komarocks,100,CBD → Komarocks
+2026-04-29T13:59:31.563Z,CBD - Kayole Junction,100,CBD → Kayole Junction
+2026-04-29T13:59:40.659Z,CBD - Kayole Junction,50,CBD → Kayole Junction
+2026-04-29T15:34:27.847Z,Ongata Rongai - Kiserian,50,Ongata Rongai → Kiserian
+2026-04-29T15:34:27.847Z,Kiserian - Ongata Rongai,50,Kiserian → Ongata Rongai
+2026-04-29T15:57:35.828Z,CBD - Wangige (Kabete),50,CBD → Wangige
+2026-04-29T16:14:03.449Z,CBD - Buruburu,100,CBD → Buruburu
+2026-04-29T16:14:03.455Z,Buruburu - CBD,100,Buruburu → CBD
+2026-04-29T16:14:40.168Z,CBD - Kiambu,50,CBD → Kiambu
+2026-04-29T16:14:40.168Z,Kiambu - CBD,100,Kiambu → CBD
+2026-04-29T16:49:57.122Z,CBD - Donholm,100,CBD → Donholm
+2026-04-29T16:49:57.134Z,Donholm - CBD,100,Donholm → CBD
+2026-04-29T16:50:54.107Z,CBD - Syokimau,100,CBD → Syokimau
+2026-04-29T16:50:54.114Z,Syokimau - CBD,100,Syokimau → CBD
+2026-04-29T17:11:27.172Z,CBD - Karen,100,CBD → Karen
+2026-04-29T17:11:27.177Z,Karen - CBD,100,Karen → CBD
+2026-04-29T17:11:47.169Z,Utawala - CBD,100,Utawala → Ambassadeur
+2026-04-29T17:11:47.169Z,Ambassadeur - Utawala,100,Ambassadeur → Utawala
+2026-04-29T17:38:55.840Z,CBD - Thika,150,CBD → Thika
+2026-04-29T17:42:21.715Z,CBD - Mwiki,100,CBD → Mwiki
+2026-04-29T20:04:15.217Z,CBD - Banana,150,CBD → Banana
+2026-04-29T20:04:23.677Z,CBD - Banana,100,CBD → Banana
+2026-04-29T20:04:36.989Z,CBD - Limuru,200,CBD → Limuru
+2026-04-29T20:04:57.629Z,CBD - Ndenderu,100,CBD → Ndenderu
+2026-04-29T20:05:16.899Z,CBD - Hardy,80,CBD → Hardy
+2026-04-29T20:05:33.730Z,Kikuyu - Wangige,100,Kikuyu → Wangige
+2026-04-29T20:06:13.823Z,CBD - Wangige (Kabete),80,CBD → Wangige
+2026-04-29T20:06:26.943Z,CBD - Thika,80,CBD → Thika
+2026-04-29T20:07:13.829Z,cbd - Juja,100,cbd → Juja
+2026-04-29T20:07:13.830Z,Juja - cbd,100,Juja → cbdPENDING,UN - Gichagi,45,UN → Gichagi
+PENDING,CBD - Limuru (via Ngara),200,CBD → Limuru
+PENDING,CBD - Highridge,40,CBD → Highridge
+PENDING,CBD - Ruaka,70,CBD → Ruaka
+PENDING,Ruaka - Ruiru,120,Ruaka → Ruiru
+PENDING,Torrents - Ruiru,150,Torrents → Ruiru
+PENDING,CBD - Ngumba,60,CBD → Ngumba
+PENDING,CBD - KU (via Githurai),70,CBD → KU
+PENDING,CBD - KU (via Zimmerman),70,CBD → KU
+PENDING,Munyu Road - Githurai,70,Munyu Road → Githurai
+PENDING,Githurai - Proggie,80,Githurai → Proggie
+PENDING,CBD - Sunton,80,CBD → Sunton
+PENDING,CBD - Githunguri,120,CBD → Githunguri
+PENDING,Munyu Road - Ruiru,150,Munyu Road → Ruiru
+PENDING,Munyu Road - Thika,150,Munyu Road → Thika
+PENDING,CBD - Kiambu Hospital,120,CBD → Kiambu Hospital
+PENDING,CBD - Mathare,80,CBD → Mathare
+PENDING,CBD - Gikomba,60,CBD → Gikomba
+PENDING,CBD - Kariobangi (via Eastleigh),80,CBD → Kariobangi
+PENDING,CBD - Dandora (via Gikomba),80,CBD → Dandora
+PENDING,CBD - Pangani Terminus,40,CBD → Pangani Terminus
+PENDING,Eastleigh - Kayole,80,Eastleigh → Kayole
+PENDING,Eastleigh - Kayole (via Dandora),80,Eastleigh → Kayole
+PENDING,CBD - Kayole,80,CBD → Kayole
+PENDING,Rounda - Ruai,80,Rounda → Ruai
+PENDING,CBD - Maringo,60,CBD → Maringo
+PENDING,Mama Lucy - Mwiki,80,Mama Lucy Hospital → Mwiki
+PENDING,CBD - Kariobangi (Outering),80,CBD → Kariobangi
+PENDING,CBD - Cabanas,80,CBD → Cabanas
+PENDING,CBD - Dandora (via Buruburu),80,CBD → Dandora
+PENDING,Rounda - Kayole,80,Rounda → Kayole
+PENDING,CBD - Jacaranda,80,CBD → Jacaranda
+PENDING,CBD - GM,60,CBD → GM
+PENDING,CBD - Kayole (via Donholm),80,CBD → Kayole
+PENDING,CBD - Kayole (via Jacaranda),80,CBD → Kayole
+PENDING,Caltex Donholm - Kayole,80,Caltex Donholm → Kayole
+PENDING,CBD - Umoja,80,CBD → Umoja
+PENDING,Donholm - Umoja 2,80,Donholm → Umoja 2
+PENDING,CBD - Ruai,80,CBD → Ruai
+PENDING,CBD - Lunga Lunga,60,CBD → Lunga Lunga
+PENDING,CBD - Hazina,80,CBD → Hazina
+PENDING,CBD - Highrise,80,CBD → Highrise
+PENDING,CBD - Imara Daima,80,CBD → Imara Daima
+PENDING,Cabanas - Githunguri,120,Cabanas → Githunguri
+PENDING,Cabanas - Bypass,80,Cabanas → Bypass
+PENDING,CBD - St. Bakhita,80,CBD → St.Bakhita
+PENDING,Athi River - Kitengela,150,Athi River → Kitengela
+PENDING,CBD - Makadara,60,CBD → Makadara
+PENDING,CBD - Kiserian,200,CBD → Kiserian
+PENDING,CBD - Mugoya,50,CBD → Mugoya
+PENDING,CBD - Amboseli,50,CBD → Amboseli
+PENDING,Bypass - Ruiru,150,Bypass → Ruiru
+PENDING,CBD - Strathmore,50,CBD → Strathmore
+PENDING,CBD - T-Mall,50,CBD → TMall
+PENDING,CBD - Kawangware,80,CBD → Kawangware
+PENDING,CBD - Yaya Centre,50,CBD → Yaya Centre
+PENDING,CBD - Kanungaga,50,CBD → Kanungaga
+PENDING,CBD - KNH,50,CBD → KNH
+PENDING,Karen - Dagoretti Market,120,Karen → Dagoretti Market
+PENDING,CBD - Dagoretti Market,150,CBD → Dagoretti Market
+PENDING,Dagoretti Corner - Uthiru,100,Dagoretti Corner → Uthiru
+PENDING,CBD - Jamhuri,50,CBD → Jamhuri
+PENDING,CBD - Kibera,150,CBD → Kibera
+PENDING,CBD - Ayani,50,CBD → Ayani
+PENDING,Racecourse Rd - Ngumo,150,Racecourse Road → Ngumo
+PENDING,Ngumo - South B,80,Ngumo → South B
+PENDING,KNH - Langata,120,KNH → Langata
+PENDING,Yaya - Westlands,50,Yaya → Westlands
+PENDING,CBD - Kaberia,150,CBD → Kaberia
+PENDING,CBD - Kikuyu (Ngong Rd),150,CBD → Kikuyu
+PENDING,Dagoretti Market - Wangige,100,Dagoretti Market → Wangige
+PENDING,CBD - Ngong,150,CBD → Ngong
+PENDING,Ngong - Kiserian,200,Ngong → Kiserian
+PENDING,CBD - Kawangware (Kabete),80,CBD → Kawangware
+PENDING,CBD - Uthiru,100,CBD → Uthiru
+PENDING,CBD - Othaya Road,50,CBD → Othaya Road
+PENDING,Westlands - Kawangware,100,Westlands → Kawangware
+PENDING,CBD - Kikuyu (Westlands),100,CBD → Kikuyu
+PENDING,CBD - Limuru (Westlands),200,CBD → Limuru
+PENDING,CBD - Limuru (Kangemi),200,CBD → Limuru
+PENDING,CBD - Wangige (Westgate),100,CBD → Wangige
+PENDING,CBD - Lavington,50,CBD → Lavington
+PENDING,CBD - Othaya Rd (Bypass),50,CBD → Othaya Road
+PENDING,CBD - Yaya (via Westlands),50,CBD → Yaya
+PENDING,CBD - Gathiga,50,CBD → Gathiga
+PENDING,CBD - Limuru (Kaka),200,CBD → Limuru

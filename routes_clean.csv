@@ -1,0 +1,137 @@
+id,display,origin,dest,fare,dist_km
+106,CBD - Banana,CBD,Banana,100,13.9
+107,CBD - Ndenderu,CBD,Ndenderu,70,14.3
+108,UN - Gichagi,UN,Gichagi,45,5.3
+114R,CBD - Limuru,CBD,Limuru,200,27.2
+116,CBD - Limuru,CBD,Limuru,200,27.7
+11A,CBD - Highridge,CBD,Highridge,40,3.3
+11B,CBD - Ruaka,CBD,Ruaka,70,9.5
+107D,Ruaka - Ruiru,Ruaka,Ruiru,120,20.4
+145D,Torrents - Ruiru,Torrents,Ruiru,150,1.9
+6,CBD - Eastleigh,CBD,Eastleigh,60,3.1
+23W,CBD - Westlands,CBD,Westlands,50,3.0
+25,CBD - Baba Dogo,CBD,Baba Dogo,60,8.2
+27,Kariobangi North - Town,Kariobangi North,Town,150,6.9
+39,"Bypass Ruiru, City Cabanas - Bypass Ruiru, City Cabanas","Bypass Ruiru, City Cabanas","Bypass Ruiru, City Cabanas",150,19.4
+42,Allsops - Dandora,Allsops,Dandora,80,4.6
+43,CBD - Ngumba,CBD,Ngumba,60,8.5
+44G,CBD - KU,CBD,KU,70,16.8
+44Z,CBD - KU,CBD,KU,70,16.9
+44K,Roysambu - KU,Roysambu,KU,70,6.2
+45K,CBD - KU,CBD,KU,70,16.9
+45G,Munyu Road - Githurai,Munyu Road,Githurai,70,13.3
+45P,Githurai - Proggie,Githurai,Proggie,80,1.1
+49,CBD - Sunton,CBD,Sunton,80,12.2
+53,Roasters - Maruirui,Roasters,Maruirui,150,2.5
+100,CBD - Kiambu,CBD,Kiambu,120,13.0
+120,CBD - Githunguri,CBD,Githunguri,120,26.2
+121,CBD - Ndumberi,CBD,Ndumberi,120,15.2
+145,Munyu Road - Ruiru,Munyu Road,Ruiru,150,21.1
+17B,CBD - Mwiki,CBD,Mwiki,80,12.6
+17B_2,Roysambu - Mwiki,Roysambu,Mwiki,80,4.5
+237,Munyu Road - Thika,Munyu Road,Thika,150,39.1
+25A,CBD - Lucky Summer,CBD,Lucky Summer,60,9.4
+100A,CBD - Kiambu Hospital,CBD,Kiambu Hospital,120,12.0
+2030,Allsops - Rounda,Allsops,Rounda,50,2.2
+29/30,CBD - Mathare,CBD,Mathare,80,5.4
+3N,CBD - Ngara,CBD,Ngara,60,2.0
+7,CBD - Gikomba,CBD,Gikomba,60,1.3
+14,CBD - Kariobangi,CBD,Kariobangi,150,6.2
+28,CBD - Kariobangi,CBD,Kariobangi,80,5.3
+32D,CBD - Dandora,CBD,Dandora,80,9.7
+41,CBD - Dandora,CBD,Dandora,80,8.7
+46H,CBD - Huruma,CBD,Huruma,80,5.8
+11C,CBD - Pangani Terminus,CBD,Pangani Terminus,40,2.5
+17Aky,EastLeigh - Kayole,EastLeigh,Kayole,80,7.8
+18C,Eastleigh - Kayole,Eastleigh,Kayole,80,7.0
+46B,CBD - Rounda,CBD,Rounda,80,6.2
+16/62,CBD - Kayole,CBD,Kayole,80,9.5
+3738,Rounda - Ruai,Rounda,Ruai,80,12.9
+6E,Church Army - Joster,Church Army,Joster,50,1.3
+10,CBD - Maringo,CBD,Maringo,60,4.4
+20,Mama Lucy Hospital - Mwiki,Mama Lucy Hospital,Mwiki,80,5.9
+23KS,CBD - Kariobangi South,CBD,Kariobangi South,80,7.2
+26,CBD - Kariobangi,CBD,Kariobangi,80,4.7
+26S,CBD - Kariobangi,CBD,Kariobangi,80,4.4
+33DP,CBD - Pipeline,CBD,Pipeline,80,8.3
+33DC,Donholm - Carbanas,Donholm,Carbanas,80,4.2
+33GTB,CBD - Gate B,CBD,Gate B,80,9.0
+33C,CBD - Cabanas,CBD,Cabanas,80,9.3
+34J,CBD - JKIA,CBD,JKIA,80,12.2
+36,CBD - Dandora,CBD,Dandora,80,9.0
+58,CBD - Buruburu,CBD,Buruburu,80,5.8
+17A,Rounda - Kayole,Rounda,Kayole,80,4.4
+19Cdc,CBD - Komarocks,CBD,Komarocks,80,10.1
+19C2,Donholm - Komarocks,Donholm,Komarocks,80,4.7
+34B,CBD - Jacaranda,CBD,Jacaranda,80,8.9
+69,CBD - GM,CBD,GM,60,6.0
+405,CBD - Nyayo Stadium,CBD,Nyayo Stadium,80,1.9
+1960,CBD - Kayole,CBD,Kayole,80,10.0
+1961K,CBD - Kayole,CBD,Kayole,80,9.9
+1961Kd,Caltex Donholm - Kayole,Caltex Donholm,Kayole,80,5.0
+35/60,CBD - Umoja,CBD,Umoja,80,6.5
+3560_2,Donholm - Umoja 2,Donholm,Umoja 2,80,2.3
+39SK,CBD - Kayole Junction,CBD,Kayole Junction,80,9.8
+38/39,CBD - Ruai,CBD,Ruai,80,18.2
+70/71,CBD - Lunga Lunga,CBD,Lunga Lunga,60,5.9
+11,CBD - Hazina,CBD,Hazina,80,3.8
+11_2,CBD - Hazina,CBD,Hazina,80,4.4
+15,CBD - Langata,CBD,Langata,120,7.2
+16,CBD - Highrise,CBD,Highrise,80,3.8
+24,CBD - Karen,CBD,Karen,120,13.8
+24BK,Bomas - Karen,Bomas,Karen,120,6.7
+33IMR,CBD - Imara Daima,CBD,Imara Daima,80,7.6
+33TP,CBD - Pipeline,CBD,Pipeline,80,9.3
+33J,Cabanas - Githunguri,Cabanas,Githunguri,120,11.3
+33H,Cabanas - Bypass,Cabanas,Bypass,80,12.8
+33UTW,Utawala - Ambassadeur,Utawala,Ambassadeur,80,18.1
+33MKR,CBD - St.Bakhita,CBD,St.Bakhita,80,7.9
+110,CBD - Kitengela,CBD,Kitengela,150,25.4
+110AK,Athi River - Kitengela,Athi River,Kitengela,150,5.1
+110ATH,CBD - Makadara,CBD,Makadara,60,24.8
+125,CBD - Ongata Rongai,CBD,Ongata Rongai,150,14.6
+126,CBD - Kiserian,CBD,Kiserian,200,22.0
+126RK,Ongata Rongai - Kiserian,Ongata Rongai,Kiserian,200,9.0
+12C,CBD - Mugoya,CBD,Mugoya,50,3.8
+12D,CBD - Amboseli,CBD,Amboseli,50,4.7
+145B,Bypass - Ruiru,Bypass,Ruiru,150,13.2
+14A,CBD - Strathmore,CBD,Strathmore,50,3.0
+14B,CBD - TMall,CBD,TMall,50,3.2
+33FED,CBD - Posta,CBD,Posta,80,9.8
+33B,CBD - Baraka,CBD,Baraka,80,9.7
+46K,CBD - Kawangware,CBD,Kawangware,80,9.1
+46Y,CBD - Yaya Centre,CBD,Yaya Centre,50,4.2
+56,CBD - Kanungaga,CBD,Kanungaga,50,8.7
+7C,CBD - Kenyatta National Hospital,CBD,Kenyatta National Hospital,50,2.5
+1,Karen - Dagoretti Market,Karen,Dagoretti Market,120,4.3
+2,CBD - Dagoretti Market,CBD,Dagoretti Market,150,15.7
+3U/3,Dagoretti Corner - Uthiru,Dagoretti Corner,Uthiru,100,6.3
+5,CBD - Jamhuri,CBD,Jamhuri,50,6.5
+8,CBD - Kibera,CBD,Kibera,150,6.2
+32A,CBD - Ayani,CBD,Ayani,50,6.3
+33NG,Racecourse Road - Ngumo,Racecourse Road,Ngumo,150,4.3
+33SB,Ngumo - South B,Ngumo,South B,80,3.6
+34L,Kenyatta National Hospital - Langata,Kenyatta National Hospital,Langata,120,3.7
+48,Yaya - Westlands,Yaya,Westlands,50,3.3
+4W,CBD - Kaberia,CBD,Kaberia,150,10.7
+102,CBD - Kikuyu,CBD,Kikuyu,150,18.8
+103,Dagoretti Market - Wangige,Dagoretti Market,Wangige,100,10.3
+111,CBD - Ngong,CBD,Ngong,150,20.6
+126N,Ngong - Kiserian,Ngong,Kiserian,200,8.3
+129,Kikuyu - Wangige,Kikuyu,Wangige,100,6.1
+24C,CBD - Hardy,CBD,Hardy,150,13.6
+046P,"Ambassadeur,Kabete,Kawangware - Ambassadeur,Kabete,Kawangware","Ambassadeur,Kabete,Kawangware","Ambassadeur,Kabete,Kawangware",80,9.4
+23KG,CBD - Kangemi,CBD,Kangemi,80,8.6
+30,CBD - Uthiru,CBD,Uthiru,100,11.6
+48O,CBD - Othaya Road,CBD,Othaya Road,50,5.8
+48K,Westlands - Kawangware,Westlands,Kawangware,100,6.0
+105,CBD - Kikuyu,CBD,Kikuyu,100,18.2
+114W,CBD - Limuru,CBD,Limuru,200,27.2
+115,CBD - Limuru,CBD,Limuru,200,27.7
+118,CBD - Wangige,CBD,Wangige,100,14.1
+119,CBD - Wangige,CBD,Wangige,100,14.1
+48A,CBD - Lavington,CBD,Lavington,50,6.2
+48B,CBD - Othaya Road,CBD,Othaya Road,50,5.8
+48C,CBD - Yaya,CBD,Yaya,50,4.3
+119A,CBD - Gathiga,CBD,Gathiga,50,11.6
+135,CBD - Limuru,CBD,Limuru,200,28.7

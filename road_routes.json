@@ -1,0 +1,467 @@
+{
+  "route_colors": {
+    "046P": "#e03131",
+    "1": "#e03831",
+    "10": "#e03f31",
+    "100": "#e04731",
+    "100A": "#e04e31",
+    "102": "#e05531",
+    "103": "#e05c31",
+    "105": "#e06431",
+    "106": "#e06b31",
+    "107": "#e07231",
+    "107D": "#e07931",
+    "108": "#e08131",
+    "11": "#e08831",
+    "110": "#e08f31",
+    "110AK": "#e09631",
+    "110ATH": "#e09e31",
+    "111": "#e0a531",
+    "114R": "#e0ac31",
+    "114W": "#e0b331",
+    "115": "#e0ba31",
+    "116": "#e0c231",
+    "118": "#e0c931",
+    "119": "#e0d031",
+    "119A": "#e0d731",
+    "11A": "#e0df31",
+    "11B": "#dae031",
+    "11C": "#d3e031",
+    "11_2": "#cbe031",
+    "120": "#c4e031",
+    "121": "#bde031",
+    "125": "#b6e031",
+    "126": "#aee031",
+    "126N": "#a7e031",
+    "126RK": "#a0e031",
+    "129": "#99e031",
+    "12C": "#91e031",
+    "12D": "#8ae031",
+    "135": "#83e031",
+    "14": "#7ce031",
+    "145": "#74e031",
+    "145B": "#6de031",
+    "145D": "#66e031",
+    "14A": "#5fe031",
+    "14B": "#57e031",
+    "15": "#50e031",
+    "16": "#49e031",
+    "16/62": "#42e031",
+    "17A": "#3be031",
+    "17Aky": "#33e031",
+    "17B": "#31e036",
+    "17B_2": "#31e03d",
+    "18C": "#31e044",
+    "1960": "#31e04b",
+    "1961K": "#31e053",
+    "1961Kd": "#31e05a",
+    "19C2": "#31e061",
+    "19Cdc": "#31e068",
+    "2": "#31e070",
+    "20": "#31e077",
+    "2030": "#31e07e",
+    "237": "#31e085",
+    "23KG": "#31e08d",
+    "23KS": "#31e094",
+    "23W": "#31e09b",
+    "24": "#31e0a2",
+    "24BK": "#31e0aa",
+    "24C": "#31e0b1",
+    "25": "#31e0b8",
+    "25A": "#31e0bf",
+    "26": "#31e0c7",
+    "26S": "#31e0ce",
+    "27": "#31e0d5",
+    "28": "#31e0dc",
+    "29/30": "#31dce0",
+    "30": "#31d5e0",
+    "32A": "#31cee0",
+    "32D": "#31c7e0",
+    "33B": "#31bfe0",
+    "33C": "#31b8e0",
+    "33DC": "#31b1e0",
+    "33DP": "#31aae0",
+    "33FED": "#31a2e0",
+    "33GTB": "#319be0",
+    "33H": "#3194e0",
+    "33IMR": "#318de0",
+    "33J": "#3185e0",
+    "33MKR": "#317ee0",
+    "33NG": "#3177e0",
+    "33SB": "#3170e0",
+    "33TP": "#3168e0",
+    "33UTW": "#3161e0",
+    "34B": "#315ae0",
+    "34J": "#3153e0",
+    "34L": "#314be0",
+    "35/60": "#3144e0",
+    "3560_2": "#313de0",
+    "36": "#3136e0",
+    "3738": "#3331e0",
+    "38/39": "#3b31e0",
+    "39": "#4231e0",
+    "39SK": "#4931e0",
+    "3N": "#5031e0",
+    "3U/3": "#5731e0",
+    "405": "#5f31e0",
+    "41": "#6631e0",
+    "42": "#6d31e0",
+    "43": "#7431e0",
+    "44G": "#7c31e0",
+    "44K": "#8331e0",
+    "44Z": "#8a31e0",
+    "45G": "#9131e0",
+    "45K": "#9931e0",
+    "45P": "#a031e0",
+    "46B": "#a731e0",
+    "46H": "#ae31e0",
+    "46K": "#b631e0",
+    "46Y": "#bd31e0",
+    "48": "#c431e0",
+    "48A": "#cb31e0",
+    "48B": "#d331e0",
+    "48C": "#da31e0",
+    "48K": "#e031df",
+    "48O": "#e031d7",
+    "49": "#e031d0",
+    "4W": "#e031c9",
+    "5": "#e031c2",
+    "53": "#e031ba",
+    "56": "#e031b3",
+    "58": "#e031ac",
+    "6": "#e031a5",
+    "69": "#e0319e",
+    "6E": "#e03196",
+    "7": "#e0318f",
+    "70/71": "#e03188",
+    "7C": "#e03181",
+    "8": "#e03179",
+    "BYPASS-KUTRRH": "#e03172",
+    "BYPASS-KW": "#e0316b",
+    "CBD-KW": "#e03164",
+    "CBD-PKLANDS": "#e0315c",
+    "CBD-SYOKIMAU": "#e03155",
+    "CBD-THIKA": "#e0314e",
+    "KW-KUTRRH": "#e03147",
+    "KW-MEMBLEY": "#e0313f",
+    "RONGAI-DONHOLM": "#e03138"
+  },
+  "road_routes": {
+    "accra road": {
+      "display": "Accra Road",
+      "routes": [
+        "33GTB"
+      ],
+      "color_sample": "#319be0"
+    },
+    "bypass": {
+      "display": "Bypass",
+      "routes": [
+        "145B",
+        "33H",
+        "39",
+        "48B",
+        "48C",
+        "BYPASS-KUTRRH",
+        "BYPASS-KW",
+        "CBD-KW"
+      ],
+      "color_sample": "#6de031"
+    },
+    "jogoo road": {
+      "display": "Jogoo Road",
+      "routes": [
+        "1961K",
+        "19Cdc",
+        "23KS",
+        "33C",
+        "33GTB",
+        "39SK",
+        "58"
+      ],
+      "color_sample": "#31e053"
+    },
+    "juja road": {
+      "display": "Juja Road",
+      "routes": [
+        "14",
+        "46B",
+        "46H"
+      ],
+      "color_sample": "#7ce031"
+    },
+    "kangundo road": {
+      "display": "Kangundo Road",
+      "routes": [
+        "39SK"
+      ],
+      "color_sample": "#4931e0"
+    },
+    "kiambu road": {
+      "display": "Kiambu Road",
+      "routes": [
+        "100",
+        "100A",
+        "120",
+        "121"
+      ],
+      "color_sample": "#e04731"
+    },
+    "landhies road": {
+      "display": "Landhies Road",
+      "routes": [
+        "1961K"
+      ],
+      "color_sample": "#31e053"
+    },
+    "langata road": {
+      "display": "Langata Road",
+      "routes": [
+        "125",
+        "126"
+      ],
+      "color_sample": "#b6e031"
+    },
+    "mbagathi road": {
+      "display": "Mbagathi Road",
+      "routes": [
+        "34L"
+      ],
+      "color_sample": "#314be0"
+    },
+    "mombasa road": {
+      "display": "Mombasa Road",
+      "routes": [
+        "110",
+        "110ATH",
+        "33MKR",
+        "33TP",
+        "CBD-SYOKIMAU"
+      ],
+      "color_sample": "#e08f31"
+    },
+    "munyu road": {
+      "display": "Munyu Road",
+      "routes": [
+        "145",
+        "237",
+        "45G"
+      ],
+      "color_sample": "#74e031"
+    },
+    "naivasha road": {
+      "display": "Naivasha Road",
+      "routes": [
+        "3U/3"
+      ],
+      "color_sample": "#5731e0"
+    },
+    "ngong road": {
+      "display": "Ngong Road",
+      "routes": [
+        "102",
+        "111",
+        "2",
+        "24C",
+        "32A",
+        "33NG",
+        "4W",
+        "8"
+      ],
+      "color_sample": "#e05531"
+    },
+    "othaya road": {
+      "display": "Othaya Road",
+      "routes": [
+        "48B",
+        "48O"
+      ],
+      "color_sample": "#d331e0"
+    },
+    "peponi road": {
+      "display": "Peponi Road",
+      "routes": [
+        "119A"
+      ],
+      "color_sample": "#e0d731"
+    },
+    "racecourse road": {
+      "display": "Racecourse Road",
+      "routes": [
+        "33NG"
+      ],
+      "color_sample": "#3177e0"
+    },
+    "thika road": {
+      "display": "Thika Road",
+      "routes": [
+        "27",
+        "CBD-KW",
+        "CBD-THIKA"
+      ],
+      "color_sample": "#31e0d5"
+    },
+    "valley road": {
+      "display": "Valley Road",
+      "routes": [
+        "24C",
+        "46K",
+        "46Y"
+      ],
+      "color_sample": "#31e0b1"
+    }
+  },
+  "route_roads": {
+    "100": [
+      "Kiambu Road"
+    ],
+    "100A": [
+      "Kiambu Road"
+    ],
+    "102": [
+      "Ngong Road"
+    ],
+    "110": [
+      "Mombasa Road"
+    ],
+    "110ATH": [
+      "Mombasa Road"
+    ],
+    "111": [
+      "Ngong Road"
+    ],
+    "119A": [
+      "Peponi Road"
+    ],
+    "120": [
+      "Kiambu Road"
+    ],
+    "121": [
+      "Kiambu Road"
+    ],
+    "125": [
+      "Langata Road"
+    ],
+    "126": [
+      "Langata Road"
+    ],
+    "14": [
+      "Juja Road"
+    ],
+    "145": [
+      "Munyu Road"
+    ],
+    "145B": [
+      "Bypass"
+    ],
+    "1961K": [
+      "Landhies Road",
+      "Jogoo Road"
+    ],
+    "19Cdc": [
+      "Jogoo Road"
+    ],
+    "2": [
+      "Ngong Road"
+    ],
+    "237": [
+      "Munyu Road"
+    ],
+    "23KS": [
+      "Jogoo Road"
+    ],
+    "24C": [
+      "Valley Road",
+      "Ngong Road"
+    ],
+    "27": [
+      "Thika Road"
+    ],
+    "32A": [
+      "Ngong Road"
+    ],
+    "33C": [
+      "Jogoo Road"
+    ],
+    "33GTB": [
+      "Accra Road",
+      "Jogoo Road"
+    ],
+    "33H": [
+      "Bypass"
+    ],
+    "33MKR": [
+      "Mombasa Road"
+    ],
+    "33NG": [
+      "Racecourse Road",
+      "Ngong Road"
+    ],
+    "33TP": [
+      "Mombasa Road"
+    ],
+    "34L": [
+      "Mbagathi Road"
+    ],
+    "39": [
+      "Bypass"
+    ],
+    "39SK": [
+      "Jogoo Road",
+      "Kangundo Road"
+    ],
+    "3U/3": [
+      "Naivasha Road"
+    ],
+    "45G": [
+      "Munyu Road"
+    ],
+    "46B": [
+      "Juja Road"
+    ],
+    "46H": [
+      "Juja Road"
+    ],
+    "46K": [
+      "Valley Road"
+    ],
+    "46Y": [
+      "Valley Road"
+    ],
+    "48B": [
+      "Bypass",
+      "Othaya Road"
+    ],
+    "48C": [
+      "Bypass"
+    ],
+    "48O": [
+      "Othaya Road"
+    ],
+    "4W": [
+      "Ngong Road"
+    ],
+    "58": [
+      "Jogoo Road"
+    ],
+    "8": [
+      "Ngong Road"
+    ],
+    "BYPASS-KUTRRH": [
+      "Bypass"
+    ],
+    "BYPASS-KW": [
+      "Bypass"
+    ],
+    "CBD-KW": [
+      "Thika Road",
+      "Bypass"
+    ],
+    "CBD-SYOKIMAU": [
+      "Mombasa Road"
+    ],
+    "CBD-THIKA": [
+      "Thika Road"
+    ]
+  }
+}

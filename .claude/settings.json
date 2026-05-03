@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "PowerShell(npm install -g netlify-cli 2>&1)",
+      "Bash(npm root *)",
+      "Bash(node \"$\\(npm root -g\\)/netlify-cli/bin/netlify.js\" --version)",
+      "PowerShell(netlify --version 2>&1)",
+      "Bash(git init *)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "PowerShell(npm install -g vercel 2>&1)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s -X POST http://localhost:11434/api/chat -H \"Content-Type: application/json\" -d \"{\\\\\"model\\\\\":\\\\\"qwen2.5-coder:latest\\\\\",\\\\\"messages\\\\\":[{\\\\\"role\\\\\":\\\\\"system\\\\\",\\\\\"content\\\\\":\\\\\"You are a query classifier for a Nairobi transit chatbot. Respond ONLY with a single JSON object and nothing else.\\\\\"},{\\\\\"role\\\\\":\\\\\"user\\\\\",\\\\\"content\\\\\":\\\\\"Classify this query into one of: simple_transit, deep_analysis, general. Set pii_detected true if you see phone numbers, emails, IDs. Return ONLY: {\\\\\\\\\\\\\"intent\\\\\\\\\\\\\": \\\\\\\\\\\\\"...\\\\\\\\\\\\\", \\\\\\\\\\\\\"pii_detected\\\\\\\\\\\\\": false, \\\\\\\\\\\\\"reason\\\\\\\\\\\\\": \\\\\\\\\\\\\"...\\\\\\\\\\\\\"}\\\\\\\\n\\\\\\\\nQuery: How do I get to Rongai from CBD?\\\\\"}],\\\\\"stream\\\\\":false,\\\\\"options\\\\\":{\\\\\"num_predict\\\\\":128,\\\\\"temperature\\\\\":0.0}}\")",
+      "Bash(python -c ' *)",
+      "Bash(pip show *)",
+      "Bash(where python *)",
+      "Bash(pip list *)",
+      "Bash(pip install *)",
+      "Bash(python -c \"import ollama; r = ollama.chat\\(model='qwen2.5-coder:latest', messages=[{'role':'user','content':'reply with just the word: ready'}], options={'num_predict':5}\\); print\\(r['message']['content']\\)\")",
+      "Bash(ollama pull *)",
+      "Bash(python -c \"import pandas as pd; df=pd.read_csv\\('routes_clean.csv'\\); print\\(f'{len\\(df\\)} rows, columns: {df.columns.tolist\\(\\)}'\\)\")",
+      "Bash(python calibrate_fares.py)",
+      "Bash(python3 -)",
+      "Bash(python3 -c \"import ast; ast.parse\\(open\\('c:/Users/HP/Downloads/GIS_DATA_2019/app.py', encoding='utf-8'\\).read\\(\\)\\); print\\('Syntax OK'\\)\")",
+      "Bash(python3 -c \"import shapefile; print\\('OK'\\)\")",
+      "Bash(python3 -c \"import ast; ast.parse\\(open\\('c:/Users/HP/Downloads/GIS_DATA_2019/app.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK'\\)\")",
+      "Bash(python -c \"import app; print\\('OK — shapes:', len\\(app.ROUTE_SHAPES\\), 'routes'\\)\")",
+      "PowerShell(cd \"c:\\\\Users\\\\HP\\\\Downloads\\\\GIS_DATA_2019\"; $env:PYTHONUTF8=\"1\"; python -u transit_snap.py 2>&1; Write-Output \"EXIT:$LASTEXITCODE\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\HP\\Downloads\\GIS_DATA_2019"
+    ]
+  }
+}

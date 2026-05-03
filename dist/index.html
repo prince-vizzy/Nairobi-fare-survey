@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nairobi Fare Survey</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #080c14;
+  --s1:      #0e1420;
+  --s2:      #141b28;
+  --border:  rgba(255,255,255,0.07);
+  --accent:  #6c63ff;
+  --cyan:    #00d4ff;
+  --text:    #e4eaf6;
+  --muted:   #4a5568;
+  --muted2:  #1e2636;
+  --success: #00c896;
+  --r:       14px;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter','Segoe UI',sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* Header */
+header {
+  background: var(--s1);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 20px 15px;
+  text-align: center;
+  position: sticky; top: 0; z-index: 10;
+  backdrop-filter: blur(16px);
+}
+header h1 {
+  font-size: 1.15rem; font-weight: 800; letter-spacing: -.3px;
+  background: linear-gradient(120deg, #fff 10%, var(--cyan) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+header p { font-size: .74rem; color: var(--muted); margin-top: 4px; }
+
+/* Search */
+.search-wrap {
+  position: sticky; top: 64px; z-index: 9;
+  background: var(--bg); padding: 14px 14px 8px;
+}
+.search-inner { position: relative; max-width: 600px; margin: 0 auto; }
+.search-inner svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+#searchInput {
+  width: 100%; padding: 13px 14px 13px 44px;
+  background: var(--s1); border: 1.5px solid var(--border);
+  border-radius: var(--r); font-size: .96rem; font-family: inherit;
+  color: var(--text); outline: none; transition: border-color .2s, box-shadow .2s;
+}
+#searchInput::placeholder { color: var(--muted); }
+#searchInput:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(108,99,255,.15); }
+
+/* List */
+.list-wrap { max-width: 600px; margin: 0 auto; padding: 4px 14px 90px; }
+
+.route-item {
+  background: var(--s1); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 15px 16px; margin-bottom: 8px;
+  cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  transition: border-color .15s, background .15s, box-shadow .15s;
+  position: relative; overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.route-item::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--cyan));
+  opacity: 0; transition: opacity .15s;
+}
+.route-item:hover, .route-item:active {
+  border-color: rgba(108,99,255,.35); background: var(--s2);
+  box-shadow: 0 0 24px rgba(108,99,255,.07);
+}
+.route-item:hover::before, .route-item:active::before { opacity: 1; }
+
+.route-name { font-size: .94rem; font-weight: 600; color: var(--text); }
+.route-arrow { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; margin-left: 10px; }
+
+/* Route not here */
+.route-missing {
+  background: transparent; border: 1.5px dashed rgba(108,99,255,.3);
+  border-radius: var(--r); padding: 14px 16px; margin-top: 6px;
+  cursor: pointer; display: flex; align-items: center; gap: 10px;
+  color: var(--accent); font-weight: 600; font-size: .91rem;
+  transition: background .15s, border-color .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.route-missing:hover, .route-missing:active { background: rgba(108,99,255,.08); border-color: var(--accent); }
+.route-missing svg { flex-shrink: 0; }
+
+/* Backdrop */
+.overlay, #customOverlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.7); backdrop-filter: blur(6px);
+  z-index: 100; align-items: flex-end; justify-content: center;
+}
+.overlay.show, #customOverlay.show { display: flex; }
+
+/* Sheet */
+.sheet, #customSheet {
+  background: var(--s1); border-radius: 22px 22px 0 0;
+  width: 100%; max-width: 600px;
+  padding: 0 0 env(safe-area-inset-bottom);
+  border-top: 1px solid rgba(255,255,255,.09);
+  animation: slideUp .25s cubic-bezier(.32,1.2,.4,1);
+}
+#customSheet { max-height: 92vh; overflow-y: auto; }
+
+@keyframes slideUp {
+  from { transform: translateY(80px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.sheet-handle {
+  width: 36px; height: 4px; background: var(--muted2);
+  border-radius: 2px; margin: 14px auto 0;
+}
+.sheet-header {
+  padding: 16px 22px 14px; border-bottom: 1px solid var(--border);
+}
+.sheet-header h2 { font-size: 1.02rem; font-weight: 700; color: var(--text); }
+.sheet-header p  { font-size: .76rem; color: var(--muted); margin-top: 3px; }
+.sheet-body { padding: 20px 20px 28px; }
+
+/* Fare label */
+.fare-label {
+  font-size: .7rem; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .9px; margin-bottom: 12px;
+}
+
+/* Fare grid */
+.fare-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 9px; margin-bottom: 16px; }
+@media (min-width: 360px) { .fare-grid { grid-template-columns: repeat(7,1fr); } }
+
+.fare-btn {
+  padding: 17px 4px;
+  background: var(--s2); border: 1.5px solid var(--border);
+  border-radius: 12px; font-family: inherit; font-size: .9rem; font-weight: 700;
+  color: var(--text); cursor: pointer; text-align: center;
+  transition: all .13s; -webkit-tap-highlight-color: transparent;
+}
+.fare-btn:hover, .fare-btn:active {
+  border-color: rgba(108,99,255,.5); background: rgba(108,99,255,.1); color: #fff;
+}
+.fare-btn.sel {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+  box-shadow: 0 0 20px rgba(108,99,255,.5);
+}
+
+/* Direction (compat — hidden) */
+.dir-label, .dir-row { display: none; }
+
+/* Reverse toggle */
+.reverse-toggle {
+  width: 100%; padding: 11px 14px;
+  background: transparent; border: 1.5px dashed rgba(108,99,255,.3);
+  border-radius: 10px; color: var(--accent); font-family: inherit;
+  font-weight: 600; font-size: .83rem; cursor: pointer; margin-bottom: 14px;
+  transition: all .15s; display: flex; align-items: center; justify-content: center; gap: 7px;
+  -webkit-tap-highlight-color: transparent;
+}
+.reverse-toggle:hover { background: rgba(108,99,255,.08); border-color: var(--accent); }
+.reverse-toggle.open  { border-style: solid; background: rgba(108,99,255,.1); color: #a89fff; }
+
+#reverseSection, #routeReverseSection { display: none; }
+#reverseSection.show, #routeReverseSection.show { display: block; }
+
+/* Direction label inside sheet */
+.route-direction-label {
+  font-size: .7rem; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .8px;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.dir-tag {
+  background: rgba(108,99,255,.15); color: #a89fff;
+  border: 1px solid rgba(108,99,255,.25); border-radius: 6px;
+  padding: 2px 8px; font-size: .7rem; font-weight: 700;
+  letter-spacing: .2px; white-space: nowrap;
+}
+
+/* Custom route inputs */
+.route-inputs { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.route-inputs input {
+  flex: 1; padding: 12px 13px;
+  background: var(--s2); border: 1.5px solid var(--border);
+  border-radius: 10px; font-size: .94rem; font-family: inherit;
+  color: var(--text); outline: none; min-width: 0;
+  transition: border-color .2s, box-shadow .2s;
+}
+.route-inputs input::placeholder { color: var(--muted); }
+.route-inputs input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(108,99,255,.12); }
+
+.swap-btn {
+  width: 38px; height: 38px; background: var(--s2); border: 1.5px solid var(--border);
+  border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem; color: var(--muted); flex-shrink: 0; transition: all .15s;
+}
+.swap-btn:hover { border-color: var(--accent); background: rgba(108,99,255,.12); color: var(--accent); }
+
+/* Submit */
+.submit-btn {
+  width: 100%; padding: 15px;
+  background: var(--accent); color: #fff; border: none;
+  border-radius: 12px; font-family: inherit; font-size: .97rem; font-weight: 700;
+  cursor: pointer; margin-top: 4px;
+  transition: background .15s, box-shadow .15s, opacity .15s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.submit-btn:not(:disabled):hover { background: #7c74ff; box-shadow: 0 4px 28px rgba(108,99,255,.55); }
+.submit-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+.spinner {
+  width: 18px; height: 18px;
+  border: 2.5px solid rgba(255,255,255,.3); border-top-color: #fff;
+  border-radius: 50%; animation: spin .65s linear infinite; display: none;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 28px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--success); color: #fff;
+  padding: 12px 26px; border-radius: 30px;
+  font-weight: 700; font-size: .87rem; z-index: 200;
+  transition: transform .3s cubic-bezier(.32,1.2,.4,1), opacity .3s;
+  opacity: 0; white-space: nowrap;
+  box-shadow: 0 4px 24px rgba(0,200,150,.4); letter-spacing: .2px;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+
+/* Keyboard handling for in-app browsers (Instagram etc) */
+.overlay, #customOverlay {
+  transition: bottom .15s ease;
+}
+#customSheet, .sheet {
+  -webkit-overflow-scrolling: touch;
+}
+.route-inputs input, #searchInput {
+  font-size: 16px !important; /* prevent iOS auto-zoom */
+}
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted2); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Nairobi Fare Survey</h1>
+  <p>Tap your route, pick what you paid — done.</p>
+</header>
+
+<div class="search-wrap">
+  <div class="search-inner">
+    <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input id="searchInput" type="text"
+      placeholder="Search e.g. Rongai, Westlands, Karen…" autocomplete="off">
+  </div>
+</div>
+
+<div class="list-wrap">
+  <div id="routeList"></div>
+  <p id="noResults" style="display:none">No routes found — try another keyword.</p>
+</div>
+
+<!-- Popup sheet -->
+<div class="overlay" id="overlay">
+  <div class="sheet" id="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2 id="sheetRoute"></h2>
+      <p>How much did you pay today?</p>
+    </div>
+    <div class="sheet-body">
+      <div class="route-direction-label">
+        <span class="dir-tag" id="routeFwdTag"></span>
+        <span style="color:#bbb;font-size:.75rem;margin-left:auto">(KSh)</span>
+      </div>
+      <div class="fare-grid" id="fareGrid"></div>
+
+      <button class="reverse-toggle" id="routeReverseToggle">
+        &#8646; Add return trip fare
+      </button>
+
+      <div id="routeReverseSection">
+        <div class="route-direction-label">
+          <span class="dir-tag" id="routeRevTag"></span>
+          <span style="color:#bbb;font-size:.75rem;margin-left:auto">(KSh)</span>
+        </div>
+        <div class="fare-grid" id="routeReverseFareGrid"></div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" disabled>
+        <span id="btnText">Submit</span>
+        <div class="spinner" id="spinner"></div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Custom route popup -->
+<div id="customOverlay">
+  <div id="customSheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2>Route not listed</h2>
+      <p>Enter the start and end point of your journey</p>
+    </div>
+    <div class="sheet-body">
+
+      <div class="route-inputs">
+        <input id="fromInput" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="words" placeholder="From e.g. Rongai">
+        <button class="swap-btn" id="swapBtn" title="Swap">&#8646;</button>
+        <input id="toInput" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="words" placeholder="To e.g. CBD">
+      </div>
+
+      <div class="route-direction-label">
+        <span class="dir-tag" id="fwdTag">→</span>
+        <span id="fwdLabel">Fare paid</span>
+        <span style="color:#bbb;font-size:.75rem;margin-left:auto">(KSh)</span>
+      </div>
+      <div class="fare-grid" id="customFareGrid"></div>
+
+      <button class="reverse-toggle" id="reverseToggle">
+        &#8646; Also record the return trip fare
+      </button>
+
+      <div id="reverseSection">
+        <div class="route-direction-label">
+          <span class="dir-tag" id="revTag">←</span>
+          <span id="revLabel">Return fare</span>
+          <span style="color:#bbb;font-size:.75rem;margin-left:auto">(KSh)</span>
+        </div>
+        <div class="fare-grid" id="reverseFareGrid"></div>
+      </div>
+
+      <button class="submit-btn" id="customSubmitBtn" disabled>
+        <span id="customBtnText">Submit</span>
+        <div class="spinner" id="customSpinner"></div>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">&#10003; Saved — thank you!</div>
+
+<script>
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyR5SdPG2P-5v8Fa9hykGLo6ON2s7tM3q1xbfRq3xA2A9gbsViw36khip2qyCd9sS7S/exec";
+
+const ROUTES = [{"id":"106","display":"CBD - Banana","origin":"CBD","dest":"Banana","fare":120},{"id":"107","display":"CBD - Ndenderu","origin":"CBD","dest":"Ndenderu","fare":100},{"id":"108","display":"UN - Gichagi","origin":"UN","dest":"Gichagi","fare":40},{"id":"114R","display":"CBD - Limuru","origin":"CBD","dest":"Limuru","fare":200},{"id":"116","display":"CBD - Limuru (via Ngara)","origin":"CBD","dest":"Limuru","fare":200},{"id":"11A","display":"CBD - Highridge","origin":"CBD","dest":"Highridge","fare":40},{"id":"11B","display":"CBD - Ruaka","origin":"CBD","dest":"Ruaka","fare":100},{"id":"107D","display":"Ruaka - Ruiru","origin":"Ruaka","dest":"Ruiru","fare":150},{"id":"145D","display":"Torrents - Ruiru","origin":"Torrents","dest":"Ruiru","fare":150},{"id":"6","display":"CBD - Eastleigh","origin":"CBD","dest":"Eastleigh","fare":50},{"id":"23W","display":"CBD - Westlands","origin":"CBD","dest":"Westlands","fare":50},{"id":"25","display":"CBD - Baba Dogo","origin":"CBD","dest":"Baba Dogo","fare":100},{"id":"27","display":"Kariobangi North - Town","origin":"Kariobangi North","dest":"Town","fare":50},{"id":"42","display":"Allsops - Dandora","origin":"Allsops","dest":"Dandora","fare":50},{"id":"43","display":"CBD - Ngumba","origin":"CBD","dest":"Ngumba","fare":40},{"id":"44G","display":"CBD - KU (via Githurai)","origin":"CBD","dest":"KU","fare":50},{"id":"44Z","display":"CBD - KU (via Zimmerman)","origin":"CBD","dest":"KU","fare":50},{"id":"44K","display":"Roysambu - KU","origin":"Roysambu","dest":"KU","fare":50},{"id":"45K","display":"CBD - KU (via Githurai 45)","origin":"CBD","dest":"KU","fare":100},{"id":"45G","display":"Munyu Road - Githurai","origin":"Munyu Road","dest":"Githurai","fare":50},{"id":"45P","display":"Githurai - Proggie","origin":"Githurai","dest":"Proggie","fare":50},{"id":"49","display":"CBD - Sunton","origin":"CBD","dest":"Sunton","fare":50},{"id":"53","display":"Roasters - Maruirui","origin":"Roasters","dest":"Maruirui","fare":50},{"id":"100","display":"CBD - Kiambu","origin":"CBD","dest":"Kiambu","fare":50},{"id":"120","display":"CBD - Githunguri","origin":"CBD","dest":"Githunguri","fare":150},{"id":"121","display":"CBD - Ndumberi","origin":"CBD","dest":"Ndumberi","fare":150},{"id":"145","display":"Munyu Road - Ruiru","origin":"Munyu Road","dest":"Ruiru","fare":150},{"id":"17B","display":"CBD - Mwiki","origin":"CBD","dest":"Mwiki","fare":100},{"id":"17B_2","display":"Roysambu - Mwiki","origin":"Roysambu","dest":"Mwiki","fare":50},{"id":"237","display":"Munyu Road - Thika","origin":"Munyu Road","dest":"Thika","fare":150},{"id":"25A","display":"CBD - Lucky Summer","origin":"CBD","dest":"Lucky Summer","fare":50},{"id":"100A","display":"CBD - Kiambu Hospital","origin":"CBD","dest":"Kiambu Hospital","fare":150},{"id":"2030","display":"Allsops - Rounda","origin":"Allsops","dest":"Rounda","fare":50},{"id":"29/30","display":"CBD - Mathare","origin":"CBD","dest":"Mathare","fare":60},{"id":"3N","display":"CBD - Ngara","origin":"CBD","dest":"Ngara","fare":50},{"id":"7","display":"CBD - Gikomba","origin":"CBD","dest":"Gikomba","fare":40},{"id":"14","display":"CBD - Kariobangi","origin":"CBD","dest":"Kariobangi","fare":50},{"id":"28","display":"CBD - Kariobangi (via Eastleigh)","origin":"CBD","dest":"Kariobangi","fare":60},{"id":"32D","display":"CBD - Dandora","origin":"CBD","dest":"Dandora","fare":100},{"id":"41","display":"CBD - Dandora (via Gikomba)","origin":"CBD","dest":"Dandora","fare":60},{"id":"46H","display":"CBD - Huruma","origin":"CBD","dest":"Huruma","fare":50},{"id":"11C","display":"CBD - Pangani Terminus","origin":"CBD","dest":"Pangani Terminus","fare":40},{"id":"17Aky","display":"Eastleigh - Kayole","origin":"Eastleigh","dest":"Kayole","fare":60},{"id":"18C","display":"Eastleigh - Kayole (via Dandora)","origin":"Eastleigh","dest":"Kayole","fare":60},{"id":"46B","display":"CBD - Rounda","origin":"CBD","dest":"Rounda","fare":50},{"id":"16/62","display":"CBD - Kayole","origin":"CBD","dest":"Kayole","fare":60},{"id":"3738","display":"Rounda - Ruai","origin":"Rounda","dest":"Ruai","fare":60},{"id":"10","display":"CBD - Maringo","origin":"CBD","dest":"Maringo","fare":40},{"id":"20","display":"Mama Lucy - Mwiki","origin":"Mama Lucy Hospital","dest":"Mwiki","fare":60},{"id":"23KS","display":"CBD - Kariobangi South","origin":"CBD","dest":"Kariobangi South","fare":50},{"id":"26","display":"CBD - Kariobangi (Outering)","origin":"CBD","dest":"Kariobangi","fare":60},{"id":"33DP","display":"CBD - Pipeline","origin":"CBD","dest":"Pipeline","fare":50},{"id":"33GTB","display":"CBD - Gate B","origin":"CBD","dest":"Gate B","fare":100},{"id":"33C","display":"CBD - Cabanas","origin":"CBD","dest":"Cabanas","fare":60},{"id":"34J","display":"CBD - JKIA","origin":"CBD","dest":"JKIA","fare":150},{"id":"36","display":"CBD - Dandora (via Buruburu)","origin":"CBD","dest":"Dandora","fare":100},{"id":"58","display":"CBD - Buruburu","origin":"CBD","dest":"Buruburu","fare":100},{"id":"17A","display":"Rounda - Kayole","origin":"Rounda","dest":"Kayole","fare":60},{"id":"19Cdc","display":"CBD - Komarocks","origin":"CBD","dest":"Komarocks","fare":100},{"id":"34B","display":"CBD - Jacaranda","origin":"CBD","dest":"Jacaranda","fare":60},{"id":"69","display":"CBD - GM","origin":"CBD","dest":"GM","fare":60},{"id":"1960","display":"CBD - Kayole (via Donholm)","origin":"CBD","dest":"Kayole","fare":60},{"id":"1961K","display":"CBD - Kayole (via Jacaranda)","origin":"CBD","dest":"Kayole","fare":60},{"id":"1961Kd","display":"Caltex Donholm - Kayole","origin":"Caltex Donholm","dest":"Kayole","fare":60},{"id":"35/60","display":"CBD - Umoja","origin":"CBD","dest":"Umoja","fare":60},{"id":"3560_2","display":"Donholm - Umoja 2","origin":"Donholm","dest":"Umoja 2","fare":60},{"id":"39SK","display":"CBD - Kayole Junction","origin":"CBD","dest":"Kayole Junction","fare":70},{"id":"38/39","display":"CBD - Ruai","origin":"CBD","dest":"Ruai","fare":60},{"id":"70/71","display":"CBD - Lunga Lunga","origin":"CBD","dest":"Lunga Lunga","fare":40},{"id":"11","display":"CBD - Hazina","origin":"CBD","dest":"Hazina","fare":40},{"id":"15","display":"CBD - Langata","origin":"CBD","dest":"Langata","fare":50},{"id":"16","display":"CBD - Highrise","origin":"CBD","dest":"Highrise","fare":40},{"id":"24","display":"CBD - Karen","origin":"CBD","dest":"Karen","fare":100},{"id":"24BK","display":"Bomas - Karen","origin":"Bomas","dest":"Karen","fare":50},{"id":"33IMR","display":"CBD - Imara Daima","origin":"CBD","dest":"Imara Daima","fare":60},{"id":"33TP","display":"CBD - Pipeline (Mombasa Rd)","origin":"CBD","dest":"Pipeline","fare":100},{"id":"33J","display":"Cabanas - Githunguri","origin":"Cabanas","dest":"Githunguri","fare":150},{"id":"33H","display":"Cabanas - Bypass","origin":"Cabanas","dest":"Bypass","fare":60},{"id":"33UTW","display":"Utawala - CBD","origin":"Utawala","dest":"Ambassadeur","fare":100},{"id":"33MKR","display":"CBD - St. Bakhita","origin":"CBD","dest":"St.Bakhita","fare":60},{"id":"110","display":"CBD - Kitengela","origin":"CBD","dest":"Kitengela","fare":150},{"id":"110AK","display":"Athi River - Kitengela","origin":"Athi River","dest":"Kitengela","fare":150},{"id":"110ATH","display":"CBD - Makadara","origin":"CBD","dest":"Makadara","fare":150},{"id":"125","display":"CBD - Ongata Rongai","origin":"CBD","dest":"Ongata Rongai","fare":100},{"id":"126","display":"CBD - Kiserian","origin":"CBD","dest":"Kiserian","fare":200},{"id":"126RK","display":"Ongata Rongai - Kiserian","origin":"Ongata Rongai","dest":"Kiserian","fare":50},{"id":"12C","display":"CBD - Mugoya","origin":"CBD","dest":"Mugoya","fare":40},{"id":"12D","display":"CBD - Amboseli","origin":"CBD","dest":"Amboseli","fare":40},{"id":"145B","display":"Bypass - Ruiru","origin":"Bypass","dest":"Ruiru","fare":150},{"id":"14A","display":"CBD - Strathmore","origin":"CBD","dest":"Strathmore","fare":40},{"id":"14B","display":"CBD - T-Mall","origin":"CBD","dest":"TMall","fare":40},{"id":"46K","display":"CBD - Kawangware","origin":"CBD","dest":"Kawangware","fare":40},{"id":"46Y","display":"CBD - Yaya Centre","origin":"CBD","dest":"Yaya Centre","fare":40},{"id":"56","display":"CBD - Kanungaga","origin":"CBD","dest":"Kanungaga","fare":40},{"id":"7C","display":"CBD - KNH","origin":"CBD","dest":"KNH","fare":40},{"id":"1","display":"Karen - Dagoretti Market","origin":"Karen","dest":"Dagoretti Market","fare":100},{"id":"2","display":"CBD - Dagoretti Market","origin":"CBD","dest":"Dagoretti Market","fare":150},{"id":"3U/3","display":"Dagoretti Corner - Uthiru","origin":"Dagoretti Corner","dest":"Uthiru","fare":100},{"id":"5","display":"CBD - Jamhuri","origin":"CBD","dest":"Jamhuri","fare":60},{"id":"8","display":"CBD - Kibera","origin":"CBD","dest":"Kibera","fare":150},{"id":"32A","display":"CBD - Ayani","origin":"CBD","dest":"Ayani","fare":40},{"id":"33NG","display":"Racecourse Rd - Ngumo","origin":"Racecourse Road","dest":"Ngumo","fare":150},{"id":"33SB","display":"Ngumo - South B","origin":"Ngumo","dest":"South B","fare":40},{"id":"34L","display":"KNH - Langata","origin":"KNH","dest":"Langata","fare":150},{"id":"48","display":"Yaya - Westlands","origin":"Yaya","dest":"Westlands","fare":40},{"id":"4W","display":"CBD - Kaberia","origin":"CBD","dest":"Kaberia","fare":150},{"id":"102","display":"CBD - Kikuyu (Ngong Rd)","origin":"CBD","dest":"Kikuyu","fare":150},{"id":"103","display":"Dagoretti Market - Wangige","origin":"Dagoretti Market","dest":"Wangige","fare":100},{"id":"111","display":"CBD - Ngong","origin":"CBD","dest":"Ngong","fare":150},{"id":"126N","display":"Ngong - Kiserian","origin":"Ngong","dest":"Kiserian","fare":200},{"id":"129","display":"Kikuyu - Wangige","origin":"Kikuyu","dest":"Wangige","fare":100},{"id":"24C","display":"CBD - Hardy","origin":"CBD","dest":"Hardy","fare":80},{"id":"046P","display":"CBD - Kawangware (Kabete)","origin":"CBD","dest":"Kawangware","fare":100},{"id":"23KG","display":"CBD - Kangemi","origin":"CBD","dest":"Kangemi","fare":50},{"id":"30","display":"CBD - Uthiru","origin":"CBD","dest":"Uthiru","fare":40},{"id":"48O","display":"CBD - Othaya Road","origin":"CBD","dest":"Othaya Road","fare":40},{"id":"48K","display":"Westlands - Kawangware","origin":"Westlands","dest":"Kawangware","fare":100},{"id":"105","display":"CBD - Kikuyu (Westlands)","origin":"CBD","dest":"Kikuyu","fare":40},{"id":"114W","display":"CBD - Limuru (Westlands)","origin":"CBD","dest":"Limuru","fare":200},{"id":"115","display":"CBD - Limuru (Kangemi)","origin":"CBD","dest":"Limuru","fare":200},{"id":"118","display":"CBD - Wangige (Kabete)","origin":"CBD","dest":"Wangige","fare":60},{"id":"119","display":"CBD - Wangige (Westgate)","origin":"CBD","dest":"Wangige","fare":100},{"id":"48A","display":"CBD - Lavington","origin":"CBD","dest":"Lavington","fare":40},{"id":"48B","display":"CBD - Othaya Rd (Bypass)","origin":"CBD","dest":"Othaya Road","fare":40},{"id":"48C","display":"CBD - Yaya (via Westlands)","origin":"CBD","dest":"Yaya","fare":40},{"id":"119A","display":"CBD - Gathiga","origin":"CBD","dest":"Gathiga","fare":150},{"id":"135","display":"CBD - Limuru (Kaka)","origin":"CBD","dest":"Limuru","fare":200},{"id":"CBD-BYPASS","display":"CBD - Bypass","origin":"CBD","dest":"Bypass","fare":100},{"id":"BYPASS-KW","display":"Bypass - Kahawa West","origin":"Bypass","dest":"Kahawa West","fare":50},{"id":"CBD-KW","display":"CBD - Kahawa West","origin":"CBD","dest":"Kahawa West","fare":100},{"id":"KW-MEMBLEY","display":"Kahawa West - Membley","origin":"Kahawa West","dest":"Membley","fare":50},{"id":"CBD-PKLANDS","display":"CBD - Parklands","origin":"CBD","dest":"Parklands","fare":50},{"id":"BYPASS-KUTRRH","display":"Bypass - KU Referral (KUTRRH)","origin":"Bypass","dest":"KU Referral (KUTRRH)","fare":50},{"id":"KW-KUTRRH","display":"Kahawa West - KU Referral (KUTRRH)","origin":"Kahawa West","dest":"KU Referral (KUTRRH)","fare":50},{"id":"ELY-KARIOKOR","display":"Eastleigh - Kariokor","origin":"Eastleigh","dest":"Kariokor","fare":50},{"id":"CBD-THIKA","display":"CBD - Thika","origin":"CBD","dest":"Thika","fare":100},{"id":"RONGAI-DONHOLM","display":"Rongai - Donholm","origin":"Rongai","dest":"Donholm","fare":200},{"id":"CBD-DONHOLM","display":"CBD - Donholm","origin":"CBD","dest":"Donholm","fare":100},{"id":"CBD-SYOKIMAU","display":"CBD - Syokimau","origin":"CBD","dest":"Syokimau","fare":100}];
+
+const FARE_STEPS = [20, 30, 50, 80, 100, 150, 200];
+
+let current = null, pickedFare = null, routeRevFare = null, routeRevOpen = false;
+
+const overlay   = document.getElementById('overlay');
+const submitBtn = document.getElementById('submitBtn');
+const toast     = document.getElementById('toast');
+
+// ── Render list ──────────────────────────────────────────
+function render(q) {
+  const lq = q.trim().toLowerCase();
+  const list = lq
+    ? ROUTES.filter(r => r.display.toLowerCase().includes(lq) ||
+                         r.dest.toLowerCase().includes(lq)   ||
+                         r.origin.toLowerCase().includes(lq))
+    : ROUTES;
+
+  const container = document.getElementById('routeList');
+  container.innerHTML = '';
+  document.getElementById('noResults').style.display = 'none';
+
+  list.forEach(r => {
+    const el = document.createElement('div');
+    el.className = 'route-item';
+    el.innerHTML = `<span class="route-name">${r.display}</span><span class="route-arrow">›</span>`;
+    el.onclick = () => openSheet(r);
+    container.appendChild(el);
+  });
+
+  // Always show "Route not here?" at the bottom
+  const missing = document.createElement('div');
+  missing.className = 'route-missing';
+  missing.innerHTML = `
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    Route not here? Add it`;
+  missing.onclick = () => openCustomSheet(lq);
+  container.appendChild(missing);
+
+  if (list.length === 0) {
+    const msg = document.createElement('p');
+    msg.style.cssText = 'text-align:center;color:#bbb;padding:20px 0 8px;font-size:.9rem';
+    msg.textContent = 'No matching routes found.';
+    container.insertBefore(msg, missing);
+  }
+}
+
+document.getElementById('searchInput').addEventListener('input', e => render(e.target.value));
+render('');
+
+// ── Open popup ───────────────────────────────────────────
+function openSheet(r) {
+  current = r; pickedFare = null; routeRevFare = null; routeRevOpen = false;
+
+  document.getElementById('sheetRoute').textContent = r.display;
+
+  // Forward direction label
+  document.getElementById('routeFwdTag').textContent = `${r.origin} → ${r.dest}`;
+
+  // Reverse direction label
+  document.getElementById('routeRevTag').textContent = `${r.dest} → ${r.origin}`;
+
+  // Reset reverse section
+  document.getElementById('routeReverseSection').classList.remove('show');
+  const rt = document.getElementById('routeReverseToggle');
+  rt.classList.remove('open');
+  rt.innerHTML = '&#8646; Add return trip fare';
+
+  // Forward fare buttons
+  const grid = document.getElementById('fareGrid');
+  grid.innerHTML = '';
+  FARE_STEPS.forEach(v => {
+    const b = document.createElement('button');
+    b.className = 'fare-btn';
+    b.textContent = `KSh ${v}`;
+    b.onclick = () => {
+      grid.querySelectorAll('.fare-btn').forEach(x => x.classList.remove('sel'));
+      b.classList.add('sel');
+      pickedFare = v;
+      checkReady();
+    };
+    grid.appendChild(b);
+  });
+
+  // Reverse fare buttons
+  const rgrid = document.getElementById('routeReverseFareGrid');
+  rgrid.innerHTML = '';
+  FARE_STEPS.forEach(v => {
+    const b = document.createElement('button');
+    b.className = 'fare-btn';
+    b.textContent = `KSh ${v}`;
+    b.onclick = () => {
+      rgrid.querySelectorAll('.fare-btn').forEach(x => x.classList.remove('sel'));
+      b.classList.add('sel');
+      routeRevFare = v;
+    };
+    rgrid.appendChild(b);
+  });
+
+  submitBtn.disabled = true;
+  document.getElementById('btnText').textContent = 'Submit';
+  document.getElementById('spinner').style.display = 'none';
+  overlay.classList.add('show');
+}
+
+function checkReady() {
+  submitBtn.disabled = !pickedFare;
+}
+
+// Reverse toggle for normal routes
+document.getElementById('routeReverseToggle').addEventListener('click', () => {
+  routeRevOpen = !routeRevOpen;
+  document.getElementById('routeReverseSection').classList.toggle('show', routeRevOpen);
+  const btn = document.getElementById('routeReverseToggle');
+  btn.classList.toggle('open', routeRevOpen);
+  btn.innerHTML = routeRevOpen
+    ? '&#8646; Hide return trip'
+    : '&#8646; Add return trip fare';
+  if (!routeRevOpen) {
+    routeRevFare = null;
+    document.getElementById('routeReverseFareGrid').querySelectorAll('.fare-btn')
+      .forEach(b => b.classList.remove('sel'));
+  }
+});
+
+// Close on overlay backdrop tap
+overlay.addEventListener('click', e => {
+  if (e.target === overlay) overlay.classList.remove('show');
+});
+
+// Send via no-cors fetch — CORB warnings are cosmetic, data still saves
+function sendToSheet(data) {
+  return fetch(SHEET_URL + '?data=' + encodeURIComponent(JSON.stringify(data)), {
+    method: 'GET',
+    mode: 'no-cors'
+  });
+}
+
+// ── Submit ───────────────────────────────────────────────
+submitBtn.addEventListener('click', async () => {
+  if (!pickedFare) return;
+
+  document.getElementById('btnText').textContent = 'Saving…';
+  document.getElementById('spinner').style.display = 'block';
+  submitBtn.disabled = true;
+
+  const rows = [
+    { timestamp: new Date().toISOString(), routeId: current.id,
+      route: current.display, farePaid: pickedFare, refFare: current.fare,
+      direction: `${current.origin} → ${current.dest}` }
+  ];
+  if (routeRevOpen && routeRevFare) {
+    rows.push(
+      { timestamp: new Date().toISOString(), routeId: current.id,
+        route: `${current.dest} - ${current.origin}`, farePaid: routeRevFare,
+        refFare: current.fare, direction: `${current.dest} → ${current.origin}` }
+    );
+  }
+
+  try {
+    for (const p of rows) { await sendToSheet(p); }
+  } catch (_) {}
+
+  overlay.classList.remove('show');
+  showToast();
+});
+
+// ── Toast ────────────────────────────────────────────────
+function showToast() {
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2400);
+}
+
+// ── Custom route popup ───────────────────────────────────
+const customOverlay = document.getElementById('customOverlay');
+let customFare = null, reverseFare = null, reverseOpen = false;
+
+function buildFareBtns(gridId, onChange) {
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = '';
+  FARE_STEPS.forEach(v => {
+    const b = document.createElement('button');
+    b.className = 'fare-btn';
+    b.textContent = `KSh ${v}`;
+    b.onclick = () => {
+      grid.querySelectorAll('.fare-btn').forEach(x => x.classList.remove('sel'));
+      b.classList.add('sel');
+      onChange(v);
+    };
+    grid.appendChild(b);
+  });
+}
+
+function updateDirectionLabels() {
+  const from = document.getElementById('fromInput').value.trim() || '?';
+  const to   = document.getElementById('toInput').value.trim()   || '?';
+  document.getElementById('fwdLabel').textContent = `${from} → ${to}`;
+  document.getElementById('revLabel').textContent = `${to} → ${from}`;
+  document.getElementById('fwdTag').textContent   = `${from} →`;
+  document.getElementById('revTag').textContent   = `← ${to}`;
+}
+
+function checkCustomReady() {
+  const from = document.getElementById('fromInput').value.trim();
+  const to   = document.getElementById('toInput').value.trim();
+  const ok   = from && to && customFare;
+  document.getElementById('customSubmitBtn').disabled = !ok;
+}
+
+function openCustomSheet(prefill) {
+  customFare = null; reverseFare = null; reverseOpen = false;
+
+  document.getElementById('fromInput').value = prefill || '';
+  document.getElementById('toInput').value   = '';
+  document.getElementById('customSubmitBtn').disabled = true;
+  document.getElementById('customBtnText').textContent = 'Submit';
+  document.getElementById('customSpinner').style.display = 'none';
+
+  // Reset reverse section
+  document.getElementById('reverseSection').classList.remove('show');
+  document.getElementById('reverseToggle').classList.remove('open');
+  document.getElementById('reverseToggle').innerHTML =
+    '&#8646; Also record the return trip fare';
+
+  buildFareBtns('customFareGrid',   v => { customFare  = v; checkCustomReady(); });
+  buildFareBtns('reverseFareGrid',  v => { reverseFare = v; });
+
+  updateDirectionLabels();
+  customOverlay.classList.add('show');
+
+
+}
+
+// Swap button
+document.getElementById('swapBtn').onclick = () => {
+  const fi = document.getElementById('fromInput');
+  const ti = document.getElementById('toInput');
+  [fi.value, ti.value] = [ti.value, fi.value];
+  updateDirectionLabels();
+};
+
+// Update labels as user types
+['fromInput','toInput'].forEach(id =>
+  document.getElementById(id).addEventListener('input', () => {
+    updateDirectionLabels();
+    checkCustomReady();
+  })
+);
+
+// Reverse toggle
+document.getElementById('reverseToggle').onclick = () => {
+  reverseOpen = !reverseOpen;
+  document.getElementById('reverseSection').classList.toggle('show', reverseOpen);
+  const btn = document.getElementById('reverseToggle');
+  btn.classList.toggle('open', reverseOpen);
+  btn.innerHTML = reverseOpen
+    ? '&#8646; Hide return trip'
+    : '&#8646; Also record the return trip fare';
+  if (!reverseOpen) {
+    reverseFare = null;
+    document.getElementById('reverseFareGrid').querySelectorAll('.fare-btn')
+      .forEach(b => b.classList.remove('sel'));
+  }
+};
+
+// Close on backdrop tap
+customOverlay.addEventListener('click', e => {
+  if (e.target === customOverlay) customOverlay.classList.remove('show');
+});
+
+// Submit custom
+document.getElementById('customSubmitBtn').addEventListener('click', async () => {
+  const from = document.getElementById('fromInput').value.trim();
+  const to   = document.getElementById('toInput').value.trim();
+  if (!from || !to || !customFare) return;
+
+  document.getElementById('customBtnText').textContent = 'Saving…';
+  document.getElementById('customSpinner').style.display = 'block';
+  document.getElementById('customSubmitBtn').disabled = true;
+
+  const rows = [
+    { timestamp: new Date().toISOString(), routeId: 'CUSTOM',
+      route: `${from} - ${to}`, farePaid: customFare, refFare: '', direction: `${from} → ${to}` }
+  ];
+  if (reverseOpen && reverseFare) {
+    rows.push(
+      { timestamp: new Date().toISOString(), routeId: 'CUSTOM',
+        route: `${to} - ${from}`, farePaid: reverseFare, refFare: '', direction: `${to} → ${from}` }
+    );
+  }
+
+  try {
+    for (const p of rows) { await sendToSheet(p); }
+  } catch (_) {}
+
+  customOverlay.classList.remove('show');
+  showToast();
+});
+
+// Keep sheet above keyboard in Instagram / mobile in-app browsers
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', () => {
+    const keyboardHeight = window.innerHeight - window.visualViewport.height;
+    document.querySelectorAll('.overlay, #customOverlay').forEach(el => {
+      el.style.bottom = keyboardHeight > 0 ? keyboardHeight + 'px' : '0';
+    });
+  });
+}
+</script>
+</body>
+</html>
