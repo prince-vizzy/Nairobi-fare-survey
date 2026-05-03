@@ -8,3 +8,4 @@ networkx>=3.2
 geopy>=2.4.0
 shapely>=2.0.0
 folium>=0.16.0
+pyshp>=2.3.0
