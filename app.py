@@ -2838,7 +2838,7 @@ def pwa_manifest():
 @app.route("/sw.js")
 def service_worker():
     js = """\
-const CACHE = 'shii-ngapi-v1';
+const CACHE = 'shii-ngapi-v2';
 const SHELL = ['/', '/static/icon-192.png', '/static/icon-512.png', '/manifest.json'];
 
 self.addEventListener('install', e => {

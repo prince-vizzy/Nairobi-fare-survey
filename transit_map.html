@@ -31,6 +31,7 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#00
 #top-bar{position:absolute;top:0;left:0;right:0;height:56px;padding:0 20px;display:flex;align-items:flex-end;padding-bottom:8px;background:linear-gradient(to bottom,rgba(10,20,12,.92) 0%,transparent 100%);z-index:20}
 #app-title{font-size:.85rem;font-weight:700;letter-spacing:.05em;color:#fff;opacity:.9}
 #btn-download{margin-left:auto;background:var(--accent);border:none;border-radius:20px;padding:5px 13px;color:#071a0b;font-size:.72rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;text-decoration:none;transition:opacity .2s,box-shadow .3s}
+@media(display-mode:standalone){#btn-download{display:none!important}}
 #btn-download:hover{opacity:.85}
 #btn-download.ready{box-shadow:0 0 0 3px rgba(62,207,110,.45);animation:installPulse 2s ease-in-out infinite}
 #btn-download.installed{background:#1a2e1c;color:var(--accent);border:1px solid var(--accent)}
@@ -375,7 +376,7 @@ async function initMap() {
     restriction: { latLngBounds: NAIROBI_BOUNDS, strictBounds: true },
     mapTypeControl: false,
     streetViewControl: false,
-    fullscreenControl: true,
+    fullscreenControl: false,
     styles: mapStyles.length ? mapStyles : undefined,
   });
 
